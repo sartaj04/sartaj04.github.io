@@ -27,6 +27,34 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
 
+    <style>
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes deleting {
+  from { width: 100%; }
+  to { width: 0; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: black; }
+}
+
+#dynamic-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0.15em solid black;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+
+
+    </style>
+
 </head>
 <body class="home1-page">
 
@@ -158,7 +186,7 @@
     <div class="left-sidebar">
         <div class="sidebar-header d-flex align-items-center justify-content-between">
             <img src="./assets/images/logo.png" alt="Logo">
-            <span class="designation">Framer Designer & Developer</span>
+            <span class="designation">ML & Software Developer</span>
         </div>
         <img class="me" src="./assets/images/me.jpg" alt="Me">
         <h2 class="email">hello@drake.design</h2>
@@ -190,7 +218,7 @@
                 <div class="left-sidebar">
                     <div class="sidebar-header d-flex align-items-center justify-content-between">
                         <img src="./assets/images/logo.png" alt="Logo">
-                        <span class="designation">Framer Designer & Developer</span>
+                        <span class="designation">Machine Learning & Software Engineer</span>
                     </div>
                     <img class="me" src="./assets/images/me.jpg" alt="Me">
                     <h2 class="email">hello@drake.design</h2>
@@ -224,9 +252,15 @@
                                 <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
                                     <i class="las la-home"></i> Introduce
                                 </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Say Hi from <span>Sartaj</span>, Framer Designer and Developer</h1>
+                                <!-- <h1 class="scroll-animation" data-animation="fade_from_bottom">Hello I'm<span>Sartaj Syed</span>, Machine Learning and Software Developer</h1> -->
+                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Hello, I'm <span style="color: aliceblue;" >Sartaj Syed</span></h1>
+
+
+                                <h2 class="scroll-animation" data-animation="fade_from_bottom" style="color: #28e98c;">
+                                    <span id="constant-text"></span><span id="dynamic-text"></span>
+                                  </h2>
                             </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">I design and code beautifully simple things and i love what i do. Just simple like that!</p>
+                            <p class="scroll-animation" data-animation="fade_from_bottom">I design and build innovative solutions that drive efficiency and excellence. Let's create something amazing together!</p>
                             <a href="#portfolio" 
                                 class="go-to-project-btn scroll-to scroll-animation" 
                                 data-animation="rotate_up">
@@ -236,7 +270,7 @@
         
                             <div class="facts d-flex">
                                 <div class="left scroll-animation" data-animation="fade_from_left">
-                                    <h1>10+</h1>
+                                    <h1>3+</h1>
                                     <p>Years of <br>Experience</p>
                                 </div>
                                 <div class="right scroll-animation" data-animation="fade_from_right">
@@ -804,5 +838,58 @@
     
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/ajax-form.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const roles = [
+    "Software Developer",
+    "ML Engineer",
+    "Full-Stack Developer",
+    "Cloud Developer",
+    "Tech Innovator",
+    "Continuous Learner"
+  ];
+  
+  let currentRole = 0;
+  const dynamicText = document.getElementById("dynamic-text");
+
+  function typeText(text, callback) {
+    let charIndex = 0;
+    const typingInterval = setInterval(() => {
+      dynamicText.textContent = "a " + text.slice(0, charIndex);
+      charIndex++;
+      if (charIndex > text.length) {
+        clearInterval(typingInterval);
+        setTimeout(callback, 1000); // Pause before deleting
+      }
+    }, 100);
+  }
+
+  function deleteText(callback) {
+    let charIndex = dynamicText.textContent.length - 2; // -2 to account for "a "
+    const deletingInterval = setInterval(() => {
+      dynamicText.textContent = "a " + dynamicText.textContent.slice(2, charIndex);
+      charIndex--;
+      if (charIndex < 0) {
+        clearInterval(deletingInterval);
+        setTimeout(callback, 500); // Pause before typing next role
+      }
+    }, 50);
+  }
+
+  function updateText() {
+    const roleText = roles[currentRole];
+    typeText(roleText, () => {
+      deleteText(() => {
+        currentRole = (currentRole + 1) % roles.length;
+        updateText();
+      });
+    });
+  }
+
+  updateText(); // Initial call to set the first role
+});
+
+
+    </script>
 </body>
 </html>
