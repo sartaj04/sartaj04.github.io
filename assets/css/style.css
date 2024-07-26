@@ -1951,6 +1951,24 @@ body .body-overlay {
     font-size: 15px;
 }
 
+#constant-text, #dynamic-text {
+    font-size: 6vw; /* Adjust font size based on viewport width */
+  }
+  
+  @media (min-width: 768px) {
+    #constant-text, #dynamic-text {
+      font-size: 4vw; /* Smaller font size for tablets and larger screens */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    #constant-text, #dynamic-text {
+      font-size: 3vw; /* Even smaller font size for larger screens */
+    }
+  }
+  
+
+
 
 
 
