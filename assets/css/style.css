@@ -1967,7 +1967,12 @@ body .body-overlay {
     }
   }
   
-
+  .modal-content {
+    padding: 20px;
+  }
+  .carousel-item img {
+    width: 100%;
+  }
 
 
 
