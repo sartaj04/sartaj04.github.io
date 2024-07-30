@@ -1054,15 +1054,15 @@ body .body-overlay {
 .portfolio-items .portfolio-item .portfolio-item-inner .portfolio-categories li a {
     display: block;
     font-size: 14px;
-    background: #fff;
-    color: #000;
+    background: #1f1f1f;
+    color: #fff;
     padding: 7px 20px;
     border-radius: 19px;
     transition: .3s;
 }
 .portfolio-items .portfolio-item:hover .portfolio-item-inner .portfolio-categories li a {
-    background: #1f1f1f;
-    color: #fff;
+    background: #a8a8a8;
+    color: #1f1f1f;
 }
 .portfolio-items .portfolio-item h2 {
     font-size: 24px;
