@@ -833,67 +833,62 @@
                             <h3 class="scroll-animation" data-animation="fade_from_bottom">sartaj267@outlook.com</h3>
                             <p id="required-msg">* Marked fields are required to fill.</p>
 
-                            <form class="contact-form scroll-animation" data-animation="fade_from_bottom" method="POST" action="mailer.php">
-                                <div class="alert alert-success messenger-box-contact__msg" style="display: none" role="alert">
-                                    Your message was sent successfully.
-                                </div>
+                            <form id="contactForm" class="contact-form scroll-animation" data-animation="fade_from_bottom" action="https://formspree.io/f/mkgwreep" method="POST">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <label for="full-name">full Name <sup>*</sup></label>
-                                            <input type="text" name="full-name" id="full-name" placeholder="Your Full Name">
+                                            <label for="full-name">Full Name <sup>*</sup></label>
+                                            <input type="text" name="name" id="full-name" placeholder="Your Full Name" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <label for="email">Email <sup>*</sup></label>
-                                            <input type="email" name="email" id="email" placeholder="Your email adress">
+                                            <input type="email" name="_replyto" id="email" placeholder="Your email address" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <label for="phone-number">phone <span>(optional)</span></label>
-                                            <input type="text" name="phone-number" id="phone-number" placeholder="Your number phone">
+                                            <label for="phone-number">Phone <span>(optional)</span></label>
+                                            <input type="text" name="phone" id="phone-number" placeholder="Your phone number">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <label for="subject">subject <sup>*</sup></label>
-                                            <select name="subject" id="subject">
+                                            <label for="subject">Subject <sup>*</sup></label>
+                                            <select name="subject" id="subject" required>
                                                 <option value="">Select a subject</option>
-                                                <option value="webDevelopment">Software Development</option>
-                                                <option value="machineLearning">Machine Learning</option>
-                                                <option value="dataScience">Data Engineering</option>
-                                                <option value="DevOps/cloudComputing">DevOps/Cloud Computing</option>
-                                
+                                                <option value="Software Development">Software Development</option>
+                                                <option value="Machine Learning">Machine Learning</option>
+                                                <option value="Data Engineering">Data Engineering</option>
+                                                <option value="DevOps/Cloud Computing">DevOps/Cloud Computing</option>
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-12">
                                         <div class="input-group">
-                                            <label for="message">message</label>
-                                            <textarea name="message" id="message" placeholder="Wrire your message here ..."></textarea>
+                                            <label for="message">Message</label>
+                                            <textarea name="message" id="message" placeholder="Write your message here ..."></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-group upload-attachment">
                                             <div>
-                                                <label for="upload-attachment">
-                                                    <i class="las la-cloud-upload-alt"></i> add an attachment
-                                                    <input type="file" name="file" id="upload-attachment">
-                                                </label>
-                                                
+                                                <!-- <label for="upload-attachment">
+                                                    <i class="las la-cloud-upload-alt"></i> Add an attachment
+                                                    <input type="file" name="attachment" id="upload-attachment">
+                                                </label> -->
                                             </div>
-                                            
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-group submit-btn-wrap">
-                                            <button class="theme-btn" name="submit" type="submit" id="submit-form">send message</button>
+                                            <button id="submitButton" class="theme-btn" type="submit">Send Message</button>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="_subject" value="New submission from your website">
+                                <input type="text" name="_gotcha" style="display:none">
                             </form>
 
                         </div>
@@ -1091,6 +1086,47 @@
         }
     });
 });
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contactForm');
+        const submitButton = document.getElementById('submitButton');
+    
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+    
+            const formData = new FormData(form);
+    
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    submitButton.textContent = 'Sent Successfully!';
+                    form.reset();
+                    setTimeout(() => {
+                        submitButton.textContent = 'Send Message';
+                        submitButton.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitButton.textContent = 'Error. Try Again';
+                submitButton.disabled = false;
+            });
+        });
+    });
     </script>
 
 
