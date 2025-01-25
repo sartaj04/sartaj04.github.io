@@ -675,6 +675,7 @@ main.drake-main {
     display: none;
 }
 .left-sidebar > img.me {
+    margin-left: 36px;
     border-radius: 30px;
     display: block;
     margin-bottom: 56px;
