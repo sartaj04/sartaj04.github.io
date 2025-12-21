@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Sartaj Syed - AI Engineering Consultant</title>
+    <meta name="description" content="Four years building production AI systems. Co-founded Doriot AI, scaled to billions of data points. Now helping startups integrate AI.">
+    
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon_io/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    
+    <style>
+        :root {
+            --primary: #00ff88;
+            --primary-dim: #00cc6a;
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --border-hover: #3a3a3a;
+            --gradient-start: #00ff88;
+            --gradient-end: #00d4ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .header.scrolled {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dim);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        /* Page Hero */
+        .page-hero {
+            padding: 160px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(ellipse at top right, rgba(0, 255, 136, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .page-hero-content {
+            max-width: 800px;
+        }
+        
+        .page-hero h1 {
+            font-size: clamp(40px, 6vw, 56px);
+            margin-bottom: 32px;
+            letter-spacing: -1px;
+        }
+        
+        .page-hero h1 span {
+            color: var(--primary);
+        }
+        
+        .page-hero-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .page-hero-text strong {
+            color: var(--text-primary);
+        }
+        
+        /* Section */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-header {
+            margin-bottom: 48px;
+        }
+        
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--text-secondary);
+        }
+        
+        /* Founder Section */
+        .founder-section {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .founder-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+        
+        .founder-content h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .founder-meta {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        
+        .founder-meta span {
+            color: var(--primary);
+        }
+        
+        .founder-intro {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+        
+        .founder-details h4 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .founder-details ul {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .founder-details ul li {
+            padding-left: 24px;
+            position: relative;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .founder-details ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        .founder-lessons {
+            padding: 32px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+        
+        .founder-lessons h4 {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .founder-lessons ul {
+            list-style: none;
+        }
+        
+        .founder-lessons ul li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .founder-lessons ul li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        
+        .timeline-item {
+            padding-left: 48px;
+            padding-bottom: 48px;
+            position: relative;
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: var(--border);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover::before {
+            background: var(--primary);
+        }
+        
+        .timeline-date {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .timeline-item h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-company {
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        .timeline-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .timeline-item ul {
+            list-style: none;
+            margin-top: 12px;
+        }
+        
+        .timeline-item ul li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-item ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+        }
+        
+        /* Education */
+        .education-card {
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .education-card h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        
+        .education-card .institution {
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .education-card .year {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        
+        .education-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* Tech Stack */
+        .tech-section {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+        
+        .tech-category h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tech-list span {
+            padding: 6px 14px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-list span:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+        
+        /* Location */
+        .location-section {
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .location-section h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        
+        .location-section p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-card) 100%);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            margin-bottom: 24px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .cta-contact {
+            color: var(--text-secondary);
+        }
+        
+        .cta-contact a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            list-style: none;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        .footer-social a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .founder-card {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .header .btn {
+                display: none;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 999;
+            padding: 100px 24px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+        }
+        
+        .mobile-menu ul li {
+            margin-bottom: 24px;
+        }
+        
+        .mobile-menu ul li a {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 32px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">Sartaj<span>.</span></a>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                </ul>
+                <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                    Book Consultation
+                </a>
+            </nav>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-menu-close" onclick="toggleMobileMenu()">×</span>
+        <ul>
+            <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="projects.html" onclick="toggleMobileMenu()">Projects</a></li>
+            <li><a href="about.html" onclick="toggleMobileMenu()">About</a></li>
+            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book Consultation</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1>I Build AI Systems <span>That Ship.</span></h1>
+                <div class="page-hero-text">
+                    <p><strong>Four years building production systems.</strong> Co-founded Doriot AI, scaled to billions of data points. Built agentic GenAI at CBRE. Delivered AI consulting for US startups.</p>
+                    <br>
+                    <p>Started at Infosys. Learned enterprise software. Moved to startups. Never looked back.</p>
+                    <br>
+                    <p>Now? Helping startups integrate AI without the hype. <strong>RAG systems that work. Agents that automate. GenAI features that users actually use.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="section founder-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Founder Experience</span>
+            </div>
+            
+            <div class="founder-card">
+                <div class="founder-content">
+                    <h2>Co-Founded Doriot AI</h2>
+                    <p class="founder-meta">August 2023 – May 2025 | <span>Co-Founder & CTO</span> | Edinburgh, UK</p>
+                    <p class="founder-intro">Built an AI fundraising platform from scratch.</p>
+                    
+                    <div class="founder-details">
+                        <h4>The System:</h4>
+                        <ul>
+                            <li>Advanced RAG with hybrid search (vector + text-based)</li>
+                            <li>Graph Neural Networks for investor matchmaking</li>
+                            <li>AI agents for market research and investor insights</li>
+                            <li>Data pipelines: 1M+ startup-investor relationships</li>
+                            <li>Processed 1B+ data points from Crunchbase, TechCrunch, funding news</li>
+                        </ul>
+                        
+                        <h4>The Team:</h4>
+                        <ul>
+                            <li>Led 6 interns through data engineering and ML delivery</li>
+                            <li>Shipped features in sprints, iterated fast</li>
+                            <li>Built for scale from day one</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="founder-lessons">
+                    <h4>The Lessons:</h4>
+                    <ul>
+                        <li>How to build AI systems that handle billions of data points</li>
+                        <li>Product-market fit is harder than engineering</li>
+                        <li>Speed matters more than perfection</li>
+                        <li>Leading technical teams under startup pressure</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consulting Work -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Consulting Work</span>
+                <h2 class="section-title">Client Projects</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">March 2024 – May 2025</div>
+                    <h3>AI & Tech Consultant</h3>
+                    <div class="timeline-company">Talentix | USA (Freelance)</div>
+                    <ul>
+                        <li>Graph-powered career pathing engine</li>
+                        <li>Personalized vertical, lateral, and pivot path recommendations</li>
+                        <li>Two-layer AI job matching: vector search + semantic reranking</li>
+                        <li>High-precision role recommendations</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">September 2023 – September 2024</div>
+                    <h3>Technical Consultant</h3>
+                    <div class="timeline-company">SwipeIt | USA (Freelance)</div>
+                    <ul>
+                        <li>Data-intensive microservices for real-time transactional processing</li>
+                        <li>Search engine for rewards catalog</li>
+                        <li>Location tracking with geofence functionality (20% accuracy boost)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section class="section" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Professional Track</span>
+                <h2 class="section-title">Employment History</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">May 2025 – Present</div>
+                    <h3>Data Scientist - GenAI</h3>
+                    <div class="timeline-company">CBRE | Hyderabad, India</div>
+                    <ul>
+                        <li>Building mesh agentic GenAI systems</li>
+                        <li>Autonomous agent collaboration for lease abstraction and market analysis</li>
+                        <li>Enterprise-scale AI in production</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">October 2024 – March 2025</div>
+                    <h3>Software Developer</h3>
+                    <div class="timeline-company">Goldman Sachs | Birmingham, UK</div>
+                    <ul>
+                        <li>Data-driven application development</li>
+                        <li>Automated ETL pipelines for structured datasets</li>
+                        <li>Improved data accessibility for analysis and modeling</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">February 2022 – July 2022</div>
+                    <h3>Technical Consultant / ETL Developer</h3>
+                    <div class="timeline-company">Xactly | Hyderabad, India</div>
+                    <ul>
+                        <li>ETL pipelines processing 2M+ records/month</li>
+                        <li>Sales compensation process automation</li>
+                        <li>Client requirements analysis and tailored delivery</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">February 2020 – February 2022</div>
+                    <h3>Software Engineer</h3>
+                    <div class="timeline-company">Infosys | Hyderabad, India</div>
+                    <ul>
+                        <li>Feature development and bug fixes in Agile</li>
+                        <li>Reliable production releases across cycles</li>
+                        <li>Top performer award</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+        <div class="container">
+            <div class="two-col">
+                <div>
+                    <div class="section-header">
+                        <span class="section-label">Education</span>
+                        <h2 class="section-title">Academic Background</h2>
+                    </div>
+                    
+                    <div class="education-card">
+                        <h3>MSc Computer Science</h3>
+                        <p class="institution">The University of Edinburgh</p>
+                        <p class="year">2022-2023 | Merit</p>
+                        <p>Focus: Applied Machine Learning, Text Technologies, Advanced Databases, Software Development</p>
+                    </div>
+                    
+                    <div class="education-card">
+                        <h3>B.E. Electrical & Electronics</h3>
+                        <p class="institution">Osmania University</p>
+                        <p class="year">2015-2019 | Distinction</p>
+                    </div>
+                </div>
+                
+                <div class="location-section" style="text-align: left; padding: 0;">
+                    <div class="section-header">
+                        <span class="section-label">Location</span>
+                        <h2 class="section-title">Based in Hyderabad, India</h2>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 17px; margin-bottom: 16px;">Working with startups globally.</p>
+                    <p style="color: var(--text-secondary); font-size: 17px; margin-bottom: 16px;">Available for remote projects worldwide.</p>
+                    <p style="color: var(--text-muted); font-size: 14px;">Timezone: GMT+5:30</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section tech-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Tech Stack</span>
+                <h2 class="section-title">What I Work With</h2>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h4>GenAI / LLMs</h4>
+                    <div class="tech-list">
+                        <span>OpenAI</span>
+                        <span>Claude APIs</span>
+                        <span>Gemini</span>
+                        <span>RAG Systems</span>
+                        <span>Vector DBs</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h4>Agentic Frameworks</h4>
+                    <div class="tech-list">
+                        <span>LangChain</span>
+                        <span>LangGraph</span>
+                        <span>CrewAI</span>
+                        <span>AutoGen</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h4>Traditional ML</h4>
+                    <div class="tech-list">
+                        <span>PyTorch</span>
+                        <span>Keras</span>
+                        <span>Scikit-Learn</span>
+                        <span>Graph Neural Networks</span>
+                        <span>Computer Vision</span>
+                        <span>NLP</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h4>Backend</h4>
+                    <div class="tech-list">
+                        <span>Python</span>
+                        <span>Django</span>
+                        <span>FastAPI</span>
+                        <span>Flask</span>
+                        <span>Java</span>
+                        <span>Spring Boot</span>
+                        <span>ASP.NET</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h4>Frontend</h4>
+                    <div class="tech-list">
+                        <span>React</span>
+                        <span>TypeScript</span>
+                        <span>JavaScript</span>
+                        <span>HTML/CSS</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h4>Data Engineering</h4>
+                    <div class="tech-list">
+                        <span>PySpark</span>
+                        <span>Spark</span>
+                        <span>Pandas</span>
+                        <span>NumPy</span>
+                        <span>ETL Pipelines</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h4>Databases</h4>
+                    <div class="tech-list">
+                        <span>PostgreSQL</span>
+                        <span>MySQL</span>
+                        <span>MongoDB</span>
+                        <span>Cassandra</span>
+                        <span>Firestore</span>
+                        <span>S3</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h4>Infrastructure</h4>
+                    <div class="tech-list">
+                        <span>AWS</span>
+                        <span>GCP</span>
+                        <span>Docker</span>
+                        <span>Kubernetes</span>
+                        <span>CI/CD</span>
+                        <span>Linux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Build Something?</h2>
+                
+                <div class="cta-buttons">
+                    <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                        <i class="las la-calendar"></i>
+                        Book Free Consultation
+                    </a>
+                    <a href="projects.html" class="btn btn-outline">
+                        View Projects
+                    </a>
+                </div>
+                
+                <p class="cta-contact">
+                    Email: <a href="mailto:sssartaj.04@gmail.com">sssartaj.04@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="index.html" class="logo">Sartaj<span>.</span></a>
+            
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:sssartaj.04@gmail.com">Contact</a></li>
+            </ul>
+            
+            <ul class="footer-social">
+                <li><a href="https://www.linkedin.com/in/sartaj-syed" target="_blank"><i class="lab la-linkedin-in"></i></a></li>
+                <li><a href="https://github.com/sartaj04" target="_blank"><i class="lab la-github"></i></a></li>
+                <li><a href="mailto:sssartaj.04@gmail.com"><i class="las la-envelope"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+    </script>
+</body>
+</html>
+

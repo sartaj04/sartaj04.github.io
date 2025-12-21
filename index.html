@@ -2,1143 +2,1246 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sartaj Syed</title>
+    <title>Sartaj Syed | AI Engineering Consultant</title>
+    <meta name="description" content="I build production AI systems. Custom RAG, AI Agents, GenAI Integration. Based in India, working globally.">
 
     <link rel="icon" type="image/x-icon" href="./assets/images/favicon_io/favicon.ico">
 
-
-
-    <!-- Font -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Stylesheet -->
+    <!-- Icons -->
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/smooth-scrollbar.css">
-    <link rel="stylesheet" href="./assets/css/lightbox.min.css">
-
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
-    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-
-
+    
     <style>
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes deleting {
-  from { width: 100%; }
-  to { width: 0; }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent; }
-  50% { border-color: black; }
-}
-
-#dynamic-text {
+        :root {
+            --primary: #00ff88;
+            --primary-dim: #00cc6a;
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --border-hover: #3a3a3a;
+            --gradient-start: #00ff88;
+            --gradient-end: #00d4ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .header.scrolled {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dim);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 12px 0;
+        }
+        
+        .btn-ghost:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(ellipse at top right, rgba(0, 255, 136, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--primary);
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+        
+        .hero-label .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            max-width: 900px;
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero-tagline {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        
+        .hero-services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-services span {
+            padding: 6px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .stat {
+            text-align: left;
+        }
+        
+        .stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 120px 0;
+        }
+        
+        .section-header {
+            max-width: 600px;
+            margin-bottom: 64px;
+        }
+        
+        .section-label {
   display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+        
+        /* Services */
+        .services {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .service-card {
+            padding: 32px;
+            padding-bottom: 28px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .service-card p {
+            font-size: 15px;
+            margin-bottom: 24px;
+            color: var(--text-secondary);
+        }
+        
+        .service-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .service-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+        }
+        
+        .service-meta span strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* Recent Work */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+        
+        .work-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
   overflow: hidden;
-  white-space: nowrap;
-  border-right: 0.15em solid black;
-  animation: blink-caret 0.75s step-end infinite;
-}
-
-
-
+            transition: all 0.3s ease;
+        }
+        
+        .work-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+        
+        .work-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-card-hover) 0%, var(--bg-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--primary);
+            overflow: hidden;
+        }
+        
+        .work-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .work-content {
+            padding: 28px;
+        }
+        
+        .work-label {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .work-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        
+        .work-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .work-card ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .work-card ul li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        
+        .work-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        .work-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .work-tech span {
+            padding: 4px 12px;
+            background: var(--bg-dark);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        /* Process */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        
+        .process-card {
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .process-number {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            font-family: 'Syne', sans-serif;
+            font-size: 72px;
+            font-weight: 800;
+            color: rgba(42, 42, 42, 0.5);
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .process-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .process-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .process-card ul {
+            position: relative;
+            z-index: 1;
+            list-style: none;
+            margin-top: 16px;
+        }
+        
+        .process-card ul li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .process-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        .payment-note {
+            margin-top: 40px;
+            padding: 24px;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .payment-note p {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-card) 100%);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 24px;
+        }
+        
+        .availability-badge {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 20px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .availability-badge .label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .availability-badge .value {
+            font-size: 18px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .availability-badge .value span {
+            color: var(--primary);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .cta-contact {
+            color: var(--text-secondary);
+        }
+        
+        .cta-contact a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .cta-location {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            list-style: none;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        .footer-social a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .footer-info {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .header .btn {
+                display: none;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 24px;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 999;
+            padding: 100px 24px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+        }
+        
+        .mobile-menu ul li {
+            margin-bottom: 24px;
+        }
+        
+        .mobile-menu ul li a {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 32px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
     </style>
-
 </head>
-<body class="home1-page">
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">Sartaj<span>.</span></a>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                                            </ul>
+                <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                    Book Consultation
+                </a>
+            </nav>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+                                    </div>
+                                  </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-menu-close" onclick="toggleMobileMenu()">×</span>
+        <ul>
+            <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="projects.html" onclick="toggleMobileMenu()">Projects</a></li>
+            <li><a href="about.html" onclick="toggleMobileMenu()">About</a></li>
+            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book Consultation</a></li>
+                                            </ul>
+                                </div>
 
-   <!--  <video class="body-overlay" muted autoplay loop>
-        <source src="./assets/images/video1.mp4" type="video/mp4">
-    </video> -->
-
-    <!-- Preloader -->
-    <div class="page-loader">
-        <div class="bounceball"></div>
-    </div>
-
-    <span class="icon-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </span>
-
-    <!-- Side Menu Bar -->
-    <div class="responsive-sidebar-menu">
-        <div class="overlay"></div>
-        <div class="sidebar-menu-inner">
-            <div class="menu-wrap">
-                <p>Menu</p>
-                <ul class="menu scroll-nav-responsive d-flex">
-                    <li>
-                        <a class="scroll-to" href="#home">
-                            <i class="las la-home"></i> <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#about">
-                            <i class="lar la-user"></i> <span>About</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#resume">
-                            <i class="las la-briefcase"></i> <span>Resume</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#services">
-                            <i class="las la-stream"></i> <span>Services</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#skills">
-                            <i class="las la-shapes"></i> <span>Skills</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#portfolio">
-                            <i class="las la-grip-vertical"></i> <span>Portfolios</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#testimonial">
-                            <i class="lar la-comment"></i> <span>Testimonial</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#contact">
-                            <i class="las la-envelope"></i> <span>Contact</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-
-            <div class="sidebar-social">
-                <p>Social</p>
-                <ul class="social-links d-flex align-items-center">
-
-                    <li>
-                        <a href="https://github.com/sartaj04" target="_blank"><i class="lab la-github"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/sartaj-syed" target="_blank"><i class="lab la-linkedin"></i></a>
-                    </li>
-                    <li>
-                        <!-- <a href="https://leetcode.com/u/sartaj047/" target="_blank"><i class="lab la-leetcode"></i></a> -->
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <ul class="menu scroll-nav d-flex">
-        <li>
-            <a class="scroll-to" href="#home">
-                <span>Home</span> <i class="las la-home"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#about">
-                <span>About</span> <i class="lar la-user"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#resume">
-                <span>Resume</span> <i class="las la-briefcase"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#services">
-                <span>Services</span> <i class="las la-stream"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#skills">
-                <span>Skills</span> <i class="las la-shapes"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#portfolio">
-                <span>Portfolios</span> <i class="las la-grip-vertical"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#testimonial">
-                <span>Testimonial</span> <i class="lar la-comment"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#contact">
-                <span>Contact</span> <i class="las la-envelope"></i>
-            </a>
-        </li>
-    </ul>
-
-    <div class="left-sidebar">
-        <div class="sidebar-header d-flex align-items-center justify-content-between">
-            <!-- <img src="./assets/images/logo.png" alt="Logo"> -->
-            <h2 id="constant-text">Sartaj</h2>
-            <span class="designation">ML & Software Developer</span>
-        </div>
-        <img class="me" src="./assets/images/me.jpg" alt="Me">
-        <!-- <h2 class="email">sartaj267@outlook.com</h2> -->
-        <h2 class="address">Based in London, UK</h2>
-
-        <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-            <li>
-                <a href="mailto:sartaj267@live.in"><i class="lar la-envelope"></i></a>
-            </li>
-            <li>
-                <a href="https://github.com/sartaj04" target="_blank"><i class="lab la-github"></i></a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/in/sartaj-syed" target="_blank"><i class="lab la-linkedin"></i></a>
-            </li>
-            <li>
-                <!-- <a href="https://leetcode.com/u/sartaj047/" target="_blank"><i class="lab la-leetcode"></i></a> -->
-            </li>
-        </ul>
-        <a href="./assets/images/Sartaj_CV.pdf" class="theme-btn " download="Sartaj_Syed_Resume.pdf" target="_blank">
-            <i class="las la-download"></i> Download Resume
-        </a>
-        
-        <!-- <a href="#" class="theme-btn">
-            <i class="las la-envelope"></i> Hire Me!
-        </a> -->
-    </div>
-    <!-- Main Section -->
-    <main class="drake-main">
-        <div id="smooth-wrapper">
-            <div id="smooth-content">
-
-                <div class="left-sidebar">
-                    <div class="sidebar-header d-flex align-items-center justify-content-between">
-                        <!-- <img src="./assets/images/logo.png" alt="Logo">
-                        <span class="designation">Machine Learning & Software Engineer</span> -->
-                        <h2 id="constant-text" >Sartaj</h2>
-                        <span class="designation">ML & Software Developer</span>
-                    </div>
-                    <img class="me" src="./assets/images/me.jpg" alt="Me">
-                    <!-- <h2 class="email">sartaj267@outlook.com</h2> -->
-                    <h2 class="address">Based in London, UK</h2>
-                    <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-                        <li>
-                            <a href="mailto:sartaj267@live.in"><i class="lar la-envelope"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/sartaj04" target="_blank"><i class="lab la-github"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/sartaj-syed" target="_blank"><i class="lab la-linkedin"></i></a>
-                        </li>
-                        <li>
-                            <!-- <a href="https://leetcode.com/u/sartaj047/" target="_blank"><i class="lab la-leetcode"></i></a> -->
-                        </li>
-                    </ul>
-                    <!-- <a href="#" class="theme-btn">
-                        <i class="las la-envelope"></i> Hire Me!
-                    </a> -->
-                    <a href="./assets/images/Sartaj_cv_m.pdf" class="theme-btn" download="Sartaj_Syed_Resume.pdf" target="_blank">
-                        <i class="las la-download"></i> Download Resume
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">
+                    <span class="dot"></span>
+                    Available for Projects
+                                      </div>
+                <h1>I Build <span>Production AI Systems.</span> Fast.</h1>
+                <p class="hero-tagline">AI Engineering Consultant</p>
+<div class="hero-services">
+                    <span>Custom RAG</span>
+                    <span>AI Agents</span>
+                    <span>AI Automation</span>
+                    <span>GenAI Integration</span>
+                    <span>AI Strategy</span>
+                                    </div>
+                <div class="hero-cta">
+                    <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                        <i class="las la-calendar"></i>
+                        Book Free 30-Min Consultation
                     </a>
-                    
-                </div>
-
-                <!-- Hero Section -->
-                <section class="hero-section page-section scroll-to-page" id="home">
-
-                    <div class="custom-container">
-                        <div class="hero-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-home"></i> Introduce
-                                </h4>
-                                <!-- <h1 class="scroll-animation" data-animation="fade_from_bottom">Hello I'm<span>Sartaj Syed</span>, Machine Learning and Software Developer</h1> -->
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Hello, I'm <span style="color: aliceblue;" >Sartaj Syed</span></h1>
-
-
-                                <h2 class="scroll-animation" data-animation="fade_from_bottom" style="color: #28e98c;">
-                                    <span id="constant-text"></span><span id="dynamic-text"></span>
-                                  </h2>
-                            </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">I design and build innovative solutions that drive efficiency and excellence. Let's create something amazing together!</p>
-                            <a href="#portfolio" 
-                                class="go-to-project-btn scroll-to scroll-animation" 
-                                data-animation="rotate_up">
-                                <img src="./assets/images/round-text.png" alt="Rounded Text">
-                                <i class="las la-arrow-down"></i>
-                            </a>
-        
-                            <div class="facts d-flex">
-                                <div class="left scroll-animation" data-animation="fade_from_left">
-                                    <h1>4+</h1>
-                                    <p>Years of <br>Experience</p>
+                    <a href="#services" class="btn btn-outline">
+                        Services ↓
+                    </a>
+                                  </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">1B+</div>
+                        <div class="stat-label">Data Points Processed</div>
+                                      </div>
+                    <div class="stat">
+                        <div class="stat-value">4+</div>
+                        <div class="stat-label">Years Building AI Systems</div>
+                                    </div>
+                    <div class="stat">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Production Systems Shipped</div>
+                                  </div>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div class="right scroll-animation" data-animation="fade_from_right">
-                                    <h1>7+</h1>
-                                    <p>Projects Completed <br>in Various Domains</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </section>
         
-                <!-- About Section -->
-                <section class="about-area page-section scroll-to-page" id="about">
-                    <div class="custom-container">
-                        <div class="about-content content-width">
+    <!-- Services -->
+    <section class="section services" id="services">
+        <div class="container">
                             <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="lar la-user"></i> About
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Transforming ideas into <br>
-                                    <span>real-world solutions</span></h1>
-                            </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom"> Software Engineer with 4 years of experience in data-driven full-stack development and
-                                cloud-based solutions. Skilled in Python, Java, TypeScript, and AWS, with a proven ability to
-                                communicate technical concepts to stakeholders and collaborate in cross-functional teams. 
-                                Holds an MSc in Computer Science from The University of Edinburgh and experienced in both industry and 
-                                academic projects. Passionate about leveraging data to improve processes to drive smart, automated solutions.
-                                </p>
-                        </div>
-                    </div>
-                </section>
+                <span class="section-label">What I Build</span>
+                <h2 class="section-title">Production AI. Not Prototypes.</h2>
+                <p class="section-subtitle">Clear pricing. Fixed timelines. Real results.</p>
+                                      </div>
         
-                <!-- Resume Section -->
-                <section class="resume-area page-section scroll-to-page" id="resume">
-                    <div class="custom-container">
-                        <div class="resume-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-briefcase"></i> Resume
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Education & <span>Experience</span></h1>
-                            </div>
-
-                            <div class="resume-timeline">
-
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">Oct 2024 - March 2025</span>
-                                    <h2>Software Developer</h2>
-                                    <p>Goldman Sachs</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">May 2023 - October 2024</span>
-                                    <h2>Founding Engineer, AI & Software</h2>
-                                    <p>Doriot AI</p>
-                                    <!-- <h2>Software Developer</h2>
-                                    <p>Swipeit</p> -->
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">Sep 2022 - Aug 2023</span>
-                                    <h2>Master’s Degree in Computer Science</h2>
-                                    <p>The University of Edinburgh</p>
-                                </div>
-
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">Jan 2022 - Dec 2022</span>
-                                    <h2>Post Graduate Diploma in CS & AI</h2>
-                                    <p>IIIT - D</p>
-                                </div>
-
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">Feb 2022 - Jul 2022</span>
-                                    <h2>Technical Consultantant/ Data Engineer</h2>
-                                    <p>Xactly</p>
-                                </div>
-
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">Feb 2020 - Feb 2022</span>
-                                    <h2>Software Engineer</h2>
-                                    <p>Infosys</p>
-                                </div>
-                                
-                                
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">Aug 2015 - May 2019</span>
-                                    <h2>Bachelor’s Degree in Electrical and Electronics Engineering</h2>
-                                    <p>Osmania University</p>
-                                </div>
-                            </div>
-        
-                        </div>
-                    </div>
-                </section>
-        
-                <!-- Services Section -->
-                <section class="services-area page-section scroll-to-page" id="services">
-                    <div class="custom-container">
-                        <div class="services-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-stream"></i> Services
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">My <span>Specializations</span></h1>
-                            </div>
-        
-
-                            <div class="services-items">
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-brain"></i>
-                                    <h2>Machine Learning & AI</h2>
-                                    <p>Developed and deployed machine learning models for various applications using Python, TensorFlow, and PyTorch.</p>
-                                    <!-- <span class="projects">8 Projects</span> -->
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-code"></i>
-                                    <h2>Full Stack Development</h2>
-                                    <p>Built scalable web applications using technologies such as Django, React, and Spring Boot.</p>
-                                    <!-- <span class="projects">5 Projects</span> -->
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-database"></i>
-                                    <h2>Data Engineering</h2>
-                                    <p>Designed and managed data pipelines and ETL processes to ensure high-quality data for analytics and machine learning.</p>
-                                    <!-- <span class="projects">3 Projects</span> -->
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-cloud"></i>
-                                    <h2>Cloud Development & DevOps</h2>
-                                    <p>Implemented and managed cloud infrastructure using AWS and GCP, including CI/CD pipelines for seamless deployments.</p>
-                                    <!-- <span class="projects">5 Projects</span> -->
-                                </div>
-                            </div>
-        
-                        </div>
-                    </div>
-                </section>
-        
-                <!-- Skills Section -->
-                <section class="skills-area page-section scroll-to-page" id="skills">
-                    <div class="custom-container">
-                        <div class="skills-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-shapes"></i> my skills
-                                </h4>
-                                
-
-                              <h1 class="scroll-animation" data-animation="fade_from_bottom">My <span>Advantages</span></h1>
-                              </div> 
-
-                              <div class="row skills text-center">
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                  <div class="skill">
-                                    <div class="skill-inner">
-                                      <i class="devicon-python-plain" style="font-size: 48px;"></i>
-                                      <!-- <h1 class="percent">95%</h1> -->
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="las la-database"></i>
                                     </div>
-                                    <p class="name">Python</p>
+                    <h3>Custom RAG Systems</h3>
+                    <p>Your documents. Instant answers. No hallucinations. Production-ready retrieval with vector databases and hybrid search.</p>
+                    <div class="service-meta">
+                        <span><strong>2-3 weeks</strong></span>
+                        <span><strong>From ₹50k</strong></span>
                                   </div>
                                 </div>
                                 
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_right">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-typescript-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">75%</h1> -->
-                                      </div>
-                                      <p class="name">Typescript</p>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="las la-robot"></i>
                                     </div>
+                    <h3>AI Workflow Agents</h3>
+                    <p>Automate the boring stuff. Email processing. Data extraction. Content generation. Agents that actually work.</p>
+                    <div class="service-meta">
+                        <span><strong>3-4 weeks</strong></span>
+                        <span><strong>From ₹75k</strong></span>
                                   </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-java-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">80%</h1> -->
-                                      </div>
-                                      <p class="name">Java</p>
-                                    </div>
-                                  </div>
-                                
-                                
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_top">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-django-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">87%</h1> -->
-                                      </div>
-                                      <p class="name">Django</p>
-                                    </div>
                                 </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-fastapi-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">65%</h1> -->
-                                      </div>
-                                      <p class="name">FastAPI</p>
-                                    </div>
-                                  </div>
 
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_top">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-pandas-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">87%</h1> -->
-                                      </div>
-                                      <p class="name">React</p>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="las la-magic"></i>
                                     </div>
-                                  </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-flask-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">65%</h1> -->
-                                      </div>
-                                      <p class="name">Flask</p>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-3 scroll-animation" data-animation="fade_from_right">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-spring-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">82%</h1> -->
-                                      </div>
-                                      <p class="name">Spring Boot</p>
-                                    </div>
-                                </div>
-                                  
-
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                  <div class="skill">
-                                    <div class="skill-inner">
-                                      <i class="devicon-html5-plain" style="font-size: 48px;"></i>
-                                      <!-- <h1 class="percent">90%</h1> -->
-                                    </div>
-                                    <p class="name">HTML</p>
-                                  </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_right">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-javascript-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">75%</h1> -->
-                                      </div>
-                                      <p class="name">JavaScript</p>
-                                    </div>
-                                  </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-react-original" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">90%</h1> -->
-                                      </div>
-                                      <p class="name">Pytorch</p>
-                                    </div>
-                                  </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_right">
-                                  <div class="skill">
-                                    <div class="skill-inner">
-                                      <i class="devicon-docker-plain" style="font-size: 48px;"></i>
-                                      <!-- <h1 class="percent">70%</h1> -->
-                                    </div>
-                                    <p class="name">Docker</p>
-                                  </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                      <div class="skill-inner">
-                                        <i class="devicon-kubernetes-plain" style="font-size: 48px;"></i>
-                                        <!-- <h1 class="percent">70%</h1> -->
-                                      </div>
-                                      <p class="name">Kubernetes</p>
-                                    </div>
-                                  </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                  <div class="skill">
-                                    <div class="skill-inner">
-                                      <i class="devicon-amazonwebservices-plain" style="font-size: 48px;"></i>
-                                      <!-- <h1 class="percent">85%</h1> -->
-                                    </div>
-                                    <p class="name">AWS</p>
+                    <h3>GenAI Product Features</h3>
+                    <p>AI chatbots, smart search, recommendations that actually work. End-to-end from API to frontend.</p>
+                    <div class="service-meta">
+                        <span><strong>4-6 weeks</strong></span>
+                        <span><strong>From ₹1L</strong></span>
                                   </div>
                                 </div>
                                 
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_top">
-                                  <div class="skill">
-                                    <div class="skill-inner">
-                                      <i class="devicon-googlecloud-plain" style="font-size: 48px;"></i>
-                                      <!-- <h1 class="percent">75%</h1> -->
-                                    </div>
-                                    <p class="name">GCP</p>
-                                  </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_right">
-                                  <div class="skill">
-                                    <div class="skill-inner">
-                                      <i class="devicon-git-plain" style="font-size: 48px;"></i>
-                                      <!-- <h1 class="percent">88%</h1> -->
-                                    </div>
-                                    <p class="name">Git</p>
-                                  </div>
-                                </div>
-                                
-                                
-                                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="las la-lightbulb"></i>
                               </div>
-                              
-        
+                    <h3>AI Strategy Consulting</h3>
+                    <p>Tech stack guidance. Feasibility analysis. Roadmap planning. Know what to build before you build it.</p>
+                    <div class="service-meta">
+                        <span><strong>1 week</strong></span>
+                        <span><strong>₹25k flat</strong></span>
+                                </div>
+                                    </div>
                         </div>
                     </div>
                 </section>
         
-                <!-- Portfolio Section -->
-                <section class="portfolio-area page-section scroll-to-page" id="portfolio">
-                    <div class="custom-container">
-                        <div class="portfolio-content content-width">
+    <!-- Recent Work -->
+    <section class="section" id="work">
+        <div class="container">
                             <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-grip-vertical"></i> portfolio
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Featured <span>Projects</span></h1>
+                <span class="section-label">Recent Builds</span>
+                <h2 class="section-title">Real Projects. Real Impact.</h2>
+                <p class="section-subtitle">Production systems for startups and enterprises.</p>
                             </div>
         
-                            <div class="row portfolio-items">
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="portfolio-item portfolio-full">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                                data-project-title="Doriot AI" 
-                                                data-project-description="Doriot AI is an AI-powered fundraising co-pilot that helps startups raise smarter and faster. The platform provides intelligent investor matching, real-time market insights including competitor research, and automated outreach, eliminating guesswork and inefficiencies." 
-                                                data-project-images="./assets/images/portfolio1.png,./assets/images/portfolio1-3.png,./assets/images/portfolio1-2.png"
-                                                data-project-link="https://doriot.ai/">
-                                                    <img src="./assets/images/portfolio1.png" alt="Portfolio">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Python</a></li>
-                                                <li><a>TypeScript</a></li>
-                                                <li><a>Pytorch</a></li>
-                                                <li><a>Django</a></li>
-                                                <li><a>FastAPI</a></li>
-                                                <li><a>React</a></li>
-                                                <li><a>AWS</a></li>
-                                                <li><a>Docker</a></li>
-                                            </ul>
+            <div class="work-grid">
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="./assets/images/portfolio1.png" alt="Doriot AI Platform">
                                         </div>
-                                        <h2><a href="https://doriot.ai/" target="_blank">Doriot AI - Personal Copilot for your Startup</a></h2>
-
+                    <div class="work-content">
+                        <div class="work-label">Doriot AI • 2023-2025 • Co-Founder</div>
+                        <h3>AI-Powered Fundraising Platform</h3>
+                        <p>Built comprehensive AI platform for startup fundraising from scratch.</p>
+                        <ul>
+                            <li>RAG with hybrid search (vector + text)</li>
+                            <li>Graph Neural Networks for investor matching</li>
+                            <li>1B+ data points processed</li>
+                                            </ul>
+                        <div class="work-tech">
+                            <span>LangChain</span>
+                            <span>GNNs</span>
+                            <span>Python</span>
+                            <span>React</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                               data-project-title="Talentix - Career Portal" 
-                                               data-project-description="This project involved creating a dynamic website. The frontend was developed with React and TypeScript to ensure a responsive and user-friendly interface. The website has been successfully deployed and is currently in production, providing seamless performance and reliability." 
-                                               data-project-images="./assets/images/partfolio-talentix.png,./assets/images/partfolio-talentix.png,./assets/images/partfolio-talentix.png"
-                                               data-project-link="https://thetalentix.com/">
-                                                <img src="./assets/images/partfolio-talentix.png" alt="Hinterland Real Estate">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Python</a></li>
-                                                <li><a>TypeScript</a></li>
-                                                <li><a>FastAPI</a></li>
-                                                <li><a>React</a></li>
-                                                <li><a>AWS</a></li>
-                                            </ul>
+                
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="./assets/images/partfolio-talentix.png" alt="Talentix Career Engine">
                                         </div>
-                                        <h2><a href="https://thetalentix.com/" target="_blank">Talentix - Career Portal</a></h2>
+                    <div class="work-content">
+                        <div class="work-label">Talentix • 2024-2025</div>
+                        <h3>Graph-Powered Career Engine</h3>
+                        <p>Built career pathing engine using graph theory for personalized recommendations.</p>
+                        <ul>
+                            <li>Two-layer AI matching: vector search + semantic reranking</li>
+                            <li>Personalized vertical, lateral, and pivot career paths</li>
+                            <li>High-precision role recommendations</li>
+                                            </ul>
+                        <div class="work-tech">
+                            <span>Graph Theory</span>
+                            <span>Python</span>
+                            <span>FastAPI</span>
+                            <span>Vector Search</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                               data-project-title="Contact Detection in American Football" 
-                                               data-project-description="This project explores the application of machine learning and deep learning models to detect player contact in American football. Utilizing a video dataset from a Kaggle competition, video frames were preprocessed, and models such as SVM, ResNet-50, ResNet-152, EfficientNet-B0, Faster R-CNN, Mask2Former, and YOLOX were employed. The study demonstrated the effectiveness of image augmentation in mitigating overfitting and highlighted YOLOX's superior performance in player detection tasks. This work aims to enhance real-time injury prevention and strategy optimization in sports, showcasing the use of cutting-edge AI techniques to tackle complex problems." 
-                                               data-project-images="./assets/images/portfolio4.png,./assets/images/portfolio4.png,./assets/images/portfolio4.png"
-                                               data-project-link="https://github.com/sartaj04/American_Football_Contact_Detection">
-                                                <img src="./assets/images/portfolio4.png" alt="Hinterland Real Estate">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Python</a></li>
-                                                <li><a>TensorFlow</a></li>
-                                                <li><a>Keras</a></li>
-                                                <li><a>Scikit-Learn</a></li>
-                                                <li><a>OpenCV</a></li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="https://github.com/sartaj04/American_Football_Contact_Detection" target="_blank">Contact Detection in American Football</a></h2>
+                
+<div class="work-card">
+                    <div class="work-image">
+                        <i class="las la-gift"></i>
                                     </div>
-                                </div>
-        
-                                <div class="col-md-6 scroll-animation" data-animation="fade_from_left">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                               data-project-title="Lyrics Wizard" 
-                                               data-project-description="Led a team of 6 to architect and deploy a lyric search engine upon a large dataset of 10 million+ songs using positional inverted index for information retrieval. Implemented lyric search functionality using a MongoDB database to store and retrieve song data, applying TF-IDF, BM25, and custom lyrics search algorithms for efficient querying.  This system was built using Django framework, react for the UI, MongoDB for storing the recipe data, and hosted on Google Cloud Server (GCP) with features like advanced search, query expansion, query optimization, live indexing, Redis caching. Integrated an SVM-based recommender system to provide users with personalized song suggestions based on their search patterns and preferences." 
-                                               data-project-images="./assets/images/portfolio2.png,./assets/images/portfolio2.png,./assets/images/portfolio2.png"
-                                               data-project-link="https://github.com/sartaj04/lyric_search_engine/tree/main">
-                                                <img src="./assets/images/portfolio2.png" alt="Moonex WordPress Theme">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Search Engines</a></li>
-                                                <!-- <li><a>Search Engines</a></li> -->
-                                                <li><a>Django</a></li>
+                    <div class="work-content">
+                        <div class="work-label">SwipeIt • 2023-2024</div>
+                        <h3>Real-Time Rewards Platform</h3>
+                        <p>Microservices for real-time transactional data processing at scale.</p>
+                        <ul>
+                            <li>Search engine for rewards catalog</li>
+                            <li>Location tracking with geofence functionality</li>
+                            <li>20% accuracy improvement in location services</li>
                                             </ul>
+                        <div class="work-tech">
+                            <span>Microservices</span>
+                            <span>Python</span>
+                            <span>Real-time Processing</span>
                                         </div>
-                                        <h2><a href="https://github.com/sartaj04/lyric_search_engine/tree/main" target="_blank">Lyrics Search Engine</a></h2>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6 scroll-animation" data-animation="fade_from_right">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                               data-project-title="Game Collection Management System" 
-                                               data-project-description="Led a team of 4 to develop a Django-based web platform for game enthusiasts to organize and review their game collections, with features for browsing and managing a personal library. Enabled access to game resources such as house rules, official rules, FAQs, and errata documents, ensuring comprehensive user support. Utilized HTML, CSS, and Bootstrap for constructing a user-friendly interface, with JavaScript to enable interactive features such as sorting and filtering collections. Incorporated a recommendation system that analyzes users' previous purchases, search history, and interests to suggest games, leveraging machine learning for enhanced user engagement." 
-                                               data-project-images="./assets/images/portfolio3.png,./assets/images/portfolio3-2.png,./assets/images/portfolio3-3.png"
-                                               data-project-link="https://github.com/sartaj04/Game_Collection_Management_System">
-                                                <img src="./assets/images/portfolio3.png" alt="Taskly Dashboard">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Django</a></li>
-                                                <li><a>Bootstrap</a></li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="https://github.com/sartaj04/Game_Collection_Management_System@" target="_blank">Game Collection System</a></h2>
-                                    </div>
-                                </div>
-                                
-
-
-                                <div class="col-md-6 scroll-animation" data-animation="fade_from_left">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                               data-project-title="World Wide Trends in Spotify" 
-                                               data-project-description="This project leverages machine learning techniques to predict the popularity of songs on Spotify and determine their regional success. Utilizing a comprehensive dataset that includes track names, artists, streams, and song features (extracted using the Spotipy library), we employed various models such as Naive Bayes, KNN, Decision Trees, and Random Forest for classification and regression tasks. The study identified key features influencing a track's popularity and demonstrated that Random Forest models provide the best accuracy for both popularity and region predictions. This work aims to assist music composers and producers in understanding and enhancing the reach of their tracks across different regions." 
-                                               data-project-images="./assets/images/portfolio5.png,./assets/images/portfolio5.png,./assets/images/portfolio5.png"
-                                               data-project-link="https://github.com/sartaj04/worldwide_trends_in_spotify">
-                                                <img src="./assets/images/portfolio5.png" alt="Moonex WordPress Theme">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Scikit-Learn</a></li>
-                                                <li><a>Pandas</a></li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="https://github.com/sartaj04/worldwide_trends_in_spotify" target="_blank">World Wide Trends in Spotify</a></h2>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6 scroll-animation" data-animation="fade_from_right">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                               data-project-title="Marvel Image Classification" 
-                                               data-project-description="This project focuses on image classification using a Marvel Avengers dataset, employing both a classical Support Vector Machine Classifier (SVC) and a deep learning model, DenseNet201. The models were trained and evaluated on their ability to classify images into one of eight character labels. DenseNet201 demonstrated superior performance with an accuracy of 49%, compared to 27% for SVC. The project also included robustness testing with various perturbations, highlighting the deep learning model's effectiveness in handling complex image classification tasks." 
-                                               data-project-images="./assets/images/portfolio6.png,./assets/images/portfolio6.png,./assets/images/portfolio6.png"
-                                               data-project-link="https://github.com/sartaj04/Image-Classification-based-on-Marvel-Dataset">
-                                                <img src="./assets/images/portfolio6.png" alt="Taskly Dashboard">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Tensorflow/Keras</a></li>
-
-                                                <li><a>OpenCV</a></li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="https://github.com/sartaj04/Image-Classification-based-on-Marvel-Dataset" target="_blank">Marvel Image Classification</a></h2>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="#" class="portfolio-item-trigger" 
-                                               data-project-title="WiseArray" 
-                                               data-project-description="This project involved creating a dynamic website. The frontend was developed with HTML, CSS, and JavaScript to ensure a responsive and user-friendly interface. The website has been successfully deployed and is currently in production, providing seamless performance and reliability." 
-                                               data-project-images="./assets/images/portfolio7.png,./assets/images/portfolio7.png,./assets/images/portfolio7.png"
-                                               data-project-link="https://www.wisearray.com/">
-                                                <img src="./assets/images/portfolio7.png" alt="Lewis Portfolio Template">
-                                            </a>
-                                            <ul class="portfolio-categories">
-                                                <li><a>Docker</a></li>
-                                                <li><a>AWS</a></li>
-                                                <li><a>Javascript</a></li>
-                                                <li><a>Bootstrap</a></li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="https://www.wisearray.com/" target="_blank">WiseArray</a></h2>
                                     </div>
                                 </div>
                             </div>
-        
+
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="projects.html" class="btn btn-outline">View All Projects →</a>
                         </div>
                     </div>
                 </section>
         
-                <!-- Testimonial Section -->
-                <section class="testimonial-area page-section scroll-to-page" id="testimonial">
-                    <div class="custom-container">
-                        <div class="testimonial-content content-width">
+<!-- Process -->
+    <section class="section" id="process" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
                             <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="lar la-comment"></i> testimonial
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">My <span>Endorsements</span></h1>
+                <span class="section-label">How I Work</span>
+                <h2 class="section-title">From Idea to Production</h2>
+                <p class="section-subtitle">Simple process. No surprises.</p>
                             </div>
         
-                            <div class="testimonial-slider-wrap scroll-animation" data-animation="fade_from_bottom">
-                                <div class="owl-carousel testimonial-slider owl-theme">
-                                    <!-- <div class="testimonial-item">
-                                        <div class="testimonial-item-inner">
-                                            <div class="author d-flex align-items-center"> -->
-                                                <!-- <img src="./assets/images/testimonial-1.jpg" alt="portfolio"> -->
-                                                <!-- <div class="right">
-                                                    <h3>Ishaq Mohammed</h3>
-                                                    <p class="designation">CEO of <span>Swipeit</span></p>
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <h3>Free Consultation</h3>
+                    <p>30 minutes to understand your problem.</p>
+                    <ul>
+                        <li>Understand your problem</li>
+                        <li>Assess AI feasibility</li>
+                        <li>Rough timeline estimate</li>
+                    </ul>
                                                 </div>
+                
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <h3>Proposal</h3>
+                    <p>Delivered within 48 hours.</p>
+                    <ul>
+                        <li>Detailed scope</li>
+                        <li>Technical approach</li>
+                        <li>Fixed price quote</li>
+                    </ul>
                                             </div>
-                                            <p>“Sartaj Syed is an exceptional software developer who played a pivotal role in developing our mobile application's MVP. His expertise in backend development with Java, coupled with his proficiency in deploying microservices on GCP, ensured a secure and scalable product. Sartaj's dedication and skill set make him an invaluable asset to any tech team.”</p>
-         -->
-                                            <!-- <a href="" class="project-btn">Project</a> -->
-                                        <!-- </div> -->
-                                    <!-- </div> -->
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-item-inner">
-                                            <div class="author d-flex align-items-center">
-                                                <!-- <img src="./assets/images/testimonial-2.jpg" alt="portfolio"> -->
-                                                <div class="right">
-                                                    <h3>Faizan Rehan</h3>
-                                                    <p class="designation">Project Manager of <span>Infosys Ltd</span></p>
-                                                </div>
-                                            </div>
-                                            <p>“During his tenure at Infosys, Sartaj Syed demonstrated outstanding technical abilities and a keen eye for innovative solutions. He was instrumental in designing a data aggregation pipeline and optimizing our cloud infrastructure. His commitment to continuous improvement and agile methodologies significantly enhanced our team's productivity and project delivery.”</p>
-        
-                                            <!-- <a href="" class="project-btn">Project</a> -->
+
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <h3>Build & Deliver</h3>
+                    <p>2-6 weeks depending on scope.</p>
+                    <ul>
+                        <li>Weekly updates</li>
+                        <li>Iterative feedback</li>
+                        <li>Production deployment</li>
+                    </ul>
+                                    </div>
+
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <h3>Handoff</h3>
+                    <p>You own everything.</p>
+                    <ul>
+                        <li>Complete documentation</li>
+                        <li>2 weeks support included</li>
+                        <li>Knowledge transfer</li>
+                    </ul>
                                         </div>
                                     </div>
-                                    <!-- <div class="testimonial-item">
-                                        <div class="testimonial-item-inner">
-                                            <div class="author d-flex align-items-center">
-                                                <img src="./assets/images/testimonial-3.jpg" alt="portfolio">
-                                                <div class="right">
-                                                    <h3>Phil Foden</h3>
-                                                    <p class="designation">Director of <span>Envato LLC</span></p>
+
+            <div class="payment-note">
+                <p><strong>Payment:</strong> 50% upfront, 50% on delivery. No hidden fees.</p>
                                                 </div>
                                             </div>
-                                            <p>“Extremely profressional and fast service!. Drake is a master
-                                                of code and he also very creative. We done 3 projects with
-                                                him and certain will continue.”</p>
-        
-                                            <a href="" class="project-btn">Project</a>
-                                        </div>
-                                    </div> -->
-                                </div>
-                                <div class="testimonial-footer-nav">
-                                    <div class="testimonial-nav d-flex align-items-center">
-                                        <button class="prev"><i class="las la-angle-left"></i></button>
-                                        <div id="testimonial-slide-count"></div>
-                                        <button class="next"><i class="las la-angle-right"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-        
-                      
-        
+    </section>
+
+    <!-- About Teaser -->
+    <section class="section" style="text-align: center;">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <span class="section-label">About Me</span>
+                <h2 class="section-title" style="margin-bottom: 24px;">Problem Solver. Builder. Always Have Been.</h2>
+                <p style="font-size: 18px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
+                    I love a challenge. Competitive, curious, and driven to figure out what customers actually need—not what we assume they need. That's how I take products from 0 to 1.
+                </p>
+                <p style="font-size: 18px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px;">
+                    Started a company, secured venture capital, grew platforms to thousands of users. No fluff. Just results.
+                </p>
+                <a href="about.html" class="btn btn-outline">Read My Full Story →</a>
                         </div>
                     </div>
                 </section>
         
-                <!-- Pricing Section -->
-                <section class="pricing-area page-section scroll-to-page" id="pricing">
-                    <div class="custom-container">
-                        
+    <!-- CTA -->
+    <section class="section cta-section" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Build Your AI System?</h2>
+                
+                <div class="availability-badge">
+                    <span class="label">Currently Booking</span>
+                    <span class="value">January 2025 • <span>2 slots available</span></span>
                     </div>
-                </section>
-
-                <!-- Contact Section -->
-                <section class="contact-area page-section scroll-content" id="contact">
-                    <div class="custom-container">
-                        <div class="contact-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-dollar-sign"></i> contact
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Let's Work <span>Together!</span></h1>
+                
+                <div class="cta-buttons">
+                    <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                        <i class="las la-calendar"></i>
+                        Book Free Consultation
+                                </a>
                             </div>
-                            <h3 class="scroll-animation" data-animation="fade_from_bottom">sartaj267@outlook.com</h3>
-                            <p id="required-msg">* Marked fields are required to fill.</p>
 
-                            <form id="contactForm" class="contact-form scroll-animation" data-animation="fade_from_bottom" action="https://formspree.io/f/mkgwreep" method="POST">
-                                <div class="row">
-                                    <div class="col-md-6">
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper" style="max-width: 600px; margin: 0 auto; text-align: left; margin-top: 40px;">
+                    <h3 style="font-size: 20px; margin-bottom: 24px; text-align: center;">Or Send a Message</h3>
+                    <form id="contactForm" class="contact-form" action="https://formspree.io/f/mkgwreep" method="POST">
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                                         <div class="input-group">
-                                            <label for="full-name">Full Name <sup>*</sup></label>
-                                            <input type="text" name="name" id="full-name" placeholder="Your Full Name" required>
+                                <label for="full-name" style="display: block; font-size: 12px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 8px;">Full Name <sup style="color: #ff4444;">*</sup></label>
+                                <input type="text" name="name" id="full-name" placeholder="Your Full Name" required style="width: 100%; padding: 12px 0; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 16px; outline: none;">
+                                        </div>
+                                        <div class="input-group">
+                                <label for="email" style="display: block; font-size: 12px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 8px;">Email <sup style="color: #ff4444;">*</sup></label>
+                                <input type="email" name="_replyto" id="email" placeholder="Your email address" required style="width: 100%; padding: 12px 0; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 16px; outline: none;">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                                         <div class="input-group">
-                                            <label for="email">Email <sup>*</sup></label>
-                                            <input type="email" name="_replyto" id="email" placeholder="Your email address" required>
+                                <label for="phone-number" style="display: block; font-size: 12px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 8px;">Phone <span style="color: var(--text-muted); text-transform: none;">(optional)</span></label>
+                                <input type="text" name="phone" id="phone-number" placeholder="Your phone number" style="width: 100%; padding: 12px 0; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 16px; outline: none;">
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
                                         <div class="input-group">
-                                            <label for="phone-number">Phone <span>(optional)</span></label>
-                                            <input type="text" name="phone" id="phone-number" placeholder="Your phone number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <label for="subject">Subject <sup>*</sup></label>
-                                            <select name="subject" id="subject" required>
-                                                <option value="">Select a subject</option>
-                                                <option value="Software Development">Software Development</option>
-                                                <option value="Machine Learning">Machine Learning</option>
-                                                <option value="Data Engineering">Data Engineering</option>
-                                                <option value="DevOps/Cloud Computing">DevOps/Cloud Computing</option>
+                                <label for="subject" style="display: block; font-size: 12px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 8px;">Subject <sup style="color: #ff4444;">*</sup></label>
+                                <select name="subject" id="subject" required style="width: 100%; padding: 12px 0; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 16px; outline: none;">
+                                                <option value="">What do you need?</option>
+                                                <option value="RAG System">Custom RAG System</option>
+                                                <option value="AI Agents">AI Workflow Agents</option>
+                                                <option value="GenAI Integration">GenAI Product Integration</option>
+                                                <option value="Strategy Consulting">AI Strategy Consulting</option>
+                                                <option value="Other">Something Else</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <label for="message">Message</label>
-                                            <textarea name="message" id="message" placeholder="Write your message here ..."></textarea>
+                        <div class="input-group" style="margin-bottom: 24px;">
+                            <label for="message" style="display: block; font-size: 12px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 8px;">Message</label>
+                            <textarea name="message" id="message" placeholder="Tell me about your project..." style="width: 100%; padding: 12px 0; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 16px; outline: none; min-height: 120px; resize: vertical;"></textarea>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-group upload-attachment">
-                                            <div>
-                                                <!-- <label for="upload-attachment">
-                                                    <i class="las la-cloud-upload-alt"></i> Add an attachment
-                                                    <input type="file" name="attachment" id="upload-attachment">
-                                                </label> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-group submit-btn-wrap">
-                                            <button id="submitButton" class="theme-btn" type="submit">Send Message</button>
-                                        </div>
-                                    </div>
+                        <div style="text-align: center;">
+                            <button id="submitButton" class="btn btn-primary" type="submit" style="cursor: pointer;">
+                                <i class="las la-paper-plane"></i>
+                                Send Message
+                            </button>
                                 </div>
                                 <input type="hidden" name="_subject" value="New submission from your website">
                                 <input type="text" name="_gotcha" style="display:none">
                             </form>
+                </div>
+                
+                <p class="cta-contact" style="margin-top: 32px;">
+                    Or email me directly: <a href="mailto:sssartaj.04@gmail.com">sssartaj.04@gmail.com</a>
+                </p>
 
+                <p class="cta-location" style="margin-top: 16px;">
+                    Based in Hyderabad, India (GMT+5:30) • Working globally
+                </p>
                         </div>
                     </div>
                 </section>
-            </div>
-        </div>
-        <div class="portfolio-modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <div class="modal-body">
-                    <div class="image-slider">
-                        <div class="slider-container"></div>
-                        <button class="slider-button prev">&lt;</button>
-                        <button class="slider-button next">&gt;</button>
-                    </div>
-                    <div class="project-details">
-                        <h2 class="modal-title-container">
-                            <span class="modal-title"></span>
-                            <a href="#" class="modal-link" target="_blank">
-                                <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </a>
-                        </h2>
-                        <p class="modal-description"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    
 
-    <script src="./assets/js/jquery.js"></script>
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/owl.carousel.js"></script>
-    <script src="./assets/js/gsap.min.js"></script>
-    <script src="./assets/js/ScrollTrigger.min.js"></script>
-    <script src="./assets/js/ScrollToPlugin.min.js"></script>
-    <script src="./assets/js/lightbox.min.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="index.html" class="logo">Sartaj<span>.</span></a>
+            
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:sssartaj.04@gmail.com">Contact</a></li>
+            </ul>
+            
+            <ul class="footer-social">
+                <li><a href="https://www.linkedin.com/in/sartaj-syed" target="_blank"><i class="lab la-linkedin-in"></i></a></li>
+                <li><a href="https://github.com/sartaj04" target="_blank"><i class="lab la-github"></i></a></li>
+                <li><a href="mailto:sssartaj.04@gmail.com"><i class="las la-envelope"></i></a></li>
+            </ul>
+        </div>
+    </footer>
     
-    <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/ajax-form.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          const roles = [
-            "Software Developer",
-            "Machine Learning Engineer",
-            "Full-Stack Developer",
-            "Data Engineer",
-            "Cloud Developer",
-            "Devops Engineer",
-            "Tech Innovator",
-            "Continuous Learner"
-          ];
-          
-          let currentRole = 0;
-          const dynamicText = document.getElementById("dynamic-text");
-        
-          function typeText(text, callback) {
-            let charIndex = 0;
-            const typingInterval = setInterval(() => {
-              dynamicText.textContent = "a " + text.slice(0, charIndex);
-              charIndex++;
-              if (charIndex > text.length) {
-                clearInterval(typingInterval);
-                setTimeout(callback, 1000); // Pause before deleting
-              }
-            }, 100);
-          }
-        
-          function deleteText(callback) {
-            let charIndex = dynamicText.textContent.length - 2; // -2 to account for "a "
-            const deletingInterval = setInterval(() => {
-              dynamicText.textContent = "a " + dynamicText.textContent.slice(2, charIndex);
-              charIndex--;
-              if (charIndex < 0) {
-                clearInterval(deletingInterval);
-                setTimeout(callback, 500); // Pause before typing next role
-              }
-            }, 50);
-          }
-        
-          function updateText() {
-            const roleText = roles[currentRole];
-            typeText(roleText, () => {
-              deleteText(() => {
-                currentRole = (currentRole + 1) % roles.length;
-                updateText();
-              });
-            });
-          }
-        
-          updateText(); // Initial call to set the first role
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
         
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
         
-            </script>
-
-    <script>document.addEventListener('DOMContentLoaded', function() {
-        var portfolioTriggers = document.querySelectorAll('.portfolio-item-trigger');
-        var modals = document.querySelectorAll('.portfolio-modal');
-        var closeButtons = document.querySelectorAll('.close-modal');
-    
-        portfolioTriggers.forEach(function(trigger, index) {
-            trigger.addEventListener('click', function(e) {
-                e.preventDefault();
-                modals[index].style.display = 'block';
-            });
-        });
-    
-        closeButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                this.closest('.portfolio-modal').style.display = 'none';
-            });
-        });
-    
-        window.addEventListener('click', function(e) {
-            modals.forEach(function(modal) {
-                if (e.target == modal) {
-                    modal.style.display = 'none';
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
-    });</script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.querySelector('.portfolio-modal');
-    const sliderContainer = modal.querySelector('.slider-container');
-    const modalTitle = modal.querySelector('.modal-title');
-    const modalDescription = modal.querySelector('.modal-description');
-    const modalLink = modal.querySelector('.modal-link');
-    const closeButton = modal.querySelector('.close-modal');
-    const prevButton = modal.querySelector('.slider-button.prev');
-    const nextButton = modal.querySelector('.slider-button.next');
-    let currentIndex = 0;
-
-    document.querySelectorAll('.portfolio-item-trigger').forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-            e.preventDefault();
-            const projectTitle = this.getAttribute('data-project-title');
-            const projectDescription = this.getAttribute('data-project-description');
-            const projectImages = this.getAttribute('data-project-images').split(',');
-            const projectLink = this.getAttribute('data-project-link');
-
-            modalTitle.textContent = projectTitle;
-            modalDescription.textContent = projectDescription;
-            modalLink.href = projectLink;
-
-            // Clear previous images
-            sliderContainer.innerHTML = '';
-            // Add new images
-            projectImages.forEach(imgSrc => {
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.alt = 'Project Image';
-                sliderContainer.appendChild(img);
-            });
-
-            currentIndex = 0;
-            updateSlider();
-            modal.style.display = 'block';
-        });
-    });
-
-    function updateSlider() {
-        const width = sliderContainer.clientWidth;
-        sliderContainer.style.transform = `translateX(-${currentIndex * width}px)`;
-    }
-
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateSlider();
-        }
-    });
-
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < sliderContainer.children.length - 1) {
-            currentIndex++;
-            updateSlider();
-        }
-    });
-
-    closeButton.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (e) => {
-        if (e.target == modal) {
-            modal.style.display = 'none';
-        }
-    });
-});
-    </script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+        
+        // Contact form submission
         const form = document.getElementById('contactForm');
         const submitButton = document.getElementById('submitButton');
     
+        if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
+                submitButton.innerHTML = '<i class="las la-spinner la-spin"></i> Sending...';
     
             const formData = new FormData(form);
     
@@ -1152,10 +1255,12 @@
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
-                    submitButton.textContent = 'Sent Successfully!';
+                        submitButton.innerHTML = '<i class="las la-check"></i> Sent Successfully!';
+                        submitButton.style.background = '#00cc6a';
                     form.reset();
                     setTimeout(() => {
-                        submitButton.textContent = 'Send Message';
+                            submitButton.innerHTML = '<i class="las la-paper-plane"></i> Send Message';
+                            submitButton.style.background = '';
                         submitButton.disabled = false;
                     }, 3000);
                 } else {
@@ -1164,14 +1269,16 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                submitButton.textContent = 'Error. Try Again';
+                    submitButton.innerHTML = '<i class="las la-times"></i> Error. Try Again';
+                    submitButton.style.background = '#ff4444';
                 submitButton.disabled = false;
+                    setTimeout(() => {
+                        submitButton.innerHTML = '<i class="las la-paper-plane"></i> Send Message';
+                        submitButton.style.background = '';
+                    }, 3000);
             });
         });
-    });
+        }
     </script>
-
-
-   
 </body>
 </html>

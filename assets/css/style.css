@@ -2189,3 +2189,44 @@ body .body-overlay {
     vertical-align: middle;
 }
 
+
+/* ================================
+   CONSULTANT TRANSFORMATION STYLES
+   ================================ */
+
+/* Booking CTA Hover Effect */
+.booking-cta {
+    transition: all 0.3s ease;
+}
+
+.booking-cta:hover {
+    background: #333333 !important;
+    transform: translateY(-5px);
+}
+
+.booking-cta a.theme-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Service Item Pricing Display */
+.service-item .projects {
+    display: block;
+    margin-top: 15px;
+    color: #28e98c;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Optional: Process Timeline Styles (if adding "How I Work" section) */
+.process-timeline .item .step {
+    display: inline-block;
+    background: #28e98c;
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
