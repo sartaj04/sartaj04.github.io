@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sartaj Syed | AI Engineering Consultant</title>
-    <meta name="description" content="I build production AI systems. Custom RAG, AI Agents, GenAI Integration. Based in India, working globally.">
+    <title>Sartaj Syed | AI Implementation Consultant</title>
+    <meta name="description" content="I help companies deploy AI and get real ROI. Gemini/ChatGPT setup, AI workflow automation, process redesign. Based in India, working globally.">
 
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon_16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon_32.png">
@@ -412,6 +412,15 @@
             gap: 24px;
         }
         
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .persona-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
         @media (max-width: 768px) {
             .services-grid {
                 grid-template-columns: 1fr;
@@ -426,6 +435,9 @@
             border-radius: 16px;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .service-card::before {
@@ -481,6 +493,7 @@
             border-top: 1px solid var(--border);
             font-size: 13px;
             line-height: 1.5;
+            margin-top: auto;
         }
         
         .service-meta span {
@@ -877,11 +890,12 @@
             <nav class="nav">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="index.html#implementation">Implementation</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="about.html">About</a></li>
-                                            </ul>
+                </ul>
                 <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
-                    Book Consultation
+                    Book Assessment
                 </a>
             </nav>
             <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
@@ -897,10 +911,11 @@
         <span class="mobile-menu-close" onclick="toggleMobileMenu()">×</span>
         <ul>
             <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="index.html#implementation" onclick="toggleMobileMenu()">Implementation</a></li>
             <li><a href="projects.html" onclick="toggleMobileMenu()">Projects</a></li>
             <li><a href="about.html" onclick="toggleMobileMenu()">About</a></li>
-            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book Consultation</a></li>
-                                            </ul>
+            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book Assessment</a></li>
+        </ul>
                                 </div>
 
     <!-- Hero -->
@@ -912,24 +927,24 @@
                         <span class="dot"></span>
                         Available for Projects
                                       </div>
-                    <h1>I Build <span>Production AI Systems.</span> Fast.</h1>
-                <p class="hero-tagline">AI Engineering Consultant</p>
+                    <h1>I Help Companies <span>Deploy AI.</span> Fast.</h1>
+                <p class="hero-tagline">AI Implementation Consultant</p>
 <div class="hero-services">
-                    <span>Custom RAG</span>
-                    <span>AI Agents</span>
-                    <span>AI Automation</span>
-                    <span>GenAI Integration</span>
-                    <span>AI Strategy</span>
-                                    </div>
+                    <span>AI Workspace Rollout</span>
+                    <span>Workflow Automation</span>
+                    <span>Multi-Agent Systems</span>
+                    <span>Process Redesign</span>
+                    <span>Custom AI Builds</span>
+                </div>
                 <div class="hero-cta">
                     <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
                         <i class="las la-calendar"></i>
-                        Book Free 30-Min Consultation
+                        Book Free AI Assessment
                     </a>
-                    <a href="#services" class="btn btn-outline">
-                        Services ↓
+                    <a href="#implementation" class="btn btn-outline">
+                        Implementation Services ↓
                     </a>
-                                  </div>
+                </div>
                 <div class="hero-stats">
                         <div class="stat">
                             <div class="stat-value">1B+</div>
@@ -951,65 +966,122 @@
                                       </div>
                                     </div>
     </section>
+
+    <!-- AI Implementation Services -->
+    <section class="section services" id="implementation" style="background: linear-gradient(180deg, rgba(0, 255, 136, 0.03) 0%, var(--bg-card) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">AI Implementation Services</span>
+                <h2 class="section-title">Get AI Working in Your Business This Month</h2>
+                <p class="section-subtitle">Too many AI tools. Not enough results. I help mid-market companies deploy and integrate AI without hiring a data science team.</p>
+            </div>
+            
+            <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                    <div class="service-icon">
+                        <i class="las la-cog"></i>
+                    </div>
+                    <h3>Gemini/ChatGPT Workspace Setup</h3>
+                    <p>Enterprise AI rollout for your team. Custom prompts for your business workflows. Complete training and documentation.</p>
+                    <div class="service-meta">
+                        <span><strong>1 week</strong></span>
+                        <span><strong>$900 - $1.8k / ₹75k - 1.5L</strong></span>
+                    </div>
+                </div>
+                
+                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                    <div class="service-icon">
+                        <i class="las la-project-diagram"></i>
+                    </div>
+                    <h3>Multi-Agent Workflow Automation</h3>
+                    <p>Connect your AI tools (Gemini + CRM + Marketing). Build automated workflows. Example: Auto-generate proposals from call transcripts.</p>
+                    <div class="service-meta">
+                        <span><strong>2-3 weeks</strong></span>
+                        <span><strong>$1.8k - $3.6k / ₹1.5L - 3L</strong></span>
+                    </div>
+                </div>
+                
+                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                    <div class="service-icon">
+                        <i class="las la-sync"></i>
+                    </div>
+                    <h3>AI Process Redesign</h3>
+                    <p>Identify high-value AI use cases. Implement 3-5 AI workflows across your organization. Measure impact and refine.</p>
+                    <div class="service-meta">
+                        <span><strong>4 weeks</strong></span>
+                        <span><strong>$3.6k - $6k / ₹3L - 5L</strong></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-note" style="margin-top: 40px;">
+                <p style="margin-bottom: 8px;"><strong>These are IMPLEMENTATION projects, not custom builds.</strong></p>
+                <p style="color: var(--text-secondary); font-size: 15px;">I configure and connect existing AI tools to solve your specific problems. No custom code unless necessary.</p>
+            </div>
+        </div>
+    </section>
         
-    <!-- Services -->
-    <section class="section services" id="services">
+    <!-- Custom Build Services -->
+    <section class="section" id="services">
         <div class="container">
                             <div class="section-header">
-                <span class="section-label">What I Build</span>
-                <h2 class="section-title">Production AI. Not Prototypes.</h2>
-                <p class="section-subtitle">Clear pricing. Fixed timelines. Real results.</p>
+                <span class="section-label">Custom AI Builds</span>
+                <h2 class="section-title">Need Something Custom?</h2>
+                <p class="section-subtitle">When off-the-shelf won't cut it, I build from scratch.</p>
                                   </div>
         
             <div class="services-grid">
                 <div class="service-card">
+                    <span style="display: inline-block; padding: 4px 10px; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 4px; font-size: 11px; color: #00d4ff; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">Custom Build</span>
                     <div class="service-icon">
                         <i class="las la-database"></i>
-                                    </div>
+                    </div>
                     <h3>Custom RAG Systems</h3>
                     <p>Your documents. Instant answers. No hallucinations. Production-ready retrieval with vector databases and hybrid search.</p>
                     <div class="service-meta">
                         <span><strong>2-3 weeks</strong></span>
-                        <span><strong>From ₹50k</strong></span>
-                                  </div>
-                                </div>
+                        <span><strong>From $900 / ₹75k</strong></span>
+                    </div>
+                </div>
                                 
                 <div class="service-card">
+                    <span style="display: inline-block; padding: 4px 10px; background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 4px; font-size: 11px; color: var(--primary); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">Implementation or Build</span>
                     <div class="service-icon">
                         <i class="las la-robot"></i>
-                                    </div>
+                    </div>
                     <h3>AI Workflow Agents</h3>
                     <p>Automate the boring stuff. Email processing. Data extraction. Content generation. Agents that actually work.</p>
                     <div class="service-meta">
                         <span><strong>3-4 weeks</strong></span>
-                        <span><strong>From ₹75k</strong></span>
-                                  </div>
-                                </div>
+                        <span><strong>From $1.8k / ₹1.5L</strong></span>
+                    </div>
+                </div>
 
                 <div class="service-card">
+                    <span style="display: inline-block; padding: 4px 10px; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 4px; font-size: 11px; color: #00d4ff; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">Custom Build</span>
                     <div class="service-icon">
                         <i class="las la-magic"></i>
-                                    </div>
+                    </div>
                     <h3>GenAI Product Features</h3>
                     <p>AI chatbots, smart search, recommendations that actually work. End-to-end from API to frontend.</p>
                     <div class="service-meta">
                         <span><strong>4-6 weeks</strong></span>
-                        <span><strong>From ₹1L</strong></span>
-                                  </div>
-                                </div>
+                        <span><strong>From $2.4k / ₹2L</strong></span>
+                    </div>
+                </div>
                                 
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="las la-lightbulb"></i>
-                              </div>
+                    </div>
                     <h3>AI Strategy Consulting</h3>
                     <p>Tech stack guidance. Feasibility analysis. Roadmap planning. Know what to build before you build it.</p>
                     <div class="service-meta">
                         <span><strong>1 week</strong></span>
-                        <span><strong>₹25k flat</strong></span>
-                                </div>
-                                    </div>
-                        </div>
+                        <span><strong>$600 / ₹50k flat</strong></span>
+                    </div>
+                </div>
+            </div>
                     </div>
                 </section>
         
@@ -1156,40 +1228,125 @@
                                             </div>
     </section>
 
+    <!-- Who This Is For -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; max-width: 700px; margin: 0 auto 48px auto;">
+                <span class="section-label">Who This Is For</span>
+                <h2 class="section-title">Is This Right For Your Company?</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; margin: 0 auto;">
+                <div style="padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
+                    <h3 style="color: var(--primary); font-size: 18px; margin-bottom: 24px;">You're a Good Fit If:</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--border); padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+                            You have 50-500 employees
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--border); padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+                            Revenue $6M - $60M / ₹50Cr - 500Cr
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--border); padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+                            Already using Google Workspace / Microsoft 365
+                        </li>
+                        <li style="padding: 12px 0; padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">✓</span>
+                            Want AI to save time/money, not just "be innovative"
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
+                    <h3 style="color: var(--text-primary); font-size: 18px; margin-bottom: 24px;">Industries I Work With:</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--border); padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">→</span>
+                            Professional Services (Consulting, Legal, Accounting)
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--border); padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">→</span>
+                            Real Estate Agencies
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--border); padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">→</span>
+                            Manufacturing & Distribution
+                        </li>
+                        <li style="padding: 12px 0; padding-left: 28px; position: relative; color: var(--text-secondary);">
+                            <span style="position: absolute; left: 0; color: var(--primary);">→</span>
+                            Education & EdTech
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 48px; padding: 32px; background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h3 style="font-size: 20px; margin-bottom: 12px; color: var(--text-primary);">Why Me Over Big Consultancies?</h3>
+                <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.8;">
+                    × I won't sell you custom AI you don't need<br>
+                    × I won't take 6 months to "explore possibilities"<br>
+                    × I won't use jargon you don't understand<br><br>
+                    <span style="color: var(--primary);">✓ I ship fast (1-4 weeks max) • ✓ I use tools you already own • ✓ I show ROI in weeks</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- About Teaser -->
-    <section class="section" style="text-align: center;">
+    <section class="section" style="text-align: center; background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
         <div class="container">
             <div style="max-width: 800px; margin: 0 auto;">
                 <span class="section-label">About Me</span>
-                <h2 class="section-title" style="margin-bottom: 24px;">Problem Solver. Builder. Always Have Been.</h2>
+                <h2 class="section-title" style="margin-bottom: 24px;">Problem Solver. Implementation Expert.</h2>
                 <p style="font-size: 18px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
-                    I love a challenge. I'm competitive, curious, and driven to figure out what customers actually need—not what we assume they need. That's how I take products from 0 to 1.
+                    I help companies go from "we have AI tools" to "AI is saving us 20 hours/week." I don't just build - I make your existing tools actually work.
                 </p>
                 <p style="font-size: 18px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px;">
-                    Started a company, secured venture capital, grew platforms to thousands of users. Learned what it takes to scale.
+                    4+ years building production AI. Co-founded a startup. Shipped enterprise systems at CBRE and Goldman Sachs. I know what works.
                 </p>
                 <a href="about.html" class="btn btn-outline">Read My Full Story →</a>
-                        </div>
-                    </div>
-                </section>
+            </div>
+        </div>
+    </section>
         
     <!-- CTA -->
     <section class="section cta-section" id="contact">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to Build Your AI System?</h2>
+                <h2>Ready to Get AI Working For Your Business?</h2>
                 
                 <div class="availability-badge">
                     <span class="label">Currently Booking</span>
-                    <span class="value">January 2025 • <span>2 slots available</span></span>
-                    </div>
+                    <span class="value">January 2026 • <span>3 slots available</span></span>
+                </div>
+                
+                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 32px; margin-bottom: 32px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--text-primary);">Book Free AI Implementation Assessment:</h3>
+                    <ul style="list-style: none; margin-bottom: 0;">
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary); font-size: 14px;">
+                            <span style="position: absolute; left: 0; color: var(--primary);">→</span>
+                            Review your current tools (15 min)
+                        </li>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary); font-size: 14px;">
+                            <span style="position: absolute; left: 0; color: var(--primary);">→</span>
+                            Identify 3 quick wins (10 min)
+                        </li>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary); font-size: 14px;">
+                            <span style="position: absolute; left: 0; color: var(--primary);">→</span>
+                            Propose implementation plan (5 min)
+                        </li>
+                    </ul>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px; text-align: center;">No pitch. No obligation. Just honest assessment.</p>
+                </div>
                 
                 <div class="cta-buttons">
                     <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
                         <i class="las la-calendar"></i>
-                        Book Free Consultation
-                                </a>
-                            </div>
+                        Book Free Assessment Call
+                    </a>
+                </div>
 
                 <!-- Contact Form -->
                 <div class="contact-form-wrapper" style="max-width: 600px; margin: 0 auto; text-align: left; margin-top: 40px;">
@@ -1214,6 +1371,9 @@
                                 <label for="subject" style="display: block; font-size: 12px; text-transform: uppercase; color: var(--text-primary); margin-bottom: 8px;">Subject <sup style="color: #ff4444;">*</sup></label>
                                 <select name="subject" id="subject" required style="width: 100%; padding: 12px 0; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 16px; outline: none;">
                                                 <option value="">What do you need?</option>
+                                                <option value="Gemini/ChatGPT Setup">Gemini/ChatGPT Workspace Setup</option>
+                                                <option value="AI Workflow Automation">AI Workflow Automation</option>
+                                                <option value="AI Process Redesign">AI Process Redesign</option>
                                                 <option value="RAG System">Custom RAG System</option>
                                                 <option value="AI Agents">AI Workflow Agents</option>
                                                 <option value="GenAI Integration">GenAI Product Integration</option>
