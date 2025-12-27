@@ -416,8 +416,16 @@
             .services-grid {
                 grid-template-columns: 1fr !important;
             }
+        }
+        
+        .persona-grid {
+            display: grid;
+        }
+        
+        @media (max-width: 768px) {
             .persona-grid {
                 grid-template-columns: 1fr !important;
+                gap: 24px !important;
             }
         }
         
@@ -1236,7 +1244,7 @@
                 <h2 class="section-title">Is This Right For Your Company?</h2>
             </div>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; margin: 0 auto;">
+            <div class="persona-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; margin: 0 auto;">
                 <div style="padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
                     <h3 style="color: var(--primary); font-size: 18px; margin-bottom: 24px;">You're a Good Fit If:</h3>
                     <ul style="list-style: none;">
