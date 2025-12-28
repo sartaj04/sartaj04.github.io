@@ -1,0 +1,8 @@
+# robots.txt for sartajsyed.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sartajsyed.com/sitemap.xml
+
