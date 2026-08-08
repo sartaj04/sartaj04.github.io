@@ -1,0 +1,98 @@
+/* Shared motion — keep light, intentional, interruptible */
+
+:root {
+    --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+    --motion-fast: 280ms;
+    --motion-med: 650ms;
+    --motion-slow: 900ms;
+}
+
+/* Hero entrance */
+.hero-enter {
+    opacity: 0;
+    transform: translateY(22px);
+    animation: heroEnter var(--motion-med) var(--ease-out-expo) forwards;
+}
+
+@keyframes heroEnter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ambient hero glow drift */
+.hero::before {
+    animation: glowDrift 12s var(--ease-soft) infinite alternate;
+}
+
+@keyframes glowDrift {
+    from { opacity: 0.7; transform: translate3d(0, 0, 0) scale(1); }
+    to { opacity: 1; transform: translate3d(-4%, 3%, 0) scale(1.05); }
+}
+
+/* Scroll reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity var(--motion-med) var(--ease-out-expo),
+        transform var(--motion-med) var(--ease-out-expo);
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 60ms; }
+.reveal-delay-2 { transition-delay: 120ms; }
+.reveal-delay-3 { transition-delay: 180ms; }
+.reveal-delay-4 { transition-delay: 240ms; }
+.reveal-delay-5 { transition-delay: 300ms; }
+
+/* Chip / card micro interactions when motion CSS is loaded */
+.hero-services span {
+    transition: transform var(--motion-fast) var(--ease-out-expo), border-color var(--motion-fast) ease, color var(--motion-fast) ease;
+}
+
+.hero-services span:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 255, 136, 0.45);
+    color: var(--primary);
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+.footer-social a {
+    transition: transform var(--motion-fast) var(--ease-out-expo), color var(--motion-fast) ease;
+}
+
+.footer-social a:hover {
+    transform: translateY(-3px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .hero-enter,
+    .hero::before {
+        animation: none !important;
+    }
+
+    .hero-enter,
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .hero-services span:hover,
+    .footer-social a:hover,
+    .btn:active {
+        transform: none !important;
+    }
+}
