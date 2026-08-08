@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Sartaj Syed - AI Implementation Consultant</title>
-    <meta name="description" content="Commercial work. Production systems. Real impact. AI implementation, RAG systems, and workflow automation projects.">
+    <title>Projects | Sartaj Syed - AI Solutions Architect</title>
+    <meta name="description" content="Commercial work. Production systems. Real impact. ML, deep learning, GenAI, LLMs, RAG systems, and agentic AI projects.">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://sartajsyed.com/projects.html">
@@ -12,16 +12,16 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sartajsyed.com/projects.html">
-    <meta property="og:title" content="Projects | Sartaj Syed - AI Implementation Consultant">
-    <meta property="og:description" content="Commercial work. Production systems. Real impact. AI implementation, RAG systems, and workflow automation projects.">
+    <meta property="og:title" content="Projects | Sartaj Syed - AI Solutions Architect">
+    <meta property="og:description" content="Commercial work. Production systems. Real impact. ML, deep learning, GenAI, LLMs, RAG systems, and agentic AI projects.">
     <meta property="og:image" content="https://sartajsyed.com/assets/images/sartaj_portrait.png">
     <meta property="og:site_name" content="Sartaj Syed">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://sartajsyed.com/projects.html">
-    <meta name="twitter:title" content="Projects | Sartaj Syed - AI Implementation Consultant">
-    <meta name="twitter:description" content="Commercial work. Production systems. Real impact. AI implementation, RAG systems, and workflow automation projects.">
+    <meta name="twitter:title" content="Projects | Sartaj Syed - AI Solutions Architect">
+    <meta name="twitter:description" content="Commercial work. Production systems. Real impact. ML, deep learning, GenAI, LLMs, RAG systems, and agentic AI projects.">
     <meta name="twitter:image" content="https://sartajsyed.com/assets/images/sartaj_portrait.png">
 
     <!-- Structured Data -->
@@ -31,7 +31,7 @@
         "@type": "CollectionPage",
         "name": "Projects by Sartaj Syed",
         "url": "https://sartajsyed.com/projects.html",
-        "description": "Commercial work. Production systems. Real impact. AI implementation, RAG systems, and workflow automation projects.",
+        "description": "Commercial work. Production systems. Real impact. ML, deep learning, GenAI, LLMs, RAG systems, and agentic AI projects.",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -398,6 +398,59 @@
         .project-meta-item strong {
             color: var(--text-primary);
         }
+
+        .project-repos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 700px) {
+            .project-repos {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-repo-card {
+            display: block;
+            padding: 20px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .project-repo-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .project-repo-card h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .project-repo-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .project-repo-card .repo-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .project-meta-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-left: auto;
+        }
         
         /* Project Grid */
         .projects-grid {
@@ -679,13 +732,13 @@
             <nav class="nav">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#implementation">Implementation</a></li>
+                    <li><a href="index.html#expertise">Expertise</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="projects.html" class="active">Projects</a></li>
                     <li><a href="about.html">About</a></li>
                 </ul>
                 <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
-                    Book Assessment
+                    Book a Call
                 </a>
             </nav>
             <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
@@ -701,11 +754,11 @@
         <span class="mobile-menu-close" onclick="toggleMobileMenu()">×</span>
         <ul>
             <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
-            <li><a href="index.html#implementation" onclick="toggleMobileMenu()">Implementation</a></li>
+            <li><a href="index.html#expertise" onclick="toggleMobileMenu()">Expertise</a></li>
             <li><a href="blog.html" onclick="toggleMobileMenu()">Blog</a></li>
             <li><a href="projects.html" onclick="toggleMobileMenu()">Projects</a></li>
             <li><a href="about.html" onclick="toggleMobileMenu()">About</a></li>
-            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book Assessment</a></li>
+            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book a Call</a></li>
         </ul>
     </div>
 
@@ -721,46 +774,57 @@
     <section class="section">
         <div class="container">
             
-            <!-- Featured Project: Doriot AI -->
+            <!-- Featured: Doriot Co-Founder Experience -->
             <div class="featured-project">
                 <div class="featured-project-image">
-                    <span class="featured-badge">Featured</span>
+                    <span class="featured-badge">Co-Founder</span>
                     <img src="./assets/images/portfolio1.png" alt="Doriot AI Platform">
                 </div>
                 <div class="featured-project-content">
                     <div class="project-label">Doriot AI • Co-Founder & CTO</div>
-                    <h2>AI-Powered Fundraising Platform</h2>
+                    <h2>Built the Core AI Systems Behind Doriot</h2>
                     <p class="project-description">
-                        Co-founded and built comprehensive AI platform for startup fundraising. From zero to production, handling billions of data points.
+                        As Co-Founder and CTO, I built the two systems that powered Doriot's AI fundraising platform. Both are now open source.
                     </p>
                     <ul class="project-highlights">
-                        <li>AI agents for market research and investor insights</li>
-                        <li>RAG system with hybrid search (vector + text)</li>
-                        <li>Graph Neural Networks for investor matchmaking</li>
-                        <li>1M+ startup-investor relationships processed</li>
-                        <li>1B+ data points handled</li>
-                        <li>Integrated Crunchbase, TechCrunch, funding news</li>
+                        <li>1B+ data points processed from funding and news sources</li>
+                        <li>1M+ startup-investor relationships modeled</li>
+                        <li>Led 6 interns through data engineering and ML delivery</li>
+                        <li>Production stack across FastAPI, PostgreSQL, and cloud infra</li>
                     </ul>
+
+                    <div class="project-repos">
+                        <a href="https://github.com/sartaj04/investment-market-research-agent" target="_blank" class="project-repo-card">
+                            <h4>Investment Market Research Agent</h4>
+                            <p>RAG research agent with multi-label intent routing for funding analysis, startup intelligence, and market research.</p>
+                            <span class="repo-link">View on GitHub →</span>
+                        </a>
+                        <a href="https://github.com/sartaj04/Investor-Recommender" target="_blank" class="project-repo-card">
+                            <h4>Investor Recommender</h4>
+                            <p>GNN recommender that matches startups with VC and angel investors using GraphSAGE and GATv2 models.</p>
+                            <span class="repo-link">View on GitHub →</span>
+                        </a>
+                    </div>
+
                     <div class="project-tech">
                         <span>Python</span>
-                        <span>LangChain</span>
-                        <span>GNNs</span>
-                        <span>Vector DBs</span>
-                        <span>React</span>
-                        <span>AWS</span>
                         <span>FastAPI</span>
-                        <span>Django</span>
+                        <span>RAG</span>
+                        <span>pgvector</span>
+                        <span>GNNs</span>
+                        <span>GraphSAGE</span>
+                        <span>GATv2</span>
+                        <span>Azure OpenAI</span>
+                        <span>PostgreSQL</span>
+                        <span>Redis</span>
                     </div>
                     <div class="project-meta">
                         <div class="project-meta-item">
                             <strong>Role:</strong> Co-Founder & CTO
                         </div>
                         <div class="project-meta-item">
-                            <strong>Timeline:</strong> Aug 2023 – May 2025
+                            <strong>Timeline:</strong> May 2023 – Oct 2024
                         </div>
-                        <a href="https://doriot.ai/" target="_blank" class="btn btn-ghost">
-                            Visit doriot.ai →
-                        </a>
                     </div>
                 </div>
             </div>
@@ -768,35 +832,34 @@
             <!-- Project Grid -->
             <div class="projects-grid">
                 
-                <!-- Talentix -->
+                <!-- AI Career Pathing -->
                 <div class="project-card">
                     <div class="project-card-image">
-                        <img src="./assets/images/partfolio-talentix.png" alt="Talentix Career Engine">
+                        <img src="./assets/images/portfolio-career-pathing.png" alt="AI Career Pathing System">
                     </div>
                     <div class="project-card-content">
-                        <div class="project-label">Talentix • Consulting</div>
-                        <h3>Graph-Powered Career Recommendations</h3>
+                        <div class="project-label">Client Project • Open Source</div>
+                        <h3>AI Career Pathing System</h3>
                         <p class="project-description">
-                            Built career pathing engine for personalized career navigation.
+                            Career progression and job matching engine using graph theory and semantic vector search.
                         </p>
                         <ul>
-                            <li>Graph theory-based recommendation system</li>
+                            <li>Neo4j career transition graphs</li>
                             <li>Vertical, lateral, and pivot path suggestions</li>
-                            <li>Two-layer AI matching: vector search + semantic reranking</li>
-                            <li>High-precision role recommendations</li>
+                            <li>Two-layer matching: vector search plus semantic reranking</li>
+                            <li>FastAPI backend with PostgreSQL and Pinecone</li>
                         </ul>
                         <div class="project-tech">
                             <span>Python</span>
-                            <span>Graph Theory</span>
+                            <span>Neo4j</span>
                             <span>FastAPI</span>
-                            <span>Vector Search</span>
-                            <span>React</span>
-                            <span>AWS</span>
+                            <span>Pinecone</span>
+                            <span>Sentence Transformers</span>
                         </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Role:</strong> AI & Tech Consultant</span>
-                            <a href="https://thetalentix.com/" target="_blank" class="btn btn-ghost">
-                                Visit →
+                            <a href="https://github.com/sartaj04/AI-Careerpathing-system" target="_blank" class="btn btn-ghost">
+                                GitHub →
                             </a>
                         </div>
                     </div>
@@ -805,7 +868,7 @@
                 <!-- SwipeIt -->
                 <div class="project-card">
                     <div class="project-card-image">
-                        <i class="las la-gift"></i>
+                        <img src="./assets/images/portfolio-swipeit.png" alt="SwipeIt rewards platform">
                     </div>
                     <div class="project-card-content">
                         <div class="project-label">SwipeIt • Consulting</div>
@@ -867,13 +930,13 @@
                 <!-- Lyrics Search Engine -->
                 <div class="project-card">
                     <div class="project-card-image">
-                        <i class="las la-music"></i>
+                        <img src="./assets/images/portfolio-lyrics.png" alt="Lyrics search engine">
                     </div>
                     <div class="project-card-content">
                         <div class="project-label">Research Project</div>
                         <h3>Hybrid Search with Advanced Ranking</h3>
                         <p class="project-description">
-                            Django-based search engine with intelligent ranking.
+                            Django-based lyrics search engine with intelligent ranking.
                         </p>
                         <ul>
                             <li>TF-IDF and BM25 ranking algorithms</li>
@@ -906,21 +969,18 @@
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Want AI That Actually Works For Your Business?</h2>
+                <h2>Want Help Building Something Similar?</h2>
                 
                 <div class="cta-buttons">
                     <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
                         <i class="las la-calendar"></i>
-                        Book Free Assessment Call
+                        Book a Free Call
                     </a>
-                    <a href="index.html#implementation" class="btn btn-outline">
-                        View Implementation Services
+                    <a href="mailto:sssartaj.04@gmail.com" class="btn btn-outline" aria-label="Email me">
+                        <i class="las la-envelope"></i>
+                        Email
                     </a>
                 </div>
-                
-                <p class="cta-contact">
-                    Email: <a href="mailto:sssartaj.04@gmail.com">sssartaj.04@gmail.com</a>
-                </p>
             </div>
         </div>
     </section>

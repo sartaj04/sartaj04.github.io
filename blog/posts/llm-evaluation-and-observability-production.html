@@ -5,40 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PRIMARY META -->
-    <title>[POST_TITLE] | Sartaj Syed - AI Solutions Architect</title>
-    <meta name="description" content="[META_DESCRIPTION]">
+    <title>LLM Evaluation and Observability for Production Systems | Sartaj Syed - AI Solutions Architect</title>
+    <meta name="description" content="A practical guide to offline evals, online feedback, and cost telemetry for LLM and RAG systems that need to stay reliable after launch.">
 
     <!-- CANONICAL -->
-    <link rel="canonical" href="https://sartajsyed.com/blog/posts/[POST_SLUG].html">
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/llm-evaluation-and-observability-production.html">
 
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://sartajsyed.com/blog/posts/[POST_SLUG].html">
-    <meta property="og:title" content="[POST_TITLE]">
-    <meta property="og:description" content="[META_DESCRIPTION]">
-    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/[FEATURED_IMAGE].png">
-    <meta property="article:published_time" content="[ISO_DATE]">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/llm-evaluation-and-observability-production.html">
+    <meta property="og:title" content="LLM Evaluation and Observability for Production Systems">
+    <meta property="og:description" content="A practical guide to offline evals, online feedback, and cost telemetry for LLM and RAG systems that need to stay reliable after launch.">
+    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/llm-evaluation-observability.png">
+    <meta property="article:published_time" content="2026-05-05T00:00:00Z">
     <meta property="article:author" content="Sartaj Syed">
-    <meta property="article:tag" content="[TAG1]">
-    <meta property="article:tag" content="[TAG2]">
+    <meta property="article:tag" content="LLMOps">
+    <meta property="article:tag" content="Evaluation">
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/[POST_SLUG].html">
-    <meta name="twitter:title" content="[POST_TITLE]">
-    <meta name="twitter:description" content="[META_DESCRIPTION]">
-    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/[FEATURED_IMAGE].png">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/llm-evaluation-and-observability-production.html">
+    <meta name="twitter:title" content="LLM Evaluation and Observability for Production Systems">
+    <meta name="twitter:description" content="A practical guide to offline evals, online feedback, and cost telemetry for LLM and RAG systems that need to stay reliable after launch.">
+    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/llm-evaluation-observability.png">
 
     <!-- STRUCTURED DATA - Article Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "[POST_TITLE]",
-        "description": "[META_DESCRIPTION]",
-        "image": "https://sartajsyed.com/assets/images/blog/[FEATURED_IMAGE].png",
-        "datePublished": "[ISO_DATE]",
-        "dateModified": "[ISO_DATE]",
+        "headline": "LLM Evaluation and Observability for Production Systems",
+        "description": "A practical guide to offline evals, online feedback, and cost telemetry for LLM and RAG systems that need to stay reliable after launch.",
+        "image": "https://sartajsyed.com/assets/images/blog/llm-evaluation-observability.png",
+        "datePublished": "2026-05-05T00:00:00Z",
+        "dateModified": "2026-05-05T00:00:00Z",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -48,9 +48,9 @@
             "@type": "Person",
             "name": "Sartaj Syed"
         },
-        "articleSection": "[CATEGORY]",
-        "keywords": "[TAG1], [TAG2], [TAG3]",
-        "wordCount": [WORD_COUNT]
+        "articleSection": "Tutorial",
+        "keywords": "LLMOps, Evaluation, RAG",
+        "wordCount": 1700
     }
     </script>
 
@@ -612,16 +612,16 @@
     <!-- Article Header -->
     <article class="article-container">
         <header class="article-header">
-            <span class="article-category">[CATEGORY]</span>
-            <h1 class="article-title">[POST_TITLE]</h1>
+            <span class="article-category">Tutorial</span>
+            <h1 class="article-title">LLM Evaluation and Observability for Production Systems</h1>
             <div class="article-meta">
                 <span class="article-meta-item">
                     <i class="las la-calendar"></i>
-                    [PUBLISH_DATE]
+                    May 5, 2026
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-clock"></i>
-                    [READING_TIME] min read
+                    9 min read
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-user"></i>
@@ -629,68 +629,150 @@
                 </span>
             </div>
             <div class="article-tags">
-                <span class="article-tag">[TAG1]</span>
-                <span class="article-tag">[TAG2]</span>
-                <span class="article-tag">[TAG3]</span>
+                <span class="article-tag">LLMOps</span>
+                <span class="article-tag">Evaluation</span>
+                <span class="article-tag">RAG</span>
             </div>
         </header>
 
         <!-- Featured Image (optional) -->
         <div class="article-featured-image">
-            <img src="../../assets/images/blog/[FEATURED_IMAGE].png" alt="[ALT_TEXT]">
+            <img src="../../assets/images/blog/llm-evaluation-observability.png" alt="LLM evaluation metrics and observability dashboard concept">
         </div>
 
         <!-- Article Content -->
         <div class="article-content">
             <!-- POST CONTENT STARTS HERE -->
+            <p>Shipping an LLM feature is easy compared with knowing whether it still works next month. Prompt drift, index drift, model updates, and changing user behavior all quietly erode quality.</p>
 
-            <p>Opening paragraph that hooks the reader and introduces the main topic...</p>
+            <p>This tutorial is a practical stack for evaluation and observability that I use on production GenAI and RAG systems. It is not a vendor tour. It is a workflow you can implement with your current tools.</p>
 
-            <h2>Main Section Heading</h2>
-            <p>Content for this section...</p>
-
+            <h2>Split the Problem: Offline vs Online</h2>
             <ul>
-                <li>Key point 1</li>
-                <li>Key point 2</li>
-                <li>Key point 3</li>
+                <li><strong>Offline evaluation:</strong> fixed datasets, repeatable scores, release gates</li>
+                <li><strong>Online observability:</strong> live traffic, traces, user feedback, cost and latency</li>
             </ul>
+            <p>You need both. Offline catches regressions before deploy. Online catches reality after users arrive.</p>
 
-            <h3>Subsection Heading</h3>
-            <p>More detailed content here...</p>
+            <h2>Step 1: Build a Golden Set</h2>
+            <p>Start with 50 to 200 real examples. Pull from support tickets, search logs, or sales FAQs. Include:</p>
+            <ul>
+                <li>Common easy cases</li>
+                <li>Ambiguous questions</li>
+                <li>Out-of-scope requests</li>
+                <li>Permission-sensitive asks</li>
+                <li>Known failure modes from past incidents</li>
+            </ul>
+            <p>For each item, store the user input, expected behavior, and any required citations or tool calls. For RAG, store the documents that should be retrieved when possible.</p>
 
             <div class="callout-box">
                 <h4>Key Takeaway</h4>
-                <p>Important insight or summary that deserves special attention.</p>
+                <p>If your eval set is only happy paths written by the team that built the feature, it will green-light bad releases. Include the messy cases.</p>
             </div>
 
-            <h2>Another Main Section</h2>
-            <p>Continue with more content...</p>
+            <h2>Step 2: Define Metrics That Match the Job</h2>
+            <h3>For RAG answer systems</h3>
+            <ul>
+                <li>Retrieval hit rate / recall@k</li>
+                <li>Answer groundedness (claims supported by retrieved context)</li>
+                <li>Correctness against a reference or rubric</li>
+                <li>Refusal quality on out-of-scope questions</li>
+            </ul>
+            <h3>For agents and workflows</h3>
+            <ul>
+                <li>Task success rate</li>
+                <li>Wrong tool call rate</li>
+                <li>Steps to completion</li>
+                <li>Human escalation rate</li>
+            </ul>
+            <h3>For all systems</h3>
+            <ul>
+                <li>p50 / p95 latency</li>
+                <li>Cost per successful outcome</li>
+                <li>Error and timeout rate</li>
+            </ul>
+
+            <h2>Step 3: Automate Offline Evals in CI</h2>
+            <p>Run the golden set on every meaningful change: prompt, chunking, embedding model, generator model, or tool schema.</p>
+<pre><code># Pseudocode for a release gate
+results = run_eval_suite(dataset="golden_v3", config=candidate)
+assert results.groundedness >= baseline.groundedness - 0.02
+assert results.task_success >= baseline.task_success - 0.03
+assert results.p95_latency_ms <= sla.p95_latency_ms
+assert results.cost_per_success <= budget.cost_per_success * 1.15
+</code></pre>
+            <p>Fail the build when quality or cost regresses past thresholds. Manual "looks good to me" reviews do not scale.</p>
+
+            <h2>Step 4: Trace Every Production Request</h2>
+            <p>Log a structured trace per request:</p>
+            <ul>
+                <li>Request ID, user segment, feature flag</li>
+                <li>Retrieved document IDs and scores</li>
+                <li>Model name, temperature, token counts</li>
+                <li>Tool calls and outcomes</li>
+                <li>Final answer and latency breakdown</li>
+            </ul>
+            <p>Without traces, you cannot debug "it got worse on Tuesday." With traces, you can see whether retrieval, the model, or a tool caused the failure.</p>
+
+            <h2>Step 5: Collect Online Feedback Signals</h2>
+            <p>Useful signals, in order of reliability:</p>
+            <ol>
+                <li>Task completion events (ticket closed, form submitted, checkout finished)</li>
+                <li>Explicit thumbs up / down with optional reason codes</li>
+                <li>Regeneration or edit rate</li>
+                <li>Escalation to human support</li>
+            </ol>
+            <p>Do not optimize only for thumbs. Users downvote style issues and upvote fluent wrong answers. Pair feedback with outcome metrics.</p>
+
+            <h2>Step 6: Watch Cost Like a Product Metric</h2>
+            <p>Enterprise GenAI cost problems usually come from silent volume growth or agent loops, not from the first invoice. Track:</p>
+            <ul>
+                <li>Tokens and USD per route / model</li>
+                <li>Cost per successful task, not per raw call</li>
+                <li>Retry and fallback multipliers</li>
+                <li>Top prompts or users by spend</li>
+            </ul>
+            <p>Set alerts when daily cost rises more than a set percent without a matching success-rate gain.</p>
+
+            <h2>A Minimal Weekly Review Cadence</h2>
+            <ul>
+                <li>Monday: scan failed traces and top negative feedback clusters</li>
+                <li>Midweek: patch prompts or retrieval rules for the top issue</li>
+                <li>Friday: rerun offline suite and compare to last release</li>
+            </ul>
+            <p>This is boring. It is also how systems stay trustworthy after the launch blog post.</p>
 
             <blockquote>
-                <p>A relevant quote or important statement that adds value to your content.</p>
+                <p>If you cannot explain quality and cost with numbers, you do not have a production AI system yet. You have a hosted experiment.</p>
             </blockquote>
 
-            <!-- Code Example (if needed) -->
-            <pre><code>// Example code snippet
-function exampleFunction() {
-    return "This is how you add code";
-}</code></pre>
+            <h2>Common Mistakes</h2>
+            <ul>
+                <li>Evaluating only final answers and ignoring retrieval quality</li>
+                <li>Changing models in production with no golden-set comparison</li>
+                <li>Logging prompts without redacting secrets</li>
+                <li>Using LLM-as-judge with no calibration against human labels</li>
+                <li>Optimizing average latency while p95 is on fire</li>
+            </ul>
 
-            <!-- POST CONTENT ENDS HERE -->
+            <h2>Bottom Line</h2>
+            <p>Evaluation is how you decide what to ship. Observability is how you keep it alive. Put a golden set, release gates, traces, and cost dashboards in place before you scale traffic. Everything else is optional polish.</p>
+
+                        <!-- POST CONTENT ENDS HERE -->
 
             <!-- Social Share Buttons -->
             <div class="social-share">
                 <span class="social-share-label">Share:</span>
-                <a href="https://twitter.com/intent/tweet?text=[POST_TITLE]&url=https://sartajsyed.com/blog/posts/[POST_SLUG].html" target="_blank" class="social-share-btn">
+                <a href="https://twitter.com/intent/tweet?text=LLM Evaluation and Observability for Production Systems&url=https://sartajsyed.com/blog/posts/llm-evaluation-and-observability-production.html" target="_blank" class="social-share-btn">
                     <i class="lab la-twitter"></i>
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/[POST_SLUG].html" target="_blank" class="social-share-btn">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/llm-evaluation-and-observability-production.html" target="_blank" class="social-share-btn">
                     <i class="lab la-linkedin-in"></i>
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/[POST_SLUG].html" target="_blank" class="social-share-btn">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/llm-evaluation-and-observability-production.html" target="_blank" class="social-share-btn">
                     <i class="lab la-facebook-f"></i>
                 </a>
-                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/[POST_SLUG].html')" class="social-share-btn" id="copyBtn">
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/llm-evaluation-and-observability-production.html')" class="social-share-btn" id="copyBtn">
                     <i class="las la-link"></i>
                 </button>
             </div>
