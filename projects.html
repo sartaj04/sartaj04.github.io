@@ -653,7 +653,25 @@
             border-color: var(--primary);
             color: var(--primary);
         }
-        
+
+        .footer-note {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .footer-note a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer-note a:hover {
+            color: var(--text-secondary);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -968,6 +986,13 @@
                 </div>
                 
             </div>
+
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="https://github.com/sartaj04" target="_blank" class="btn btn-outline">View All Projects →</a>
+                <p style="margin-top: 20px; font-size: 14px; color: var(--text-muted);">
+                    More client work via <a href="https://neurocell.in/work" target="_blank" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">Neurocell</a>
+                </p>
+            </div>
             
         </div>
     </section>
@@ -988,6 +1013,10 @@
                         Email
                     </a>
                 </div>
+                <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
+                    Want to hire an AI firm?
+                    <a href="https://www.neurocell.in/contact" target="_blank" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">Contact Neurocell →</a>
+                </p>
             </div>
         </div>
     </section>
@@ -1010,6 +1039,7 @@
                 <li><a href="mailto:sssartaj.04@gmail.com"><i class="las la-envelope"></i></a></li>
             </ul>
         </div>
+        <p class="footer-note">AI services via <a href="https://neurocell.in/work" target="_blank">Neurocell</a></p>
     </footer>
 
     <script>

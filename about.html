@@ -239,18 +239,58 @@
             pointer-events: none;
         }
         
+        .page-hero-inner {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 56px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
         .page-hero-content {
-            max-width: 800px;
+            max-width: 780px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .page-hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--primary);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+        
+        .page-hero-label .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
         }
         
         .page-hero h1 {
             font-size: clamp(40px, 6vw, 56px);
-            margin-bottom: 32px;
+            margin-bottom: 16px;
             letter-spacing: -1px;
         }
         
         .page-hero h1 span {
             color: var(--primary);
+        }
+        
+        .page-hero-tagline {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            font-weight: 500;
         }
         
         .page-hero-text {
@@ -259,8 +299,127 @@
             color: var(--text-secondary);
         }
         
+        .page-hero-text p {
+            margin-bottom: 16px;
+        }
+        
+        .page-hero-text p:last-child {
+            margin-bottom: 0;
+        }
+        
         .page-hero-text strong {
             color: var(--text-primary);
+        }
+        
+        .page-hero-image {
+            position: relative;
+            z-index: 2;
+            justify-self: end;
+            width: 100%;
+            max-width: 380px;
+        }
+        
+        .page-hero-image img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            height: auto;
+            min-height: 0;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+            filter: grayscale(100%);
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+        
+        .page-hero-image:hover img {
+            filter: grayscale(0%);
+            transform: translateY(-4px);
+        }
+        
+        .about-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .about-stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .about-stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .focus-card {
+            padding: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            border-top: 3px solid var(--primary);
+        }
+        
+        .focus-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .focus-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        @media (max-width: 900px) {
+            .page-hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .page-hero-content {
+                max-width: 100%;
+            }
+            
+            .page-hero-image {
+                order: -1;
+                margin: 0 auto 16px;
+                width: min(100%, 280px);
+                max-width: 280px;
+                justify-self: center;
+            }
+            
+            .page-hero-image img {
+                width: 100%;
+                height: auto;
+            }
+            
+            .page-hero-label {
+                justify-content: center;
+            }
+            
+            .about-stats {
+                justify-content: center;
+            }
+            
+            .focus-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         /* Section */
@@ -381,64 +540,61 @@
             border-bottom: none;
         }
         
-        /* Timeline */
+        /* Timeline as full-width cards */
         .timeline {
             position: relative;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
         
         .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border);
+            display: none;
         }
         
         .timeline-item {
-            padding-left: 48px;
-            padding-bottom: 48px;
+            padding: 28px;
             position: relative;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
         
         .timeline-item:last-child {
-            padding-bottom: 0;
+            padding-bottom: 28px;
+        }
+        
+        .timeline-item:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
         }
         
         .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
-            background: var(--border);
-            border-radius: 50%;
-            transition: all 0.3s ease;
+            display: none;
         }
         
         .timeline-item:hover::before {
-            background: var(--primary);
+            display: none;
         }
         
         .timeline-date {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
         .timeline-item h3 {
             font-size: 20px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         
         .timeline-company {
             font-size: 14px;
             color: var(--primary);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
         
         .timeline-item p {
@@ -448,7 +604,7 @@
         
         .timeline-item ul {
             list-style: none;
-            margin-top: 12px;
+            margin-top: 0;
         }
         
         .timeline-item ul li {
@@ -460,10 +616,77 @@
         }
         
         .timeline-item ul li::before {
-            content: '•';
+            content: '→';
             position: absolute;
             left: 0;
             color: var(--primary);
+        }
+        
+        .section[style*="bg-card"] .timeline-item,
+        .founder-section + .section .timeline-item {
+            background: var(--bg-card);
+        }
+
+        .experience-section .timeline-item {
+            background: var(--bg-dark);
+        }
+
+        .consulting-section .timeline-item {
+            background: var(--bg-card);
+        }
+
+        /* Roadmap timeline (side-by-side with path) */
+        .timeline-roadmap {
+            counter-reset: roadmap-step;
+            gap: 40px 56px;
+        }
+
+        .timeline-roadmap .timeline-item {
+            counter-increment: roadmap-step;
+            padding: 32px 28px 28px;
+            overflow: visible;
+        }
+
+        .timeline-roadmap .timeline-item::before {
+            content: counter(roadmap-step, decimal-leading-zero);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -14px;
+            left: 28px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0;
+            z-index: 2;
+        }
+
+        .experience-section .timeline-roadmap .timeline-item::before {
+            background: var(--bg-card);
+        }
+
+        .timeline-roadmap .timeline-date {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 14px;
+            margin-top: 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            background: rgba(0, 255, 136, 0.08);
+            color: var(--primary);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+        }
+
+        .timeline-roadmap .timeline-item:hover {
+            border-color: rgba(0, 255, 136, 0.35);
         }
         
         /* Two Column Layout */
@@ -474,12 +697,25 @@
         }
         
         /* Education */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
         .education-card {
             padding: 32px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 0;
+            height: 100%;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .education-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
         }
         
         .education-card h3 {
@@ -544,23 +780,6 @@
         .tech-list span:hover {
             border-color: var(--primary);
             color: var(--text-primary);
-        }
-        
-        /* Location */
-        .location-section {
-            text-align: center;
-            padding: 80px 0;
-        }
-        
-        .location-section h2 {
-            font-size: 28px;
-            margin-bottom: 16px;
-        }
-        
-        .location-section p {
-            font-size: 17px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
         }
         
         /* CTA Section */
@@ -650,6 +869,24 @@
             border-color: var(--primary);
             color: var(--primary);
         }
+
+        .footer-note {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .footer-note a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer-note a:hover {
+            color: var(--text-secondary);
+        }
         
         /* Responsive */
         @media (max-width: 900px) {
@@ -661,6 +898,18 @@
             .two-col {
                 grid-template-columns: 1fr;
                 gap: 32px;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-roadmap {
+                gap: 28px;
             }
         }
         
@@ -769,15 +1018,61 @@
     <!-- Page Hero -->
     <section class="page-hero">
         <div class="container">
-            <div class="page-hero-content">
-                <h1>I Help Companies <span>Deploy AI.</span> Fast.</h1>
-                <div class="page-hero-text">
-                    <p><strong>AI Solutions Architect working across ML, deep learning, generative AI, LLMs, and RAG.</strong></p>
-                    <p>Co-founded Doriot AI and scaled it to process billions of data points. Built agentic GenAI systems at CBRE. Delivered production AI for companies in India and abroad.</p>
-                    <br>
-                    <p>I work across classical models, neural networks, retrieval systems, and LLM applications. The through line is simple: architecture that can survive production.</p>
-                    <br>
-                    <p>These days I help teams choose the right AI approach and get it shipped. Honest tradeoffs. Solid systems. Useful outcomes.</p>
+            <div class="page-hero-inner">
+                <div class="page-hero-content">
+                    <div class="page-hero-label">
+                        <span class="dot"></span>
+                        About Sartaj Syed
+                    </div>
+                    <h1>I Help Companies <span>Deploy AI.</span> Fast.</h1>
+                    <p class="page-hero-tagline">AI Solutions Architect</p>
+                    <div class="page-hero-text">
+                        <p><strong>I design and ship production AI across machine learning, deep learning, generative AI, LLMs, and RAG.</strong></p>
+                        <p>Co-founded Doriot AI and scaled systems that processed billions of data points. Built agentic GenAI at CBRE. Shipped client systems for teams in the US, UK, and India.</p>
+                        <p>My bias is simple: pick the right approach, build it properly, and get it into production. That might mean classical ML, a RAG pipeline, multi-agent workflows, or a GenAI product feature. Fit matters more than novelty.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div>
+                            <div class="about-stat-value">5+</div>
+                            <div class="about-stat-label">Years building AI systems</div>
+                        </div>
+                        <div>
+                            <div class="about-stat-value">1B+</div>
+                            <div class="about-stat-label">Data points processed</div>
+                        </div>
+                        <div>
+                            <div class="about-stat-value">6</div>
+                            <div class="about-stat-label">Production systems shipped</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-hero-image">
+                    <img src="./assets/images/sartaj_portrait.png" alt="Sartaj Syed, AI Solutions Architect">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Focus Areas -->
+    <section class="section" style="padding-top: 40px;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Focus</span>
+                <h2 class="section-title">Where I Add the Most Value</h2>
+                <p class="section-subtitle">From model choice to production delivery.</p>
+            </div>
+            <div class="focus-grid">
+                <div class="focus-card">
+                    <h3>Architecture first</h3>
+                    <p>Clear tradeoffs across ML, LLMs, RAG, and agents before anyone writes a lot of code.</p>
+                </div>
+                <div class="focus-card">
+                    <h3>Production delivery</h3>
+                    <p>Evaluation, observability, cost control, and systems that survive real traffic and messy data.</p>
+                </div>
+                <div class="focus-card">
+                    <h3>End-to-end ownership</h3>
+                    <p>Data pipelines, model layer, APIs, and product features. Startup speed with enterprise discipline.</p>
                 </div>
             </div>
         </div>
@@ -788,6 +1083,8 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Founder Experience</span>
+                <h2 class="section-title">Building Doriot AI</h2>
+                <p class="section-subtitle">Co-Founder and CTO. Two core systems, now open source.</p>
             </div>
             
             <div class="founder-card">
@@ -804,13 +1101,6 @@
                             <li>1M+ startup-investor relationships modeled</li>
                             <li>1B+ data points from Crunchbase, TechCrunch, and funding news</li>
                         </ul>
-                        
-                        <h4>The Team:</h4>
-                        <ul>
-                            <li>Led 6 interns through data engineering and ML delivery</li>
-                            <li>Shipped features in sprints, iterated fast</li>
-                            <li>Built for scale from day one</li>
-                        </ul>
                     </div>
                 </div>
                 
@@ -820,7 +1110,7 @@
                         <li>How to build AI systems that handle billions of data points</li>
                         <li>Product-market fit is harder than engineering</li>
                         <li>Speed matters more than perfection</li>
-                        <li>Leading technical teams under startup pressure</li>
+                        <li>Team management: leading 6 interns through data engineering and ML delivery under startup pressure</li>
                     </ul>
                 </div>
             </div>
@@ -828,18 +1118,29 @@
     </section>
 
     <!-- Consulting Work -->
-    <section class="section">
+    <section class="section consulting-section">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Consulting Work</span>
                 <h2 class="section-title">Client Projects</h2>
+                <p class="section-subtitle">Select freelance engagements. Additional AI services work via <a href="https://neurocell.in/work" target="_blank" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">Neurocell</a>.</p>
             </div>
             
             <div class="timeline">
                 <div class="timeline-item">
+                    <h3>AI & Tech Consultant</h3>
+                    <div class="timeline-company"><a href="https://www.audic.ai/" target="_blank" style="color: var(--primary);">Audic AI</a> | via <a href="https://www.neurocell.in/work/audic-ai" target="_blank" style="color: var(--primary);">Neurocell</a></div>
+                    <ul>
+                        <li>AI-powered audio ad generation and vernacular TTS for Indian languages</li>
+                        <li>Multi-format creative systems spanning voice, image, and video ad units</li>
+                        <li>Product and tech consulting for generative advertising workflows</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
                     <div class="timeline-date">March 2024 – May 2025</div>
                     <h3>AI & Tech Consultant</h3>
-                    <div class="timeline-company">AI Career Pathing System | USA (Freelance)</div>
+                    <div class="timeline-company">Talentix | USA (Freelance)</div>
                     <ul>
                         <li>Graph-powered career pathing with Neo4j</li>
                         <li>Personalized vertical, lateral, and pivot path recommendations</li>
@@ -863,14 +1164,15 @@
     </section>
 
     <!-- Professional Experience -->
-    <section class="section" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <section class="section experience-section" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Professional Track</span>
                 <h2 class="section-title">Employment History</h2>
+                <p class="section-subtitle">A roadmap from early engineering roles to GenAI systems work.</p>
             </div>
             
-            <div class="timeline">
+            <div class="timeline timeline-roadmap">
                 <div class="timeline-item">
                     <div class="timeline-date">May 2025 – Present</div>
                     <h3>Data Scientist - GenAI</h3>
@@ -921,35 +1223,31 @@
     <!-- Education -->
     <section class="section">
         <div class="container">
-            <div class="two-col">
-                <div>
-                    <div class="section-header">
-                        <span class="section-label">Education</span>
-                        <h2 class="section-title">Academic Background</h2>
-                    </div>
-                    
-                    <div class="education-card">
-                        <h3>MSc Computer Science</h3>
-                        <p class="institution">The University of Edinburgh</p>
-                        <p class="year">2022-2023 | Merit</p>
-                        <p>Focus: Applied Machine Learning, Text Technologies, Advanced Databases, Software Development</p>
-                    </div>
-                    
-                    <div class="education-card">
-                        <h3>B.E. Electrical & Electronics</h3>
-                        <p class="institution">Osmania University</p>
-                        <p class="year">2015-2019 | Distinction</p>
-                    </div>
+            <div class="section-header">
+                <span class="section-label">Education</span>
+                <h2 class="section-title">Academic Background</h2>
+            </div>
+
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>MSc Computer Science</h3>
+                    <p class="institution">The University of Edinburgh</p>
+                    <p class="year">2022-2023</p>
+                    <p>Focus: Applied Machine Learning, Information Retrieval Systems, Deep Learning, Distributed Systems</p>
+                </div>
+
+                <div class="education-card">
+                    <h3>Post Graduate Diploma in AI</h3>
+                    <p class="institution">IIIT Delhi</p>
+                    <p class="year">2021-2022</p>
+                    <p>Specialisation in artificial intelligence, covering core ML and applied AI coursework.</p>
                 </div>
                 
-                <div class="location-section" style="text-align: left; padding: 0;">
-                    <div class="section-header">
-                        <span class="section-label">Location</span>
-                        <h2 class="section-title">Based in Hyderabad, India</h2>
-                    </div>
-                    <p style="color: var(--text-secondary); font-size: 17px; margin-bottom: 16px;">Working with startups globally.</p>
-                    <p style="color: var(--text-secondary); font-size: 17px; margin-bottom: 16px;">Available for remote projects worldwide.</p>
-                    <p style="color: var(--text-muted); font-size: 14px;">Timezone: GMT+5:30</p>
+                <div class="education-card">
+                    <h3>B.E. Electrical & Electronics</h3>
+                    <p class="institution">Osmania University</p>
+                    <p class="year">2015-2019</p>
+                    <p>Specialisation in IoT and Renewable Energies</p>
                 </div>
             </div>
         </div>
@@ -1062,8 +1360,10 @@
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Have an AI Project in Mind?</h2>
-                
+                <h2>Want to Work Together?</h2>
+                <p style="font-size: 18px; color: var(--text-secondary); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto;">
+                    Free 30-minute call. Tell me what you are building and we will map the right approach.
+                </p>
                 <div class="cta-buttons">
                     <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
                         <i class="las la-calendar"></i>
@@ -1074,6 +1374,10 @@
                         Email
                     </a>
                 </div>
+                <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
+                    Want to hire an AI firm?
+                    <a href="https://www.neurocell.in/contact" target="_blank" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">Contact Neurocell →</a>
+                </p>
             </div>
         </div>
     </section>
@@ -1096,6 +1400,7 @@
                 <li><a href="mailto:sssartaj.04@gmail.com"><i class="las la-envelope"></i></a></li>
             </ul>
         </div>
+        <p class="footer-note">AI services via <a href="https://neurocell.in/work" target="_blank">Neurocell</a></p>
     </footer>
 
     <script>

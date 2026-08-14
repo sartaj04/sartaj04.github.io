@@ -22,7 +22,7 @@
     }
 
     function initScrollReveal() {
-        const candidates = document.querySelectorAll(
+        const         candidates = document.querySelectorAll(
             [
                 '.section-header',
                 '.service-card',
@@ -37,7 +37,9 @@
                 '.education-card',
                 '.tech-category',
                 '.cta-content',
-                '.persona-grid > div'
+                '.persona-grid > div',
+                '.focus-card',
+                '.page-hero-image'
             ].join(', ')
         );
 
