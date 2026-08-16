@@ -83,9 +83,20 @@
         
         html {
             scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
         }
         
         body {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             font-family: 'DM Sans', sans-serif;
             background: var(--bg-dark);
             color: var(--text-secondary);

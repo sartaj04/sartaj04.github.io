@@ -8,6 +8,29 @@
     --motion-slow: 900ms;
 }
 
+/* Hide page scrollbar; keep scrolling */
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
 /* Hero entrance */
 .hero-enter {
     opacity: 0;
