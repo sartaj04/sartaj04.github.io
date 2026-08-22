@@ -501,25 +501,9 @@
             height: 100%;
         }
         
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
         .service-card:hover {
             border-color: var(--border-hover);
             transform: translateY(-4px);
-        }
-        
-        .service-card:hover::before {
-            opacity: 1;
         }
         
         .service-icon {
@@ -1101,7 +1085,7 @@
                                   </div>
         
             <div class="services-grid">
-                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="las la-brain"></i>
                     </div>
@@ -1109,7 +1093,7 @@
                     <p>Classical ML, neural nets, computer vision, NLP, and graph models. From experiments through to production pipelines.</p>
                 </div>
                                 
-                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="las la-database"></i>
                     </div>
@@ -1117,7 +1101,7 @@
                     <p>Retrieval systems with vector search and hybrid ranking so LLMs answer from your private data without guessing.</p>
                 </div>
 
-                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="las la-robot"></i>
                     </div>
@@ -1125,7 +1109,7 @@
                     <p>LLM apps, prompt systems, fine-tuning plans, evaluation, and GenAI features you can actually put in front of users.</p>
                 </div>
                                 
-                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="las la-project-diagram"></i>
                     </div>
@@ -1133,7 +1117,7 @@
                     <p>Multi-agent workflows and tool-using pipelines for research, extraction, and longer business processes.</p>
                 </div>
 
-                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="las la-magic"></i>
                     </div>
@@ -1141,7 +1125,7 @@
                     <p>Chat, search, and recommendations built end to end, from the model layer through the API to the frontend.</p>
                 </div>
 
-                <div class="service-card" style="border-top: 3px solid var(--primary);">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="las la-lightbulb"></i>
                     </div>
@@ -1167,7 +1151,7 @@
                         <img src="./assets/images/healthjourney.png" alt="HealthJourney patient care platform">
                     </div>
                     <div class="work-content">
-                        <div class="work-label">HealthJourney • Open Source</div>
+                        <div class="work-label">HealthJourney • Open Source • 2026</div>
                         <h3>AI-Powered Patient Journey Platform</h3>
                         <p>Agentic AI for clinic care: multi-step agents handle WhatsApp intake, structured consults, lab extraction, and multilingual summaries with DB-level tenant isolation.</p>
                         <ul>
@@ -1193,7 +1177,7 @@
                         <img src="./assets/images/asl.png" alt="API Stress Lab dashboard">
                     </div>
                     <div class="work-content">
-                        <div class="work-label">API Stress Lab • Open Source</div>
+                        <div class="work-label">API Stress Lab • Open Source • 2026</div>
                         <h3>AI-Powered API Load Testing</h3>
                         <p>AI-powered load testing: generate OpenAPI scenarios, run chaos profiles, and get bottleneck analysis with actionable fixes.</p>
                         <ul>
