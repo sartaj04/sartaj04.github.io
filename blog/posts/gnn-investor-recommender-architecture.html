@@ -5,28 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PRIMARY META -->
-    <title>When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One | Sartaj Syed</title>
-    <meta name="description" content="Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.">
+    <title>Why This Investor Recommender Uses Two GATv2 Models, Not One | Sartaj Syed</title>
+    <meta name="description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
 
     <!-- CANONICAL -->
-    <link rel="canonical" href="https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html">
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
 
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html">
-    <meta property="og:title" content="When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One">
-    <meta property="og:description" content="Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
+    <meta property="og:title" content="Why This Investor Recommender Uses Two GATv2 Models, Not One">
+    <meta property="og:description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
     <meta property="og:image" content="https://sartajsyed.com/assets/images/portfolio1.png">
-    <meta property="article:published_time" content="2025-02-20T00:00:00Z">
+    <meta property="article:published_time" content="2024-12-05T00:00:00Z">
     <meta property="article:author" content="Sartaj Syed">
-    <meta property="article:tag" content="LLM Routing">
-    <meta property="article:tag" content="Multi-Model">
+    <meta property="article:tag" content="Graph Neural Networks">
+    <meta property="article:tag" content="Recommender Systems">
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html">
-    <meta name="twitter:title" content="When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One">
-    <meta name="twitter:description" content="Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
+    <meta name="twitter:title" content="Why This Investor Recommender Uses Two GATv2 Models, Not One">
+    <meta name="twitter:description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
     <meta name="twitter:image" content="https://sartajsyed.com/assets/images/portfolio1.png">
 
     <!-- STRUCTURED DATA - Article Schema -->
@@ -34,11 +34,11 @@
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One",
-        "description": "Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.",
+        "headline": "Why This Investor Recommender Uses Two GATv2 Models, Not One",
+        "description": "Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.",
         "image": "https://sartajsyed.com/assets/images/portfolio1.png",
-        "datePublished": "2025-02-20T00:00:00Z",
-        "dateModified": "2025-02-20T00:00:00Z",
+        "datePublished": "2024-12-05T00:00:00Z",
+        "dateModified": "2024-12-05T00:00:00Z",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -48,9 +48,9 @@
             "@type": "Person",
             "name": "Sartaj Syed"
         },
-        "articleSection": "Insight",
-        "keywords": "LLM Routing, Multi-Model, RAG, DeepSeek-R1",
-        "wordCount": 1100
+        "articleSection": "Engineering",
+        "keywords": "Graph Neural Networks, GATv2, GraphSAGE, PyTorch Geometric, Recommender Systems",
+        "wordCount": 1300
     }
     </script>
 
@@ -627,16 +627,16 @@
     <!-- Article Header -->
     <article class="article-container">
         <header class="article-header">
-            <span class="article-category">Insight</span>
-            <h1 class="article-title">When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One</h1>
+            <span class="article-category">Engineering</span>
+            <h1 class="article-title">Why This Investor Recommender Uses Two GATv2 Models, Not One</h1>
             <div class="article-meta">
                 <span class="article-meta-item">
                     <i class="las la-calendar"></i>
-                    Feb 20, 2025
+                    Dec 5, 2024
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-clock"></i>
-                    6 min read
+                    7 min read
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-user"></i>
@@ -644,56 +644,60 @@
                 </span>
             </div>
             <div class="article-tags">
-                <span class="article-tag">LLM Routing</span>
-                <span class="article-tag">Multi-Model</span>
-                <span class="article-tag">RAG</span>
+                <span class="article-tag">Graph Neural Networks</span>
+                <span class="article-tag">PyTorch Geometric</span>
+                <span class="article-tag">Recommender Systems</span>
             </div>
         </header>
 
         <!-- Featured Image -->
         <div class="article-featured-image">
-            <img src="../../assets/images/portfolio1.png" alt="Multi-model routing in a production RAG agent">
+            <img src="../../assets/images/portfolio1.png" alt="Doriot AI investor-startup recommender system">
         </div>
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>In the research agent I built at Doriot, the obvious move would have been to pick one strong model and send every query to it. That's not what I did, and I think the reasons why are worth writing up separately from the retrieval side of the system.</p>
+            <p>At Doriot, part of what I built was a recommender that matches startups with investors, VCs and angels, across a dataset built from Crunchbase and funding news covering more than a million startup-investor relationships and over a billion underlying data points. The interesting design decisions in this system weren't about scale so much as about the shape of the problem.</p>
 
-            <p>GPT-4, through Azure OpenAI, is the default generator. It handles the large majority of queries: the intent classifier and hybrid retrieval have already done most of the work by the time a request reaches generation, so most of what's left is synthesizing an answer from context that's already well-scoped. DeepSeek-R1 sits behind it as a fallback, used specifically when a query needs deeper, multi-step reasoning rather than straightforward synthesis.</p>
+            <p>Matching startups to investors is a two-sided marketplace problem, and a two-sided marketplace is naturally a graph. Startups and investors are connected through investment relationships, and investors are connected to each other through co-investment patterns. Trying to represent that as flat feature vectors and a similarity score throws away exactly the structure that makes the matching meaningful. That's what pushed the architecture toward graph neural networks instead of a simpler embedding-and-cosine-similarity setup.</p>
 
-            <h2>What Actually Triggers the Fallback</h2>
+            <h2>Candidate Generation With GraphSAGE</h2>
 
-            <p>Two signals matter most. The first comes straight out of the intent classifier: since it's multi-label, a query that gets tagged with several intents at once, say funding-round details and competitor analysis and market trends together, is already signaling more complexity than a single-intent question. The second is the shape of the merged retrieval context. When both the SQL path and the vector path return substantial results that need to be reconciled rather than just summarized, that's a reasoning task, not a lookup task.</p>
+            <p>Running a heavy attention model over every possible startup-investor pair doesn't scale, so the pipeline starts with GraphSAGE for candidate generation. GraphSAGE's inductive sampling combined with k-nearest-neighbor clustering narrows the graph down to a manageable candidate pool before anything more expensive runs. This is the same reason recommendation systems everywhere use a cheap retrieval stage before a heavier ranking stage, the graph version of the same idea.</p>
 
-            <p>Neither of these is a hard threshold in the sense of a fixed number. It's closer to routing logic than a formula: does this query ask the model to hold several independent threads of retrieved information and reason across them, or does it ask the model to describe what's already in front of it. The former goes to the reasoning model. The latter doesn't need to.</p>
+            <h2>Two GATv2 Models Instead of One</h2>
 
-            <h2>Why Not Just Always Use the Reasoning Model</h2>
+            <p>The actual matching runs on GATv2, Graph Attention Networks v2, using multi-head attention over the bipartite investor-startup graph. The decision that took the most convincing to arrive at was running two separate GATv2 instances, one trained specifically for VC investors and one for angel investors, rather than a single shared model covering both.</p>
 
-            <p>Reasoning models are built to think longer before answering, that's the entire point of them, and that comes with real latency and cost. Paying that tax on a query like "what was this company's Series B amount" would be pure waste when GPT-4 answers it correctly and quickly. Defaulting to the strongest available model for everything is an easy trap, because it feels safe, but it's rarely the efficient choice once you look at what most requests actually need.</p>
+            <p>The reason is that VC and angel investment dynamics genuinely differ. Check sizes, stage focus, decision-making speed, and portfolio construction logic aren't just different in magnitude between the two investor classes, they're different in kind. Training one shared model forces it to average across two distinct behavior patterns, which dilutes the signal each one actually needs. Two dedicated models let each specialize to the class of investor it's serving instead of learning a compromise that fits neither well.</p>
 
-            <h2>Why Not Just Stay on the Default Model</h2>
+            <h2>Re-ranking and Rivalry Signals</h2>
 
-            <p>The opposite mistake is assuming a single capable model plus a better prompt can handle everything. Some questions genuinely require holding multiple threads of context and reasoning across them in a way a single-pass generator doesn't do reliably, no matter how the prompt is written. At some point the honest fix is a different model built for that kind of work, not a longer system prompt bolted onto the same one.</p>
+            <p>Raw GATv2 output isn't the final ranking. Bayesian likelihood estimation re-ranks the candidate list on top of that, and Jaccard similarity is used separately to detect investor rivalry, investors who compete for the same deals and tend not to co-invest, or conversely, investors who cluster together. That rivalry signal feeds back into how candidates get ordered, since a good match for a startup also depends on which other investors are already in or near the deal.</p>
 
-            <h2>Keeping the Routing Simple</h2>
+            <h2>Making the Feature Space Workable</h2>
 
-            <p>It would be easy to turn this into an elaborate decision tree with many models and many rules. I deliberately kept it to two models and one clear trigger condition. A router with two paths is something you can actually reason about when something goes wrong, and something you can iterate on without needing a flowchart to explain your own system to yourself six months later.</p>
+            <p>With this much data, the raw feature space is large. PCA reduces it down to 512 dimensions before it goes anywhere near the graph models, keeping training and inference tractable without needing to hand-pick which features matter most. Hyperparameter tuning across both GATv2 models runs through Optuna rather than manual search, since tuning two separate models by hand isn't a good use of time once you already have an automated search tool that does it better.</p>
 
-            <p>The broader takeaway for anyone architecting these systems: which model handles a given request is a design decision made per request, the same way you'd decide which index or which database fits a particular query. It shouldn't be a single global setting picked once at the start of a project and left alone.</p>
+            <h2>An Honest Note on Results</h2>
+
+            <p>I'm not going to attach a precision or accuracy number to this post, because the project doesn't have one published, and I'd rather say that plainly than make one up to sound more finished. The point of writing this up is the architecture reasoning: why the problem is a graph problem, why candidate generation and ranking are separate stages, and why two investor classes with different dynamics earned two separate models instead of one that tries to do both.</p>
+
+            <p>That last point is really the generalizable lesson. If two sub-populations in your graph behave differently enough that averaging across them hurts both, that's usually a sign you need two models, not one model plus more features.</p>
 
             <!-- Social Share Buttons -->
             <div class="social-share">
                 <span class="social-share-label">Share:</span>
-                <a href="https://twitter.com/intent/tweet?text=When%20to%20Fall%20Back%20to%20a%20Reasoning%20Model%20Instead%20of%20Always%20Using%20the%20Bigger%20One&url=https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html" target="_blank" class="social-share-btn">
+                <a href="https://twitter.com/intent/tweet?text=Why%20This%20Investor%20Recommender%20Uses%20Two%20GATv2%20Models%2C%20Not%20One&url=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
                     <i class="lab la-twitter"></i>
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html" target="_blank" class="social-share-btn">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
                     <i class="lab la-linkedin-in"></i>
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html" target="_blank" class="social-share-btn">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
                     <i class="lab la-facebook-f"></i>
                 </a>
-                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html')" class="social-share-btn" id="copyBtn">
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html')" class="social-share-btn" id="copyBtn">
                     <i class="las la-link"></i>
                 </button>
             </div>

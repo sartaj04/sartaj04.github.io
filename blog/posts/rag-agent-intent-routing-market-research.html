@@ -5,40 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PRIMARY META -->
-    <title>Building a Production-Ready RAG System: A Step-by-Step Guide | Sartaj Syed</title>
-    <meta name="description" content="Learn how to build a production-ready RAG system from scratch. Covers vector databases, chunking strategies, hybrid search, and deployment best practices.">
+    <title>Building a RAG Research Agent With Multi-Label Intent Routing | Sartaj Syed</title>
+    <meta name="description" content="How I built a market research agent that classifies queries across 20+ intent categories before retrieval even starts, then routes between SQL and vector search.">
 
     <!-- CANONICAL -->
-    <link rel="canonical" href="https://sartajsyed.com/blog/posts/building-rag-systems-tutorial.html">
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/rag-agent-intent-routing-market-research.html">
 
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://sartajsyed.com/blog/posts/building-rag-systems-tutorial.html">
-    <meta property="og:title" content="Building a Production-Ready RAG System: A Step-by-Step Guide">
-    <meta property="og:description" content="Learn how to build a production-ready RAG system from scratch. Covers vector databases, chunking strategies, hybrid search, and deployment best practices.">
-    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/rag-system-architecture.png">
-    <meta property="article:published_time" content="2024-12-20T00:00:00Z">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/rag-agent-intent-routing-market-research.html">
+    <meta property="og:title" content="Building a RAG Research Agent With Multi-Label Intent Routing">
+    <meta property="og:description" content="How I built a market research agent that classifies queries across 20+ intent categories before retrieval even starts, then routes between SQL and vector search.">
+    <meta property="og:image" content="https://sartajsyed.com/assets/images/portfolio1.png">
+    <meta property="article:published_time" content="2025-01-14T00:00:00Z">
     <meta property="article:author" content="Sartaj Syed">
     <meta property="article:tag" content="RAG">
-    <meta property="article:tag" content="Vector Database">
+    <meta property="article:tag" content="Intent Classification">
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/building-rag-systems-tutorial.html">
-    <meta name="twitter:title" content="Building a Production-Ready RAG System: A Step-by-Step Guide">
-    <meta name="twitter:description" content="Learn how to build a production-ready RAG system from scratch. Covers vector databases, chunking strategies, hybrid search, and deployment best practices.">
-    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/rag-system-architecture.png">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/rag-agent-intent-routing-market-research.html">
+    <meta name="twitter:title" content="Building a RAG Research Agent With Multi-Label Intent Routing">
+    <meta name="twitter:description" content="How I built a market research agent that classifies queries across 20+ intent categories before retrieval even starts, then routes between SQL and vector search.">
+    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/portfolio1.png">
 
     <!-- STRUCTURED DATA - Article Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "Building a Production-Ready RAG System: A Step-by-Step Guide",
-        "description": "Learn how to build a production-ready RAG system from scratch. Covers vector databases, chunking strategies, hybrid search, and deployment best practices.",
-        "image": "https://sartajsyed.com/assets/images/blog/rag-system-architecture.png",
-        "datePublished": "2024-12-20T00:00:00Z",
-        "dateModified": "2024-12-20T00:00:00Z",
+        "headline": "Building a RAG Research Agent With Multi-Label Intent Routing",
+        "description": "How I built a market research agent that classifies queries across 20+ intent categories before retrieval even starts, then routes between SQL and vector search.",
+        "image": "https://sartajsyed.com/assets/images/portfolio1.png",
+        "datePublished": "2025-01-14T00:00:00Z",
+        "dateModified": "2025-01-14T00:00:00Z",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -49,8 +49,8 @@
             "name": "Sartaj Syed"
         },
         "articleSection": "Tutorial",
-        "keywords": "RAG, LangChain, Vector Database, Tutorial",
-        "wordCount": 1800
+        "keywords": "RAG, Intent Classification, Hybrid Search, pgvector",
+        "wordCount": 1300
     }
     </script>
 
@@ -628,15 +628,15 @@
     <article class="article-container">
         <header class="article-header">
             <span class="article-category">Tutorial</span>
-            <h1 class="article-title">Building a Production-Ready RAG System: A Step-by-Step Guide</h1>
+            <h1 class="article-title">Building a RAG Research Agent With Multi-Label Intent Routing</h1>
             <div class="article-meta">
                 <span class="article-meta-item">
                     <i class="las la-calendar"></i>
-                    Dec 20, 2024
+                    Jan 14, 2025
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-clock"></i>
-                    8 min read
+                    7 min read
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-user"></i>
@@ -645,318 +645,66 @@
             </div>
             <div class="article-tags">
                 <span class="article-tag">RAG</span>
-                <span class="article-tag">LangChain</span>
-                <span class="article-tag">Vector Database</span>
-                <span class="article-tag">Tutorial</span>
+                <span class="article-tag">Intent Classification</span>
+                <span class="article-tag">Hybrid Search</span>
             </div>
         </header>
 
         <!-- Featured Image -->
         <div class="article-featured-image">
-            <img src="../../assets/images/blog/rag-system-architecture.png" alt="RAG system architecture diagram">
+            <img src="../../assets/images/portfolio1.png" alt="Doriot AI investment research agent architecture">
         </div>
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>Retrieval-Augmented Generation (RAG) has become the go-to pattern for building AI systems that need to answer questions based on your own data. But there's a huge gap between a demo that works on 10 documents and a production system handling thousands of queries per day.</p>
+            <p>At Doriot, one of the two systems I built was a research agent meant to answer questions about startups, investors, and funding activity. The obvious approach is a standard RAG pipeline: embed a bunch of funding data and news, retrieve the closest chunks, hand them to an LLM. I tried that first, and it fell apart quickly, because market research questions aren't one shape.</p>
 
-            <p>This guide walks you through building a production-ready RAG system that actually scales. We'll cover architecture decisions, chunking strategies, hybrid search, and deployment considerations based on real implementations.</p>
+            <p>Someone asking "what was the last funding round for this company" wants an exact fact out of a structured database. Someone asking "how does this company's funding trajectory compare to others in the same space" wants synthesis across a lot of unstructured context. A single generic retrieval path treats both of these identically, and does a mediocre job on each.</p>
 
-            <h2>Architecture Overview</h2>
+            <h2>Classify the Intent Before You Retrieve Anything</h2>
 
-            <p>A production RAG system has four main components:</p>
+            <p>The fix was to stop treating retrieval as the first step and put a classifier in front of it. I trained a custom SpaCy text classifier to route incoming queries across more than 20 specialized categories: funding round details, competitor analysis, lead generation, market trend questions, and others specific to the platform.</p>
 
-            <ul>
-                <li><strong>Document Processing Pipeline</strong> - Ingests, chunks, and embeds your documents</li>
-                <li><strong>Vector Database</strong> - Stores embeddings and handles similarity search</li>
-                <li><strong>Retrieval Layer</strong> - Combines vector and keyword search for best results</li>
-                <li><strong>Generation Layer</strong> - LLM that uses retrieved context to answer questions</li>
-            </ul>
+            <p>The important detail is that this is multi-label, not single-label. Real questions frequently touch more than one category at once. "How does this competitor's latest round compare to what's happening in their sector" is simultaneously a funding-round question, a competitor-analysis question, and a market-trend question. Forcing that into one bucket loses information the routing layer actually needs. Multi-label classification lets a single query trigger more than one downstream handler and combine the results, instead of guessing which single label wins.</p>
 
-            <p>The key is making each component robust, observable, and independently scalable.</p>
+            <pre><code>intents = classifier.predict(query)
+# intents might be: ["funding_round_details", "competitor_analysis"]
 
-            <h2>Step 1: Document Processing Pipeline</h2>
-
-            <p>Most RAG tutorials skip this, but document processing is where 80% of production issues occur.</p>
-
-            <h3>Chunking Strategy</h3>
-
-            <p>Don't just split on character count. Use semantic chunking:</p>
-
-            <ul>
-                <li><strong>Section-aware splitting</strong> - Respect document structure (headers, paragraphs)</li>
-                <li><strong>Overlap chunks</strong> - 10-20% overlap prevents context loss at boundaries</li>
-                <li><strong>Metadata preservation</strong> - Keep source, page number, section title with each chunk</li>
-            </ul>
-
-            <p>For technical docs, I use 512 tokens per chunk with 50 token overlap. For conversational data, 256 tokens works better.</p>
-
-            <h3>Example Pipeline Code</h3>
-
-            <pre><code>from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import PDFLoader
-
-# Load documents
-loader = PDFLoader("docs/")
-documents = loader.load()
-
-# Smart chunking
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=512,
-    chunk_overlap=50,
-    separators=["\n\n", "\n", ". ", " ", ""]
-)
-
-chunks = text_splitter.split_documents(documents)
-
-# Add metadata
-for chunk in chunks:
-    chunk.metadata["source_type"] = "pdf"
-    chunk.metadata["indexed_at"] = datetime.now()
+handlers = [INTENT_HANDLERS[i] for i in intents]
+context = merge_contexts([h.retrieve(query) for h in handlers])
 </code></pre>
 
-            <div class="callout-box">
-                <h4>Production Tip</h4>
-                <p>Always preserve source metadata. You'll need it for citations, debugging, and filtering results.</p>
-            </div>
+            <h2>Routing to SQL or Vectors, Not Just One</h2>
 
-            <h2>Step 2: Choosing and Configuring Vector Database</h2>
+            <p>Once intent is known, the retrieval path itself branches. Structured questions, exact funding amounts, round types, dates, go straight to SQL against the relational funding database. There's no reason to pay for an embedding lookup when the answer is a row in a table. Narrative or comparative questions go through a semantic path instead, pgvector similarity search over 1536-dimensional embeddings built from company descriptions, news coverage, and funding commentary.</p>
 
-            <p>Your vector database choice depends on scale and budget:</p>
+            <p>A lot of queries need both. The agent runs the structured lookup and the semantic search in parallel, then merges the results before generation, so a comparative question gets the exact numbers from SQL alongside the qualitative context from the vector store, instead of the model having to guess or hallucinate the numbers.</p>
 
-            <h3>Database Options</h3>
+            <h2>Generation and When to Escalate</h2>
 
-            <ul>
-                <li><strong>Pinecone</strong> - Best for production, managed, $70/month minimum</li>
-                <li><strong>Weaviate</strong> - Self-hosted, open source, hybrid search built-in</li>
-                <li><strong>Qdrant</strong> - Fast, good for high-throughput, easy Docker deploy</li>
-                <li><strong>Chroma</strong> - Great for prototyping, not for production scale</li>
-            </ul>
+            <p>For generation, the primary model is GPT-4 through Azure OpenAI. For queries that need deeper multi-step reasoning, comparative analysis across several companies, for example, the agent falls back to DeepSeek-R1. I go into the actual routing logic for that decision in a separate post, since it deserves its own treatment rather than a paragraph here.</p>
 
-            <p>For most production systems, I recommend Weaviate or Pinecone. Weaviate if you can self-host, Pinecone for managed simplicity.</p>
+            <h2>Keeping the Data Fresh Without Blocking Requests</h2>
 
-            <h3>Embedding Model Selection</h3>
+            <p>None of this works if the underlying data is stale. A dedicated scraper pulls from TechCrunch, and a NewsAPI integration continuously ingests funding announcements as they happen. Both run as background jobs on Celery workers backed by Redis, so scraping and embedding generation never sit in the request path of an actual user query. Prometheus tracks the health of all of it, queue depth, job failures, latency, separately from the request-serving side of the system.</p>
 
-            <p>Use domain-specific embeddings when possible:</p>
+            <h2>What This Taught Me About RAG Design</h2>
 
-            <ul>
-                <li><strong>OpenAI ada-002</strong> - General purpose, good quality, $0.0001/1K tokens</li>
-                <li><strong>Cohere embed-v3</strong> - Multilingual, compression support</li>
-                <li><strong>sentence-transformers</strong> - Open source, free to run, lower quality</li>
-            </ul>
-
-            <p>I typically use OpenAI for production unless budget constraints require self-hosting.</p>
-
-            <h2>Step 3: Implementing Hybrid Search</h2>
-
-            <p>Pure vector search misses exact matches. Pure keyword search misses semantic relevance. Hybrid search gets both.</p>
-
-            <h3>How Hybrid Search Works</h3>
-
-            <ol>
-                <li>Run vector similarity search (get top 20 results)</li>
-                <li>Run keyword search with BM25 (get top 20 results)</li>
-                <li>Merge and rerank using a reranking model</li>
-                <li>Return top 5 final results</li>
-            </ol>
-
-            <h3>Implementation Example</h3>
-
-            <pre><code>async def hybrid_search(query: str, k: int = 5):
-    # Vector search
-    vector_results = await vector_db.similarity_search(
-        query,
-        k=20
-    )
-
-    # Keyword search (BM25)
-    keyword_results = await keyword_index.search(
-        query,
-        k=20
-    )
-
-    # Merge results
-    combined = merge_results(vector_results, keyword_results)
-
-    # Rerank with cross-encoder
-    reranked = reranker.rerank(
-        query,
-        combined,
-        top_k=k
-    )
-
-    return reranked
-</code></pre>
-
-            <p>Hybrid search typically improves relevance by 20-30% compared to vector-only search.</p>
-
-            <h2>Step 4: Building the Generation Layer</h2>
-
-            <h3>Prompt Engineering for RAG</h3>
-
-            <p>Your prompt structure matters more than the LLM choice. Use this template:</p>
-
-            <pre><code>You are an assistant answering questions based on provided context.
-
-CONTEXT:
-{retrieved_chunks}
-
-QUESTION:
-{user_question}
-
-INSTRUCTIONS:
-- Answer based ONLY on the provided context
-- If the context doesn't contain the answer, say so
-- Include source citations in your answer
-- Be concise and specific
-
-ANSWER:</code></pre>
-
-            <h3>Citation Tracking</h3>
-
-            <p>Always include sources in responses:</p>
-
-            <ul>
-                <li>Pass chunk metadata to the LLM</li>
-                <li>Ask LLM to cite specific sources</li>
-                <li>Return sources alongside the answer</li>
-                <li>Enable users to verify information</li>
-            </ul>
-
-            <h2>Step 5: Production Considerations</h2>
-
-            <h3>Caching Strategy</h3>
-
-            <p>Cache at two levels:</p>
-
-            <ul>
-                <li><strong>Query cache</strong> - Cache identical questions (30% hit rate typical)</li>
-                <li><strong>Embedding cache</strong> - Cache embeddings for repeated queries</li>
-            </ul>
-
-            <p>Use Redis with 1-hour TTL. Can reduce costs by 40% and latency by 70%.</p>
-
-            <h3>Monitoring and Observability</h3>
-
-            <p>Track these metrics:</p>
-
-            <ul>
-                <li>Retrieval latency (target: &lt;200ms)</li>
-                <li>Generation latency (target: &lt;2s)</li>
-                <li>Retrieval relevance (measure with user feedback)</li>
-                <li>Cache hit rate</li>
-                <li>Error rate by component</li>
-            </ul>
-
-            <p>Use LangSmith or LangFuse for RAG-specific observability.</p>
-
-            <h3>Cost Optimization</h3>
-
-            <p>For a system handling 10K queries/day:</p>
-
-            <ul>
-                <li><strong>Embeddings</strong> - $15-30/month (depends on chunk size)</li>
-                <li><strong>Vector DB</strong> - $70-200/month (depends on scale)</li>
-                <li><strong>LLM calls</strong> - $300-600/month (GPT-3.5/4)</li>
-                <li><strong>Total: ~$400-850/month</strong></li>
-            </ul>
-
-            <p>Reduce costs by:</p>
-
-            <ul>
-                <li>Using smaller embedding models</li>
-                <li>Aggressive caching</li>
-                <li>GPT-3.5 instead of GPT-4 when possible</li>
-                <li>Batch processing embeddings</li>
-            </ul>
-
-            <h3>Scaling Considerations</h3>
-
-            <p>As you scale past 100K queries/day:</p>
-
-            <ul>
-                <li>Separate indexing and querying workloads</li>
-                <li>Use read replicas for vector database</li>
-                <li>Implement request queuing with Redis/RabbitMQ</li>
-                <li>Consider CDN for static chunk embeddings</li>
-            </ul>
-
-            <h2>Common Pitfalls and Solutions</h2>
-
-            <h3>1. Poor Retrieval Quality</h3>
-
-            <p><strong>Symptom:</strong> LLM says "I don't have information about that" even though the data exists.</p>
-
-            <p><strong>Fix:</strong> Improve chunking, use hybrid search, tune similarity threshold.</p>
-
-            <h3>2. Slow Response Times</h3>
-
-            <p><strong>Symptom:</strong> Queries take 5+ seconds.</p>
-
-            <p><strong>Fix:</strong> Implement caching, reduce chunk retrieval count, use streaming responses.</p>
-
-            <h3>3. Hallucinations Despite RAG</h3>
-
-            <p><strong>Symptom:</strong> LLM makes up information not in context.</p>
-
-            <p><strong>Fix:</strong> Strengthen prompt instructions, use GPT-4 instead of 3.5, add confidence scoring.</p>
-
-            <h3>4. High Costs</h3>
-
-            <p><strong>Symptom:</strong> Costs higher than expected.</p>
-
-            <p><strong>Fix:</strong> Cache aggressively, batch embeddings, use cheaper models, reduce chunk size.</p>
-
-            <div class="callout-box">
-                <h4>Key Takeaway</h4>
-                <p>Production RAG is 20% choosing the right tools and 80% optimizing chunking, retrieval, and prompts. Start simple, measure everything, and iterate based on user feedback.</p>
-            </div>
-
-            <h2>Example Production Stack</h2>
-
-            <p>Here's a battle-tested stack that I've deployed multiple times:</p>
-
-            <ul>
-                <li><strong>Documents:</strong> S3 for storage, Lambda for processing</li>
-                <li><strong>Chunking:</strong> LangChain RecursiveCharacterTextSplitter</li>
-                <li><strong>Embeddings:</strong> OpenAI ada-002</li>
-                <li><strong>Vector DB:</strong> Pinecone (managed) or Weaviate (self-hosted)</li>
-                <li><strong>Search:</strong> Hybrid with Cohere reranker</li>
-                <li><strong>LLM:</strong> GPT-4-turbo for accuracy, GPT-3.5 for speed</li>
-                <li><strong>Caching:</strong> Redis Cloud</li>
-                <li><strong>API:</strong> FastAPI on AWS ECS</li>
-                <li><strong>Monitoring:</strong> LangSmith + CloudWatch</li>
-            </ul>
-
-            <p>This stack handles 50K+ queries/day with 95th percentile latency under 3 seconds.</p>
-
-            <h2>Next Steps</h2>
-
-            <p>Once your basic RAG system is working:</p>
-
-            <ol>
-                <li>Add <strong>query decomposition</strong> for complex questions</li>
-                <li>Implement <strong>multi-hop reasoning</strong> for questions requiring multiple sources</li>
-                <li>Add <strong>guardrails</strong> to prevent prompt injection</li>
-                <li>Build <strong>feedback loops</strong> to continuously improve retrieval</li>
-                <li>Consider <strong>fine-tuning embeddings</strong> on your specific domain</li>
-            </ol>
-
-            <p>RAG is not a one-time setup. It requires continuous monitoring and iteration based on user behavior and feedback.</p>
+            <p>The lesson I keep coming back to is that a lot of RAG systems try to fix bad retrieval with better prompts. That's backwards. If you can classify what a query is actually asking for before you touch the retrieval layer, you solve the problem earlier and cheaper than trying to patch it after generation with more context or more careful prompting. Intent routing isn't a nice-to-have on top of RAG. For a domain with genuinely different question shapes, it's the part of the architecture that does the most work.</p>
 
             <!-- Social Share Buttons -->
             <div class="social-share">
                 <span class="social-share-label">Share:</span>
-                <a href="https://twitter.com/intent/tweet?text=Building%20a%20Production-Ready%20RAG%20System&url=https://sartajsyed.com/blog/posts/building-rag-systems-tutorial.html" target="_blank" class="social-share-btn">
+                <a href="https://twitter.com/intent/tweet?text=Building%20a%20RAG%20Research%20Agent%20With%20Multi-Label%20Intent%20Routing&url=https://sartajsyed.com/blog/posts/rag-agent-intent-routing-market-research.html" target="_blank" class="social-share-btn">
                     <i class="lab la-twitter"></i>
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/building-rag-systems-tutorial.html" target="_blank" class="social-share-btn">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/rag-agent-intent-routing-market-research.html" target="_blank" class="social-share-btn">
                     <i class="lab la-linkedin-in"></i>
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/building-rag-systems-tutorial.html" target="_blank" class="social-share-btn">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/rag-agent-intent-routing-market-research.html" target="_blank" class="social-share-btn">
                     <i class="lab la-facebook-f"></i>
                 </a>
-                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/building-rag-systems-tutorial.html')" class="social-share-btn" id="copyBtn">
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/rag-agent-intent-routing-market-research.html')" class="social-share-btn" id="copyBtn">
                     <i class="las la-link"></i>
                 </button>
             </div>
@@ -964,8 +712,8 @@ ANSWER:</code></pre>
 
         <!-- Author CTA -->
         <div class="author-cta">
-            <h3>Need help with a RAG system?</h3>
-            <p>I design production RAG and GenAI systems, from retrieval architecture through evaluation and deployment.</p>
+            <h3>Building something with AI?</h3>
+            <p>I design and ship production systems across ML, deep learning, GenAI, LLMs, and RAG. Happy to talk through what you're working on.</p>
             <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
                 <i class="las la-calendar"></i>
                 Book a Free Call
@@ -976,7 +724,7 @@ ANSWER:</code></pre>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Sartaj Syed. All rights reserved.</p>
+            <p>&copy; 2026 Sartaj Syed. All rights reserved.</p>
         </div>
     </footer>
 

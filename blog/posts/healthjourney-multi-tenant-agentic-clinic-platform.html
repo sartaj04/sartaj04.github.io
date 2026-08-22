@@ -5,40 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PRIMARY META -->
-    <title>When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One | Sartaj Syed</title>
-    <meta name="description" content="Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.">
+    <title>Enforcing Multi-Tenant Data Isolation at the Database Layer | Sartaj Syed</title>
+    <meta name="description" content="Inside HealthJourney: an agentic clinic platform where tenant isolation is enforced with Postgres Row-Level Security, not application WHERE clauses, and why that distinction matters for clinical data.">
 
     <!-- CANONICAL -->
-    <link rel="canonical" href="https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html">
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html">
 
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html">
-    <meta property="og:title" content="When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One">
-    <meta property="og:description" content="Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.">
-    <meta property="og:image" content="https://sartajsyed.com/assets/images/portfolio1.png">
-    <meta property="article:published_time" content="2025-02-20T00:00:00Z">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html">
+    <meta property="og:title" content="Enforcing Multi-Tenant Data Isolation at the Database Layer">
+    <meta property="og:description" content="Inside HealthJourney: an agentic clinic platform where tenant isolation is enforced with Postgres Row-Level Security, not application WHERE clauses, and why that distinction matters for clinical data.">
+    <meta property="og:image" content="https://sartajsyed.com/assets/images/healthjourney.png">
+    <meta property="article:published_time" content="2026-01-20T00:00:00Z">
     <meta property="article:author" content="Sartaj Syed">
-    <meta property="article:tag" content="LLM Routing">
-    <meta property="article:tag" content="Multi-Model">
+    <meta property="article:tag" content="PostgreSQL RLS">
+    <meta property="article:tag" content="Multi-Tenancy">
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html">
-    <meta name="twitter:title" content="When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One">
-    <meta name="twitter:description" content="Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.">
-    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/portfolio1.png">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html">
+    <meta name="twitter:title" content="Enforcing Multi-Tenant Data Isolation at the Database Layer">
+    <meta name="twitter:description" content="Inside HealthJourney: an agentic clinic platform where tenant isolation is enforced with Postgres Row-Level Security, not application WHERE clauses, and why that distinction matters for clinical data.">
+    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/healthjourney.png">
 
     <!-- STRUCTURED DATA - Article Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One",
-        "description": "Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.",
-        "image": "https://sartajsyed.com/assets/images/portfolio1.png",
-        "datePublished": "2025-02-20T00:00:00Z",
-        "dateModified": "2025-02-20T00:00:00Z",
+        "headline": "Enforcing Multi-Tenant Data Isolation at the Database Layer",
+        "description": "Inside HealthJourney: an agentic clinic platform where tenant isolation is enforced with Postgres Row-Level Security, not application WHERE clauses, and why that distinction matters for clinical data.",
+        "image": "https://sartajsyed.com/assets/images/healthjourney.png",
+        "datePublished": "2026-01-20T00:00:00Z",
+        "dateModified": "2026-01-20T00:00:00Z",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -48,9 +48,9 @@
             "@type": "Person",
             "name": "Sartaj Syed"
         },
-        "articleSection": "Insight",
-        "keywords": "LLM Routing, Multi-Model, RAG, DeepSeek-R1",
-        "wordCount": 1100
+        "articleSection": "Engineering",
+        "keywords": "PostgreSQL RLS, Multi-Tenancy, Healthcare AI, Celery",
+        "wordCount": 1400
     }
     </script>
 
@@ -627,16 +627,16 @@
     <!-- Article Header -->
     <article class="article-container">
         <header class="article-header">
-            <span class="article-category">Insight</span>
-            <h1 class="article-title">When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One</h1>
+            <span class="article-category">Engineering</span>
+            <h1 class="article-title">Enforcing Multi-Tenant Data Isolation at the Database Layer</h1>
             <div class="article-meta">
                 <span class="article-meta-item">
                     <i class="las la-calendar"></i>
-                    Feb 20, 2025
+                    Jan 20, 2026
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-clock"></i>
-                    6 min read
+                    8 min read
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-user"></i>
@@ -644,56 +644,80 @@
                 </span>
             </div>
             <div class="article-tags">
-                <span class="article-tag">LLM Routing</span>
-                <span class="article-tag">Multi-Model</span>
-                <span class="article-tag">RAG</span>
+                <span class="article-tag">PostgreSQL RLS</span>
+                <span class="article-tag">Multi-Tenancy</span>
+                <span class="article-tag">Healthcare AI</span>
             </div>
         </header>
 
         <!-- Featured Image -->
         <div class="article-featured-image">
-            <img src="../../assets/images/portfolio1.png" alt="Multi-model routing in a production RAG agent">
+            <img src="../../assets/images/healthjourney.png" alt="HealthJourney patient care platform">
         </div>
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>In the research agent I built at Doriot, the obvious move would have been to pick one strong model and send every query to it. That's not what I did, and I think the reasons why are worth writing up separately from the retrieval side of the system.</p>
+            <p>HealthJourney is a platform I built for small clinics, one to three physicians, a few dozen patients a day, that wraps agentic AI around intake, consult, labs, and post-visit follow-up. The AI parts get the attention when I describe this project, but the engineering problem I actually spent the most care on was multi-tenancy: this system serves multiple clinics off one deployment, and a bug in application logic is not an acceptable way to keep one clinic's patient records separate from another's.</p>
 
-            <p>GPT-4, through Azure OpenAI, is the default generator. It handles the large majority of queries: the intent classifier and hybrid retrieval have already done most of the work by the time a request reaches generation, so most of what's left is synthesizing an answer from context that's already well-scoped. DeepSeek-R1 sits behind it as a fallback, used specifically when a query needs deeper, multi-step reasoning rather than straightforward synthesis.</p>
+            <h2>Intake Starts on WhatsApp, Not in an App</h2>
 
-            <h2>What Actually Triggers the Fallback</h2>
+            <p>Patients don't download anything. Reception staff sends an OTP-gated intake link over Twilio WhatsApp, with SMS as a fallback, and the patient answers a conversational questionnaire from there. Gemini 2.5 Flash turns those answers into a specialty-aware clinical summary that's waiting in the staff interface before the doctor even sees the patient. That small piece of automation, having a coherent summary ready ahead of the visit instead of a doctor reading raw questionnaire answers cold, is most of the intake value on its own.</p>
 
-            <p>Two signals matter most. The first comes straight out of the intent classifier: since it's multi-label, a query that gets tagged with several intents at once, say funding-round details and competitor analysis and market trends together, is already signaling more complexity than a single-intent question. The second is the shape of the merged retrieval context. When both the SQL path and the vector path return substantial results that need to be reconciled rather than just summarized, that's a reasoning task, not a lookup task.</p>
+            <h2>One AI Abstraction, Several Jobs</h2>
 
-            <p>Neither of these is a hard threshold in the sense of a fixed number. It's closer to routing logic than a formula: does this query ask the model to hold several independent threads of retrieved information and reason across them, or does it ask the model to describe what's already in front of it. The former goes to the reasoning model. The latter doesn't need to.</p>
+            <p>Rather than scattering model calls across the codebase, every AI interaction goes through a single provider-agnostic <code>AIService</code>. Gemini Flash sits behind that abstraction today, handling intake summaries, natural-language prescription parsing, structured diagnosis extraction, and lab result image processing. Having one seam instead of many means the model behind it can change later without touching every call site that depends on it.</p>
 
-            <h2>Why Not Just Always Use the Reasoning Model</h2>
+            <p>During a live consult, a doctor writes prescriptions in plain language, something like <code>Tab Paracetamol 500mg BD x 5 days</code>, and the AIService parses the drug and dosage and tags the diagnosis. That happens asynchronously specifically so it never blocks the consult itself. A doctor typing a prescription shouldn't be waiting on a model call to finish before moving to the next patient.</p>
 
-            <p>Reasoning models are built to think longer before answering, that's the entire point of them, and that comes with real latency and cost. Paying that tax on a query like "what was this company's Series B amount" would be pure waste when GPT-4 answers it correctly and quickly. Defaulting to the strongest available model for everything is an easy trap, because it feels safe, but it's rarely the efficient choice once you look at what most requests actually need.</p>
+            <h2>Two Queues, Because Two Kinds of Urgent Aren't the Same</h2>
 
-            <h2>Why Not Just Stay on the Default Model</h2>
+            <p>That asynchronous AI work runs on a Celery queue, but it's deliberately a separate queue from notifications. Prescription parsing and diagnosis tagging can tolerate a few seconds of delay without anyone noticing. OTP delivery for patient onboarding cannot, a delayed OTP is a broken login screen, not a slow feature. Putting both kinds of work on the same queue means a burst of AI processing can back up and delay something completely unrelated and much more time-sensitive. Two queues, <code>ai_tasks</code> and <code>notifications</code>, keep those failure modes from taking each other down.</p>
 
-            <p>The opposite mistake is assuming a single capable model plus a better prompt can handle everything. Some questions genuinely require holding multiple threads of context and reasoning across them in a way a single-pass generator doesn't do reliably, no matter how the prompt is written. At some point the honest fix is a different model built for that kind of work, not a longer system prompt bolted onto the same one.</p>
+            <h2>Isolation as a Database Guarantee, Not an Application Convention</h2>
 
-            <h2>Keeping the Routing Simple</h2>
+            <p>This is the part of the system I think about the most. The easy way to build multi-tenancy is to add a <code>tenant_id</code> column and remember to filter by it in every query. That works right up until someone forgets, in one endpoint, on one code path, six months from now, and one clinic's data becomes visible to another. For clinical data, that's not a bug you get to apologize for after the fact.</p>
 
-            <p>It would be easy to turn this into an elaborate decision tree with many models and many rules. I deliberately kept it to two models and one clear trigger condition. A router with two paths is something you can actually reason about when something goes wrong, and something you can iterate on without needing a flowchart to explain your own system to yourself six months later.</p>
+            <p>So isolation here is enforced at the database layer with PostgreSQL Row-Level Security, and specifically with <code>FORCE ROW LEVEL SECURITY</code>, so that even the table owner can't accidentally bypass the policy. FastAPI middleware sets <code>app.current_tenant_id</code> on the database session at the start of each request, and the database filters every clinical row against that value itself. The application never gets the chance to forget a <code>WHERE</code> clause, because the filter isn't the application's job anymore.</p>
 
-            <p>The broader takeaway for anyone architecting these systems: which model handles a given request is a design decision made per request, the same way you'd decide which index or which database fits a particular query. It shouldn't be a single global setting picked once at the start of a project and left alone.</p>
+            <pre><code>-- Simplified shape of the policy
+ALTER TABLE patient_records ENABLE ROW LEVEL SECURITY;
+ALTER TABLE patient_records FORCE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation ON patient_records
+    USING (tenant_id = current_setting('app.current_tenant_id')::uuid);
+</code></pre>
+
+            <p>There's a real infrastructure consequence to this choice. RLS depends on session state, the current tenant id set on the connection, persisting across the transaction. A transaction pooler resets session state between transactions, which silently breaks that guarantee. So the connection layer uses Supabase's session pooler on port 5432 specifically, not the transaction pooler, because the transaction pooler can't hold the session state RLS depends on. It's a detail that's easy to get wrong without noticing until tenant isolation quietly stops working.</p>
+
+            <h2>Lab Results Without Blind Trust</h2>
+
+            <p>Lab results come in as PDFs or photos. AI vision extracts numeric values and maps them to an internal test-code dictionary, but low-confidence extractions get queued for manual staff review instead of being trusted automatically. For returning patients, the system builds trend charts over time, flags duplicate investigations, and surfaces allergy conflicts against history, all downstream of that same extracted data.</p>
+
+            <h2>Care in the Patient's Language</h2>
+
+            <p>Post-visit summaries, findings, medications, warning signs, follow-up instructions, go back out over WhatsApp in English, Hindi, or Telugu, matching the languages patients at these clinics actually speak. A summary a patient can't read is not a summary.</p>
+
+            <h2>What's Deliberately Not in v1</h2>
+
+            <p>Worth naming plainly rather than implying a more finished product: this doesn't yet have Docker Compose deployment, appointment scheduling, ABHA linkage, HL7 or FHIR support, insurance integration, ICD-10 automation, predictive diagnostics, or a native mobile app. The system targets small clinics specifically, roughly one to three physicians seeing twenty to fifty patients a day, and there's no published adoption or performance data attached to this project. What's here is the architecture, not a results scoreboard.</p>
+
+            <h2>The General Lesson</h2>
+
+            <p>For anything handling data across tenants where a leak has real consequences, not just an inconvenience, isolation belongs at the database layer as a guarantee, not in application code as a convention everyone is expected to remember. Conventions get violated by one forgotten line. A database constraint doesn't have that failure mode.</p>
 
             <!-- Social Share Buttons -->
             <div class="social-share">
                 <span class="social-share-label">Share:</span>
-                <a href="https://twitter.com/intent/tweet?text=When%20to%20Fall%20Back%20to%20a%20Reasoning%20Model%20Instead%20of%20Always%20Using%20the%20Bigger%20One&url=https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html" target="_blank" class="social-share-btn">
+                <a href="https://twitter.com/intent/tweet?text=Enforcing%20Multi-Tenant%20Data%20Isolation%20at%20the%20Database%20Layer&url=https://sartajsyed.com/blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" target="_blank" class="social-share-btn">
                     <i class="lab la-twitter"></i>
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html" target="_blank" class="social-share-btn">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" target="_blank" class="social-share-btn">
                     <i class="lab la-linkedin-in"></i>
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html" target="_blank" class="social-share-btn">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" target="_blank" class="social-share-btn">
                     <i class="lab la-facebook-f"></i>
                 </a>
-                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/multi-model-routing-rag-agent.html')" class="social-share-btn" id="copyBtn">
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html')" class="social-share-btn" id="copyBtn">
                     <i class="las la-link"></i>
                 </button>
             </div>
