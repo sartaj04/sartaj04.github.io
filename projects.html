@@ -457,10 +457,29 @@
             line-height: 1.5;
         }
 
+        .repo-card-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
         .project-repo-card .repo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-size: 13px;
             font-weight: 600;
             color: var(--primary);
+        }
+
+        .project-repo-card .repo-link i {
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .project-repo-card .repo-link:hover {
+            text-decoration: underline;
         }
 
         .project-meta-links {
@@ -570,27 +589,36 @@
         
         .project-card-footer {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: nowrap;
+            flex-direction: column;
+            gap: 12px;
             margin-top: auto;
             padding-top: 16px;
             border-top: 1px solid var(--border);
             flex-shrink: 0;
         }
 
-        .project-card-footer .project-card-role {
-            flex: 1;
-            min-width: 0;
+        .project-card-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .project-card-footer .btn-ghost {
+        .project-card-links .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             flex-shrink: 0;
             white-space: nowrap;
             padding: 0;
         }
-        
+
+        .project-card-links .btn-ghost i {
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
+        }
+
         .project-card-role {
             font-size: 12px;
             color: var(--text-muted);
@@ -864,9 +892,14 @@
                         </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> HealthTech / GenAI · <strong>Year:</strong> 2026</span>
-                            <a href="https://github.com/sartaj04/AI-Powered-Patient-Journey-Platform" target="_blank" class="btn btn-ghost">
-                                GitHub →
-                            </a>
+                            <div class="project-card-links">
+                                <a href="blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" class="btn-ghost">
+                                    <i class="las la-newspaper"></i> Blog →
+                                </a>
+                                <a href="https://github.com/sartaj04/AI-Powered-Patient-Journey-Platform" target="_blank" class="btn-ghost">
+                                    <i class="lab la-github"></i> GitHub →
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -897,9 +930,14 @@
                         </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> DevTools / AI · <strong>Year:</strong> 2026</span>
-                            <a href="https://github.com/sartaj04/api_stress_lab" target="_blank" class="btn btn-ghost">
-                                GitHub →
-                            </a>
+                            <div class="project-card-links">
+                                <a href="blog/posts/ai-assisted-api-load-testing-chaos-engineering.html" class="btn-ghost">
+                                    <i class="las la-newspaper"></i> Blog →
+                                </a>
+                                <a href="https://github.com/sartaj04/api_stress_lab" target="_blank" class="btn-ghost">
+                                    <i class="lab la-github"></i> GitHub →
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -925,16 +963,33 @@
                     </ul>
 
                     <div class="project-repos">
-                        <a href="https://github.com/sartaj04/investment-market-research-agent" target="_blank" class="project-repo-card">
+                        <div class="project-repo-card">
                             <h4>Investment Market Research Agent</h4>
                             <p>RAG research agent with multi-label intent routing for funding analysis, startup intelligence, and market research.</p>
-                            <span class="repo-link">View on GitHub →</span>
-                        </a>
-                        <a href="https://github.com/sartaj04/Investor-Recommender" target="_blank" class="project-repo-card">
+                            <div class="repo-card-links">
+                                <a href="https://github.com/sartaj04/investment-market-research-agent" target="_blank" class="repo-link">
+                                    <i class="lab la-github"></i> View on GitHub →
+                                </a>
+                                <a href="blog/posts/rag-agent-intent-routing-market-research.html" class="repo-link">
+                                    <i class="las la-newspaper"></i> Blog: Intent Routing →
+                                </a>
+                                <a href="blog/posts/multi-model-routing-rag-agent.html" class="repo-link">
+                                    <i class="las la-newspaper"></i> Blog: Model Routing →
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-repo-card">
                             <h4>Investor Recommender</h4>
                             <p>GNN recommender that matches startups with VC and angel investors using GraphSAGE and GATv2 models.</p>
-                            <span class="repo-link">View on GitHub →</span>
-                        </a>
+                            <div class="repo-card-links">
+                                <a href="https://github.com/sartaj04/Investor-Recommender" target="_blank" class="repo-link">
+                                    <i class="lab la-github"></i> View on GitHub →
+                                </a>
+                                <a href="blog/posts/gnn-investor-recommender-architecture.html" class="repo-link">
+                                    <i class="las la-newspaper"></i> Blog: Model Architecture →
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="project-tech">
@@ -992,9 +1047,14 @@
                         </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Role:</strong> AI & Tech Consultant</span>
-                            <a href="https://github.com/sartaj04/AI-Careerpathing-system" target="_blank" class="btn btn-ghost">
-                                GitHub →
-                            </a>
+                            <div class="project-card-links">
+                                <a href="blog/posts/two-layer-semantic-matching-career-paths.html" class="btn-ghost">
+                                    <i class="las la-newspaper"></i> Blog →
+                                </a>
+                                <a href="https://github.com/sartaj04/AI-Careerpathing-system" target="_blank" class="btn-ghost">
+                                    <i class="lab la-github"></i> GitHub →
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1014,7 +1074,6 @@
                             <li>Real-time transactional data processing</li>
                             <li>Search engine for rewards catalog</li>
                             <li>Location tracking with geofence functionality</li>
-                            <li>20% accuracy improvement in location services</li>
                         </ul>
                         <div class="project-tech">
                             <span>Python</span>
@@ -1024,6 +1083,11 @@
                         </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Role:</strong> Technical Consultant</span>
+                            <div class="project-card-links">
+                                <a href="blog/posts/swipeit-security-and-privacy-fintech.html" class="btn-ghost">
+                                    <i class="las la-newspaper"></i> Blog →
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1054,9 +1118,14 @@
                         </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> ML Research</span>
-                            <a href="https://github.com/sartaj04/American_Football_Contact_Detection" target="_blank" class="btn btn-ghost">
-                                GitHub →
-                            </a>
+                            <div class="project-card-links">
+                                <a href="blog/posts/american-football-contact-detection.html" class="btn-ghost">
+                                    <i class="las la-newspaper"></i> Blog →
+                                </a>
+                                <a href="https://github.com/sartaj04/American_Football_Contact_Detection" target="_blank" class="btn-ghost">
+                                    <i class="lab la-github"></i> GitHub →
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1087,9 +1156,14 @@
                         </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> Search/NLP</span>
-                            <a href="https://github.com/sartaj04/lyrics-wizard" target="_blank" class="btn btn-ghost">
-                                GitHub →
-                            </a>
+                            <div class="project-card-links">
+                                <a href="blog/posts/lyrics-search-retrieval-and-ranking.html" class="btn-ghost">
+                                    <i class="las la-newspaper"></i> Blog →
+                                </a>
+                                <a href="https://github.com/sartaj04/lyrics_search_engine" target="_blank" class="btn-ghost">
+                                    <i class="lab la-github"></i> GitHub →
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

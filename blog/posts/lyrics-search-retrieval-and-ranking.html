@@ -5,40 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PRIMARY META -->
-    <title>Why This Investor Recommender Uses Two GATv2 Models, Not One | Sartaj Syed</title>
-    <meta name="description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
+    <title>Designing Retrieval and Ranking for a Lyrics Search Engine | Sartaj Syed</title>
+    <meta name="description" content="How a lyrics search engine combines exact-order pattern matching with TF-IDF, weights the two signals, and what we tried for fuzzy matching that didn't survive contact with 5 million tracks.">
 
     <!-- CANONICAL -->
-    <link rel="canonical" href="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/lyrics-search-retrieval-and-ranking.html">
 
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
-    <meta property="og:title" content="Why This Investor Recommender Uses Two GATv2 Models, Not One">
-    <meta property="og:description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
-    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/gnn-investor-recommender.png">
-    <meta property="article:published_time" content="2024-12-05T00:00:00Z">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/lyrics-search-retrieval-and-ranking.html">
+    <meta property="og:title" content="Designing Retrieval and Ranking for a Lyrics Search Engine">
+    <meta property="og:description" content="How a lyrics search engine combines exact-order pattern matching with TF-IDF, weights the two signals, and what we tried for fuzzy matching that didn't survive contact with 5 million tracks.">
+    <meta property="og:image" content="https://sartajsyed.com/assets/images/portfolio-lyrics.png">
+    <meta property="article:published_time" content="2023-03-15T00:00:00Z">
     <meta property="article:author" content="Sartaj Syed">
-    <meta property="article:tag" content="Graph Neural Networks">
-    <meta property="article:tag" content="Recommender Systems">
+    <meta property="article:tag" content="Information Retrieval">
+    <meta property="article:tag" content="TF-IDF">
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
-    <meta name="twitter:title" content="Why This Investor Recommender Uses Two GATv2 Models, Not One">
-    <meta name="twitter:description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
-    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/gnn-investor-recommender.png">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/lyrics-search-retrieval-and-ranking.html">
+    <meta name="twitter:title" content="Designing Retrieval and Ranking for a Lyrics Search Engine">
+    <meta name="twitter:description" content="How a lyrics search engine combines exact-order pattern matching with TF-IDF, weights the two signals, and what we tried for fuzzy matching that didn't survive contact with 5 million tracks.">
+    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/portfolio-lyrics.png">
 
     <!-- STRUCTURED DATA - Article Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "Why This Investor Recommender Uses Two GATv2 Models, Not One",
-        "description": "Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.",
-        "image": "https://sartajsyed.com/assets/images/blog/gnn-investor-recommender.png",
-        "datePublished": "2024-12-05T00:00:00Z",
-        "dateModified": "2024-12-05T00:00:00Z",
+        "headline": "Designing Retrieval and Ranking for a Lyrics Search Engine",
+        "description": "How a lyrics search engine combines exact-order pattern matching with TF-IDF, weights the two signals, and what we tried for fuzzy matching that didn't survive contact with 5 million tracks.",
+        "image": "https://sartajsyed.com/assets/images/portfolio-lyrics.png",
+        "datePublished": "2023-03-15T00:00:00Z",
+        "dateModified": "2023-03-15T00:00:00Z",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -48,9 +48,9 @@
             "@type": "Person",
             "name": "Sartaj Syed"
         },
-        "articleSection": "Engineering",
-        "keywords": "Graph Neural Networks, GATv2, GraphSAGE, PyTorch Geometric, Recommender Systems",
-        "wordCount": 1300
+        "articleSection": "Tutorial",
+        "keywords": "Information Retrieval, TF-IDF, Ranking, Search",
+        "wordCount": 2000
     }
     </script>
 
@@ -627,16 +627,16 @@
     <!-- Article Header -->
     <article class="article-container">
         <header class="article-header">
-            <span class="article-category">Engineering</span>
-            <h1 class="article-title">Why This Investor Recommender Uses Two GATv2 Models, Not One</h1>
+            <span class="article-category">Tutorial</span>
+            <h1 class="article-title">Designing Retrieval and Ranking for a Lyrics Search Engine</h1>
             <div class="article-meta">
                 <span class="article-meta-item">
                     <i class="las la-calendar"></i>
-                    Dec 5, 2024
+                    Mar 15, 2023
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-clock"></i>
-                    7 min read
+                    10 min read
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-user"></i>
@@ -644,64 +644,112 @@
                 </span>
             </div>
             <div class="article-tags">
-                <span class="article-tag">Graph Neural Networks</span>
-                <span class="article-tag">PyTorch Geometric</span>
-                <span class="article-tag">Recommender Systems</span>
+                <span class="article-tag">Information Retrieval</span>
+                <span class="article-tag">TF-IDF</span>
+                <span class="article-tag">Ranking</span>
             </div>
         </header>
 
         <!-- Featured Image -->
         <div class="article-featured-image">
-            <img src="../../assets/images/blog/gnn-investor-recommender.png" alt="Abstract illustration of a graph neural network recommender">
+            <img src="../../assets/images/portfolio-lyrics.png" alt="Lyrics search engine retrieval and ranking system">
         </div>
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>At Doriot, part of what I built was a recommender that matches startups with investors, VCs and angels, across a dataset built from Crunchbase and funding news covering more than a million startup-investor relationships and over a billion underlying data points. The interesting design decisions in this system weren't about scale so much as about the shape of the problem.</p>
+            <p>For a Text Technologies of Data Science coursework project at Edinburgh, a team of six of us built a search engine that finds a song from a lyric snippet, with optional filters for title, artist, and album. We called it Lyrics Wizard. My part, alongside two teammates, was the information retrieval system, and that's the part worth writing up, since it's where most of the interesting decisions actually were.</p>
 
-            <p>Matching startups to investors is a two-sided marketplace problem, and a two-sided marketplace is naturally a graph. Startups and investors are connected through investment relationships, and investors are connected to each other through co-investment patterns. Trying to represent that as flat feature vectors and a similarity score throws away exactly the structure that makes the matching meaningful. That's what pushed the architecture toward graph neural networks instead of a simpler embedding-and-cosine-similarity setup.</p>
+            <p>The dataset behind it was large enough to make some of those decisions non-optional: around 1.62 million songs pulled from Spotify's API, cross-referenced with lyrics from Genius, landing at roughly 5 million tracks once everything was combined. At that scale, a few approaches that look appealing on paper turned out to be too slow to actually ship.</p>
 
-            <h2>Candidate Generation With GraphSAGE</h2>
+            <h2>Getting the Data Was Its Own Retrieval Problem</h2>
 
-            <p>Running a heavy attention model over every possible startup-investor pair doesn't scale, so the pipeline starts with GraphSAGE for candidate generation. GraphSAGE's inductive sampling combined with k-nearest-neighbor clustering narrows the graph down to a manageable candidate pool before anything more expensive runs. This is the same reason recommendation systems everywhere use a cheap retrieval stage before a heavier ranking stage, the graph version of the same idea.</p>
+            <p>Building the corpus took as much engineering attention as the ranking algorithm did, and a few decisions there ended up shaping what the retrieval layer had to handle later. Song metadata came from Spotify through three sequential scripts, artists first, then albums for each artist, then tracks for each album, and all six of us ran those scripts in parallel on a rotating basis just to pull data fast enough. That got us to roughly 1.62 million songs across 433 thousand albums and 142 thousand artists, stored across three MongoDB collections with each document keeping its Spotify ID for building the inverted index later.</p>
 
-            <h2>Two GATv2 Models Instead of One</h2>
+            <p>Lyrics were the harder half. The first approach used the lyricsgenius library, which calls the Genius API twice per song, once to find it, once to fetch the lyrics, and at our volume that meant constant timeout exceptions. Switching to scraping the same data directly from Genius's pages and parsing it with BeautifulSoup and a couple of regex passes, one for the lyrics, one for metadata like title and release date, turned out to be roughly three times faster in practice, and it's what we actually shipped with. The API wasn't the wrong choice conceptually, it just stopped being the right tool once volume got large enough that per-song round trips became the bottleneck.</p>
 
-            <p>The actual matching runs on GATv2, Graph Attention Networks v2, using multi-head attention over the bipartite investor-startup graph. The decision that took the most convincing to arrive at was running two separate GATv2 instances, one trained specifically for VC investors and one for angel investors, rather than a single shared model covering both.</p>
+            <p>The corpus itself needed cleaning before retrieval could trust it. We found that some of what Genius had indexed as "songs" were actually literature, Shakespeare among them, mixed in because Genius hosts more than just song lyrics. Rather than hand-filtering those out, we used a signal Spotify already gave us for free: its danceability score, which came back negative for that kind of non-musical text and positive for actual songs. That one existing field did the filtering work a custom classifier would otherwise have had to do. On top of that, we ran a language check with the langdetect library over Genius's own language field, since some non-English lyrics were still slipping through and the system was scoped to English only.</p>
 
-            <p>The reason is that VC and angel investment dynamics genuinely differ. Check sizes, stage focus, decision-making speed, and portfolio construction logic aren't just different in magnitude between the two investor classes, they're different in kind. Training one shared model forces it to average across two distinct behavior patterns, which dilutes the signal each one actually needs. Two dedicated models let each specialize to the class of investor it's serving instead of learning a compromise that fits neither well.</p>
+            <h2>Three Query Shapes, Three Scoring Paths</h2>
 
-            <h2>Re-ranking and Rivalry Signals</h2>
+            <p>The system splits on what the user actually gave it, rather than forcing every query through one generic ranker. A lyrics-only query goes through the lyric search algorithm. A filter-only query, artist name, album, or title, goes through TF-IDF. A query with both goes through a combined path that blends the two. Each input shape genuinely needs a different kind of scoring, and trying to handle all three with one pipeline would have meant compromising on all of them.</p>
 
-            <p>Raw GATv2 output isn't the final ranking. Bayesian likelihood estimation re-ranks the candidate list on top of that, and Jaccard similarity is used separately to detect investor rivalry, investors who compete for the same deals and tend not to co-invest, or conversely, investors who cluster together. That rivalry signal feeds back into how candidates get ordered, since a good match for a startup also depends on which other investors are already in or near the deal.</p>
+            <h2>Lyric Search: Two Signals That Disagree on Purpose</h2>
 
-            <h2>Making the Feature Space Workable</h2>
+            <p>The lyric search algorithm itself is really two searches run in parallel and then blended.</p>
 
-            <p>With this much data, the raw feature space is large. PCA reduces it down to 512 dimensions before it goes anywhere near the graph models, keeping training and inference tractable without needing to hand-pick which features matter most. Hyperparameter tuning across both GATv2 models runs through Optuna rather than manual search, since tuning two separate models by hand isn't a good use of time once you already have an automated search tool that does it better.</p>
+            <p>The first is a pattern search. Tokens are preprocessed, but deliberately without removing stop words, since a half-remembered lyric snippet loses meaning if you strip the small connecting words out of it. If the query is a single token, every instance of that term is returned directly. If there's more than one token, the algorithm generates permutations that preserve the original left-to-right order, starting from the full query and shortening it one token at a time from either end, then checks each pattern against the index until it has collected 15 matching songs or run out of patterns. This rewards an exact, in-order phrase match over a scattered bag-of-words match, which is the right bias for lyrics specifically, since word order is part of what makes a lyric recognizable.</p>
 
-            <h2>An Honest Note on Results</h2>
+            <p>The second is a rarity search: plain TF-IDF over the same tokens, returning the top 15 songs by term rarity, with no regard for order. This catches songs where the query terms are distinctive even if the user's word order is a little off, which happens constantly with half-remembered lyrics.</p>
 
-            <p>I'm not going to attach a precision or accuracy number to this post, because the project doesn't have one published, and I'd rather say that plainly than make one up to sound more finished. The point of writing this up is the architecture reasoning: why the problem is a graph problem, why candidate generation and ranking are separate stages, and why two investor classes with different dynamics earned two separate models instead of one that tries to do both.</p>
+            <p>The two get combined with a simple weighted formula:</p>
 
-            <p>That last point is really the generalizable lesson. If two sub-populations in your graph behave differently enough that averaging across them hurts both, that's usually a sign you need two models, not one model plus more features.</p>
+            <pre><code>final_score = rarity_search_score * 0.7 + pattern_search_score * 0.3</code></pre>
+
+            <p>TF-IDF gets the larger weight because it's more forgiving of an imperfect memory of the exact phrasing, which is the common case. The exact-order pattern match gets less weight specifically because it's a stronger signal when it fires, but fires less often, so treating it as equal to TF-IDF would have let it dominate the ranking on the rare queries where it hits, at the expense of everything else.</p>
+
+            <h2>Filters Reuse the Same TF-IDF Machinery</h2>
+
+            <p>When the query is filter-only, title, artist, or album, TF-IDF runs directly against the positional index built for that filter type and returns the top 15 by score. There's no pattern search step here, because filter values don't carry the same sequential structure lyrics do. An artist name isn't something a user half-remembers the word order of the way they might a line from a song.</p>
+
+            <h2>Combining Both When the User Gives Both</h2>
+
+            <p>When a query includes both lyrics and a filter, the system runs the lyric search to get its top 15 songs, then looks up the corresponding filter score for each of those candidates. Since one song can appear under multiple albums or artists, only the maximum filter score for each song is kept. The final score blends the two:</p>
+
+            <pre><code>final_score = 0.7 * lyrics_score + 0.3 * max_filter_score</code></pre>
+
+            <p>The same 0.7/0.3 split shows up in both places in the system, and in both cases it gives the majority weight to the harder, more information-dense signal, TF-IDF or the full lyric search, and treats the second signal as a booster rather than an equal partner. Once that pattern held up in one place, we reused it rather than inventing a new weighting scheme for the second.</p>
+
+            <h2>Long Queries Get Trimmed Before Anything Else Runs</h2>
+
+            <p>If a query comes in longer than 10 tokens, someone pasting in a whole verse, for example, it gets reduced to the 10 most frequent tokens in the positional index before any of the scoring above runs. Permutation generation is the reason this matters: the number of order-preserving permutations grows fast with token count, and running that step on a 20-token query without trimming first would have made the whole system noticeably slower for no real gain in match quality.</p>
+
+            <h2>What We Tried for Fuzzy Matching That Didn't Survive Contact With the Data</h2>
+
+            <p>A meaningful chunk of the actual engineering time went into approaches that didn't make it into the final system, and I think those are more instructive than the ones that did.</p>
+
+            <p>We first tried Double Metaphone, a phonetic algorithm meant to encode similarly-pronounced words to the same token, hoping it would help match a lyric the way someone actually misheard it rather than how it's actually spelled. It was more demanding about matching exact pronunciation than real misheard lyrics turned out to need, so it didn't help the way we expected.</p>
+
+            <p>Next we tried N-grams with edit distance, which is a more standard way to catch near-matches. That ran into a harder problem: it was computationally expensive at the scale of roughly 5 million tracks, to the point where it wasn't practical to run in the actual system. We ended up back at plain stemming, deliberately without stop word removal, which is a simpler and cheaper technique than either of the two we tried first, and the one that actually survived contact with the dataset's real size.</p>
+
+            <p>We also tried query expansion, generating additional related terms to broaden a lyric query. Different variants of this were tested, but expanding based on similarity from the same artist or similar tokens didn't produce better results, partly because sequencing matters in lyric search in a way that generic term-similarity expansion doesn't respect. We dropped it in favor of relying on the combined search algorithm to do that work instead.</p>
+
+            <h2>Keeping Retrieval Fast Once the Index Got Big</h2>
+
+            <p>Two infrastructure problems showed up once the dataset was actually loaded, and neither of them was about the ranking math at all, they were about making the same math run fast enough to feel instant. The positional index file itself got large enough that reading it was slow before a single score was even computed, and we fixed the worst of that by encoding document names with their Spotify ID rather than a longer descriptive string, a small change that's purely about making lookups cheaper. Separately, hitting MongoDB directly while scoring tokens during a live search was slow enough to matter, so we generated a JSON file server-side ahead of time and read from that instead of the database during the actual scoring pass. Neither change touched what got ranked. They changed how fast the system could rank it, which matters just as much once real users are waiting on a response instead of a notebook cell finishing.</p>
+
+            <p>None of this was security theater either: the app used CSRF tokens on its forms and restricted direct MongoDB access to an IP allowlist covering just the team, a low bar, but a real one, and worth doing even on a coursework project handling a database this size.</p>
+
+            <h2>How We Actually Measured the Ranking</h2>
+
+            <p>Rather than reporting one summary number, we built 100 of our own test cases from real lyric snippets and checked, for each one, where the correct song landed in the results. Three numbers came out of that: 95.4% of the time the correct song appeared somewhere in the top 10, 87.2% of the time it was the literal top result, and 93.8% of the time it was in the top 3.</p>
+
+            <p>Keeping those as three separate numbers instead of collapsing them into one score matters. A system that gets the right answer on the first try most of the time behaves very differently from one that usually needs the user to scan through several results, even if both would report a similar "found it eventually" number.</p>
+
+            <h2>Where We'd Take Ranking Next</h2>
+
+            <p>The most interesting idea we identified but didn't build was ranking songs by popularity using emotional tags rather than raw play counts, based on a personalized PageRank random walk over a graph of tag similarity. The pitch is that PageRank captures how central a tag is within a network of related tags and songs, which behaves differently from a simple cosine similarity score or counting how often tags co-occur. Two songs can share very few tags directly and still be strongly connected through the graph if enough intermediate songs bridge them, and a plain similarity score would miss that entirely. We left this as future work rather than shipping it, but it fits the same philosophy as everything above: before reaching for a bigger model, check whether the ranking is actually missing a structurally different signal, not just a stronger version of the one it already has.</p>
+
+            <h2>The General Lesson</h2>
+
+            <p>Ranking design here wasn't one algorithm, it was a small set of complementary signals, exact-order pattern matching, term-rarity TF-IDF, and filter-based scores, combined with weights chosen to reflect which signal we trusted more by default, plus a trimming step that exists purely so the elegant version of the algorithm doesn't fall over on an ordinary real query. None of the fuzzy-matching ideas that didn't make it in were bad ideas. They just didn't hold up once actual data volume and actual user behavior were in the picture, which is usually where a retrieval system's real constraints show up first.</p>
 
             <h2>Learn More</h2>
 
-            <p>The full project is open source: <a href="https://github.com/sartaj04/Investor-Recommender" target="_blank">Investor Recommender on GitHub</a>.</p>
+            <p>The full project, including the IR system and ranking logic discussed here, is open source: <a href="https://github.com/sartaj04/lyrics_search_engine" target="_blank">Lyrics Search Engine on GitHub</a>.</p>
 
             <!-- Social Share Buttons -->
             <div class="social-share">
                 <span class="social-share-label">Share:</span>
-                <a href="https://twitter.com/intent/tweet?text=Why%20This%20Investor%20Recommender%20Uses%20Two%20GATv2%20Models%2C%20Not%20One&url=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
+                <a href="https://twitter.com/intent/tweet?text=Designing%20Retrieval%20and%20Ranking%20for%20a%20Lyrics%20Search%20Engine&url=https://sartajsyed.com/blog/posts/lyrics-search-retrieval-and-ranking.html" target="_blank" class="social-share-btn">
                     <i class="lab la-twitter"></i>
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/lyrics-search-retrieval-and-ranking.html" target="_blank" class="social-share-btn">
                     <i class="lab la-linkedin-in"></i>
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/lyrics-search-retrieval-and-ranking.html" target="_blank" class="social-share-btn">
                     <i class="lab la-facebook-f"></i>
                 </a>
-                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html')" class="social-share-btn" id="copyBtn">
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/lyrics-search-retrieval-and-ranking.html')" class="social-share-btn" id="copyBtn">
                     <i class="las la-link"></i>
                 </button>
             </div>
