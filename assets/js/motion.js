@@ -27,7 +27,7 @@
                 '.section-header',
                 '.service-card',
                 '.work-card',
-                '.process-card',
+                // '.process-card',
                 '.featured-project',
                 '.project-card',
                 '.project-repo-card',

@@ -475,6 +475,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 32px;
+            align-items: stretch;
         }
         
         @media (max-width: 900px) {
@@ -489,6 +490,9 @@
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .project-card:hover {
@@ -503,6 +507,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            flex-shrink: 0;
         }
         
         .project-card-image img {
@@ -518,6 +523,9 @@
         
         .project-card-content {
             padding: 28px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
         
         .project-card h3 {
@@ -552,7 +560,7 @@
         }
         
         .project-card .project-tech {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         
         .project-card .project-tech span {
@@ -564,8 +572,23 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 16px;
+            flex-wrap: nowrap;
+            margin-top: auto;
             padding-top: 16px;
             border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .project-card-footer .project-card-role {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .project-card-footer .btn-ghost {
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0;
         }
         
         .project-card-role {
@@ -810,17 +833,89 @@
     <section class="section">
         <div class="container">
             
-            <!-- Featured: Doriot Co-Founder Experience -->
+
+            <!-- Latest: HealthJourney + API Stress Lab -->
+            <div class="projects-grid" style="margin-bottom: 48px;">
+                <div class="project-card">
+                    <div class="project-card-image">
+                        <img src="./assets/images/healthjourney.png" alt="HealthJourney patient care platform">
+                    </div>
+                    <div class="project-card-content">
+                        <div class="project-label">HealthJourney • Open Source</div>
+                        <h3>AI-Powered Patient Journey Platform</h3>
+                        <p class="project-description">
+                            Patient-first longitudinal care for small clinics, powered by agentic AI workflows across intake, consult, labs, and post-visit care. Multi-step agents handle specialty-aware summaries, Rx parsing, and lab extraction without blocking the doctor.
+                        </p>
+                        <ul>
+                            <li>Agentic intake pipeline: WhatsApp chat → Gemini Flash specialty-aware summary</li>
+                            <li>Async consult flow for Rx parse, diagnosis tags, and notes</li>
+                            <li>Lab PDF/image extraction agents with staff review queues and trends</li>
+                            <li>PostgreSQL Row-Level Security for multi-tenant clinical data</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span>AI</span>
+                            <span>Agentic AI</span>
+                            <span>Multi-Agent</span>
+                            <span>Gemini</span>
+                            <span>FastAPI</span>
+                            <span>Next.js</span>
+                            <span>PostgreSQL</span>
+                            <span>Celery</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-card-role"><strong>Type:</strong> HealthTech / GenAI</span>
+                            <a href="https://github.com/sartaj04/AI-Powered-Patient-Journey-Platform" target="_blank" class="btn btn-ghost">
+                                GitHub →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-image">
+                        <img src="./assets/images/asl.png" alt="API Stress Lab dashboard">
+                    </div>
+                    <div class="project-card-content">
+                        <div class="project-label">API Stress Lab • Open Source</div>
+                        <h3>AI-Powered API Load Testing Platform</h3>
+                        <p class="project-description">
+                            AI-powered load-testing platform: upload an OpenAPI spec, generate test scenarios with AI, run chaos and stress profiles, then get AI analysis of bottlenecks and fixes.
+                        </p>
+                        <ul>
+                            <li>AI scenario generation from OpenAPI 3.x specs</li>
+                            <li>AI bottleneck detection with actionable fix hints</li>
+                            <li>Chaos testing: latency injection, failures, burst traffic</li>
+                            <li>SSRF protection and Docker Compose setup</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span>AI</span>
+                            <span>Next.js</span>
+                            <span>FastAPI</span>
+                            <span>k6</span>
+                            <span>Celery</span>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-card-role"><strong>Type:</strong> DevTools / AI</span>
+                            <a href="https://github.com/sartaj04/api_stress_lab" target="_blank" class="btn btn-ghost">
+                                GitHub →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured: Doriot Founding Experience -->
             <div class="featured-project">
                 <div class="featured-project-image">
-                    <span class="featured-badge">Co-Founder</span>
+                    <span class="featured-badge">Founding Experience</span>
                     <img src="./assets/images/portfolio1.png" alt="Doriot AI Platform">
                 </div>
                 <div class="featured-project-content">
-                    <div class="project-label">Doriot AI • Co-Founder & CTO</div>
+                    <div class="project-label">Doriot AI • Founding Experience • AI Architect</div>
                     <h2>Built the Core AI Systems Behind Doriot</h2>
                     <p class="project-description">
-                        As Co-Founder and CTO, I built the two systems that powered Doriot's AI fundraising platform. Both are now open source.
+                        As the Founding Member and Architect, I built the two systems that powered Doriot's AI fundraising platform. Both are now open source.
                     </p>
                     <ul class="project-highlights">
                         <li>1B+ data points processed from funding and news sources</li>
@@ -843,6 +938,9 @@
                     </div>
 
                     <div class="project-tech">
+                        <span>AI</span>
+                        <span>Agentic AI</span>
+                        <span>Multi-Agent</span>
                         <span>Python</span>
                         <span>FastAPI</span>
                         <span>RAG</span>
@@ -856,7 +954,7 @@
                     </div>
                     <div class="project-meta">
                         <div class="project-meta-item">
-                            <strong>Role:</strong> Co-Founder & CTO
+                            <strong>Role:</strong> Founding Member · AI Architect
                         </div>
                         <div class="project-meta-item">
                             <strong>Timeline:</strong> May 2023 – Oct 2024
@@ -1001,7 +1099,7 @@
             <div style="text-align: center; margin-top: 48px;">
                 <a href="https://github.com/sartaj04" target="_blank" class="btn btn-outline">View All Projects →</a>
                 <p style="margin-top: 20px; font-size: 14px; color: var(--text-muted);">
-                    More client work via <a href="https://neurocell.in/work" target="_blank" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">Neurocell</a>
+                    More work via <a href="https://neurocell.in/work" target="_blank" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">Neurocell</a>
                 </p>
             </div>
             
@@ -1012,25 +1110,31 @@
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Want Help Building Something Similar?</h2>
+                <h2>Let's Connect</h2>
+                <p style="font-size: 18px; color: var(--text-secondary); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto;">
+                    If my work resonates, I'd like to hear from you. Happy to talk about systems like these.
+                </p>
                 
                 <div class="cta-buttons">
                     <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
                         <i class="las la-calendar"></i>
-                        Book a Free Call
+                        Book a Call
                     </a>
                     <a href="mailto:sssartaj.04@gmail.com" class="btn btn-outline" aria-label="Email me">
                         <i class="las la-envelope"></i>
                         Email
                     </a>
                 </div>
+                <!--
                 <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
                     Want to hire an AI firm?
                     <a href="https://www.neurocell.in/contact" target="_blank" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">Contact Neurocell →</a>
                 </p>
+                -->
             </div>
         </div>
     </section>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -1050,7 +1154,7 @@
                 <li><a href="mailto:sssartaj.04@gmail.com"><i class="las la-envelope"></i></a></li>
             </ul>
         </div>
-        <p class="footer-note">AI services via <a href="https://neurocell.in/work" target="_blank">Neurocell</a></p>
+        <!-- <p class="footer-note">AI services via <a href="https://neurocell.in/work" target="_blank">Neurocell</a></p> -->
     </footer>
 
     <script>
