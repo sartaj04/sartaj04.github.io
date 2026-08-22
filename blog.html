@@ -218,6 +218,15 @@
             background: transparent;
             color: var(--text-primary);
             border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.2;
+            transition: all 0.3s ease;
         }
 
         .btn-ghost:hover {
@@ -561,7 +570,7 @@
                 <!-- Post: HealthJourney Multi-Tenancy -->
                 <article class="blog-card" data-category="engineering">
                     <div class="blog-card-image">
-                        <img src="./assets/images/healthjourney.png" alt="HealthJourney patient care platform">
+                        <img src="./assets/images/blog/postgres-rls-multi-tenant.png" alt="Abstract illustration of multi-tenant database isolation">
                     </div>
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
@@ -572,7 +581,7 @@
                         <h3><a href="blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html">Enforcing Multi-Tenant Data Isolation at the Database Layer</a></h3>
                         <p class="blog-excerpt">Inside HealthJourney: an agentic clinic platform where tenant isolation is enforced with Postgres Row-Level Security, not application WHERE clauses.</p>
                         <div class="blog-card-footer">
-                            <a href="blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" class="btn-ghost">Read More →</a>
+                            <a href="blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" class="btn btn-ghost">Read More →</a>
                         </div>
                     </div>
                 </article>
@@ -580,7 +589,7 @@
                 <!-- Post: API Stress Lab -->
                 <article class="blog-card" data-category="engineering">
                     <div class="blog-card-image">
-                        <img src="./assets/images/asl.png" alt="API Stress Lab load testing dashboard">
+                        <img src="./assets/images/blog/api-chaos-load-testing.png" alt="Abstract illustration of API load testing and chaos engineering">
                     </div>
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
@@ -591,7 +600,7 @@
                         <h3><a href="blog/posts/ai-assisted-api-load-testing-chaos-engineering.html">Chaos Testing and AI-Generated Load Scenarios for APIs</a></h3>
                         <p class="blog-excerpt">Building a load-testing tool that turns an OpenAPI spec into test scenarios with AI, runs them through k6, and takes security seriously.</p>
                         <div class="blog-card-footer">
-                            <a href="blog/posts/ai-assisted-api-load-testing-chaos-engineering.html" class="btn-ghost">Read More →</a>
+                            <a href="blog/posts/ai-assisted-api-load-testing-chaos-engineering.html" class="btn btn-ghost">Read More →</a>
                         </div>
                     </div>
                 </article>
@@ -599,7 +608,7 @@
                 <!-- Post: Career Pathing -->
                 <article class="blog-card" data-category="engineering">
                     <div class="blog-card-image">
-                        <img src="./assets/images/portfolio-career-pathing.png" alt="Career path graph and semantic matching system">
+                        <img src="./assets/images/blog/semantic-career-paths.png" alt="Abstract illustration of semantic career-path matching">
                     </div>
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
@@ -610,7 +619,7 @@
                         <h3><a href="blog/posts/two-layer-semantic-matching-career-paths.html">Two-Layer Semantic Matching for Career-Path Recommendations</a></h3>
                         <p class="blog-excerpt">How a Neo4j transition graph and a two-layer embedding match work together to recommend realistic career moves, not just similar job titles.</p>
                         <div class="blog-card-footer">
-                            <a href="blog/posts/two-layer-semantic-matching-career-paths.html" class="btn-ghost">Read More →</a>
+                            <a href="blog/posts/two-layer-semantic-matching-career-paths.html" class="btn btn-ghost">Read More →</a>
                         </div>
                     </div>
                 </article>
@@ -618,7 +627,7 @@
                 <!-- Post: Multi-Model Routing -->
                 <article class="blog-card" data-category="insight">
                     <div class="blog-card-image">
-                        <img src="./assets/images/portfolio1.png" alt="Multi-model routing in a production RAG agent">
+                        <img src="./assets/images/blog/multi-model-llm-2026.png" alt="Abstract illustration of multi-model LLM routing">
                     </div>
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
@@ -629,7 +638,7 @@
                         <h3><a href="blog/posts/multi-model-routing-rag-agent.html">When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One</a></h3>
                         <p class="blog-excerpt">Inside the routing logic between GPT-4 and DeepSeek-R1 in a production RAG agent, and why the strongest model isn't the right default for every request.</p>
                         <div class="blog-card-footer">
-                            <a href="blog/posts/multi-model-routing-rag-agent.html" class="btn-ghost">Read More →</a>
+                            <a href="blog/posts/multi-model-routing-rag-agent.html" class="btn btn-ghost">Read More →</a>
                         </div>
                     </div>
                 </article>
@@ -637,7 +646,7 @@
                 <!-- Post: RAG Agent Intent Routing -->
                 <article class="blog-card" data-category="tutorial">
                     <div class="blog-card-image">
-                        <img src="./assets/images/portfolio1.png" alt="Doriot AI investment research agent architecture">
+                        <img src="./assets/images/blog/hybrid-rag-knowledge-graphs-2026.png" alt="Abstract illustration of RAG and knowledge systems">
                     </div>
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
@@ -648,7 +657,7 @@
                         <h3><a href="blog/posts/rag-agent-intent-routing-market-research.html">Building a RAG Research Agent With Multi-Label Intent Routing</a></h3>
                         <p class="blog-excerpt">How I built a market research agent that classifies queries across 20+ intent categories before retrieval even starts, then routes between SQL and vector search.</p>
                         <div class="blog-card-footer">
-                            <a href="blog/posts/rag-agent-intent-routing-market-research.html" class="btn-ghost">Read More →</a>
+                            <a href="blog/posts/rag-agent-intent-routing-market-research.html" class="btn btn-ghost">Read More →</a>
                         </div>
                     </div>
                 </article>
@@ -656,7 +665,7 @@
                 <!-- Post: GNN Investor Recommender -->
                 <article class="blog-card" data-category="engineering">
                     <div class="blog-card-image">
-                        <img src="./assets/images/portfolio1.png" alt="Doriot AI investor-startup recommender system">
+                        <img src="./assets/images/blog/gnn-investor-recommender.png" alt="Abstract illustration of a graph neural network recommender">
                     </div>
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
@@ -667,7 +676,7 @@
                         <h3><a href="blog/posts/gnn-investor-recommender-architecture.html">Why This Investor Recommender Uses Two GATv2 Models, Not One</a></h3>
                         <p class="blog-excerpt">Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.</p>
                         <div class="blog-card-footer">
-                            <a href="blog/posts/gnn-investor-recommender-architecture.html" class="btn-ghost">Read More →</a>
+                            <a href="blog/posts/gnn-investor-recommender-architecture.html" class="btn btn-ghost">Read More →</a>
                         </div>
                     </div>
                 </article>
