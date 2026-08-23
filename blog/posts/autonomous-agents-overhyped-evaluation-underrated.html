@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PRIMARY META -->
+    <title>Autonomous Agents Are Overhyped. Evaluation Is Underrated. | Sartaj Syed</title>
+    <meta name="description" content="The 'let agents run everything end to end' pitch keeps getting the attention. The boring evaluation and observability work is what actually decides whether a system survives production.">
+
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html">
+    <meta property="og:title" content="Autonomous Agents Are Overhyped. Evaluation Is Underrated.">
+    <meta property="og:description" content="The 'let agents run everything end to end' pitch keeps getting the attention. The boring evaluation and observability work is what actually decides whether a system survives production.">
+    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/hybrid-rag-knowledge-graphs-2026.png">
+    <meta property="article:published_time" content="2026-05-14T00:00:00Z">
+    <meta property="article:author" content="Sartaj Syed">
+    <meta property="article:tag" content="AI Agents">
+    <meta property="article:tag" content="Evaluation">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html">
+    <meta name="twitter:title" content="Autonomous Agents Are Overhyped. Evaluation Is Underrated.">
+    <meta name="twitter:description" content="The 'let agents run everything end to end' pitch keeps getting the attention. The boring evaluation and observability work is what actually decides whether a system survives production.">
+    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/hybrid-rag-knowledge-graphs-2026.png">
+
+    <!-- STRUCTURED DATA - Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Autonomous Agents Are Overhyped. Evaluation Is Underrated.",
+        "description": "The 'let agents run everything end to end' pitch keeps getting the attention. The boring evaluation and observability work is what actually decides whether a system survives production.",
+        "image": "https://sartajsyed.com/assets/images/blog/hybrid-rag-knowledge-graphs-2026.png",
+        "datePublished": "2026-05-14T00:00:00Z",
+        "dateModified": "2026-05-14T00:00:00Z",
+        "author": {
+            "@type": "Person",
+            "name": "Sartaj Syed",
+            "url": "https://sartajsyed.com"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Sartaj Syed"
+        },
+        "articleSection": "Insight",
+        "keywords": "AI Agents, Evaluation, Observability, LLMOps",
+        "wordCount": 1250
+    }
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="../../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon_16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon_32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../../assets/images/favicon_48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/images/favicon_192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <meta name="theme-color" content="#0a0a0a">
+<!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <style>
+        :root {
+            --primary: #00ff88;
+            --primary-dim: #00cc6a;
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --border-hover: #3a3a3a;
+            --gradient-start: #00ff88;
+            --gradient-end: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        body {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dim);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--bg-card);
+            z-index: 2000;
+            padding: 80px 48px;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 32px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Article Container */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* Article Header */
+        .article-header {
+            padding: 160px 0 60px;
+            text-align: center;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .article-title {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .article-tag {
+            padding: 4px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Featured Image */
+        .article-featured-image {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .article-featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Article Content Typography */
+        .article-content {
+            padding-bottom: 80px;
+        }
+
+        .article-content p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .article-content h2 {
+            font-size: 32px;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .article-content h3 {
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .article-content h4 {
+            font-size: 20px;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 24px;
+            padding-left: 24px;
+        }
+
+        .article-content li {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .article-content ul li::marker {
+            color: var(--primary);
+        }
+
+        .article-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .article-content a:hover {
+            color: var(--primary-dim);
+        }
+
+        .article-content blockquote {
+            padding: 24px 32px;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .article-content blockquote p {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 0;
+        }
+
+        .article-content code {
+            padding: 2px 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .article-content pre {
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 32px 0;
+        }
+
+        .article-content pre code {
+            padding: 0;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin: 32px 0;
+        }
+
+        /* Callout Box */
+        .callout-box {
+            padding: 24px 32px;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            margin: 32px 0;
+        }
+
+        .callout-box h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* Social Share Buttons */
+        .social-share {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 60px 0;
+        }
+
+        .social-share-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-right: 8px;
+        }
+
+        .social-share-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-share-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Author CTA Section */
+        .author-cta {
+            padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .author-cta h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .author-cta p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .article-container {
+                padding: 0 24px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .article-header {
+                padding: 120px 0 40px;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .social-share {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .author-cta {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="../../index.html" class="logo">Sartaj<span>.</span></a>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#expertise">Expertise</a></li>
+                    <li><a href="../../blog.html">Blog</a></li>
+                    <li><a href="../../projects.html">Projects</a></li>
+                    <li><a href="../../about.html">About</a></li>
+                </ul>
+                <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                    Book a Call
+                </a>
+            </nav>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-menu-close" onclick="toggleMobileMenu()">×</span>
+        <ul>
+            <li><a href="../../index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="../../index.html#expertise" onclick="toggleMobileMenu()">Expertise</a></li>
+            <li><a href="../../blog.html" onclick="toggleMobileMenu()">Blog</a></li>
+            <li><a href="../../projects.html" onclick="toggleMobileMenu()">Projects</a></li>
+            <li><a href="../../about.html" onclick="toggleMobileMenu()">About</a></li>
+            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book a Call</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <article class="article-container">
+        <header class="article-header">
+            <span class="article-category">Insight</span>
+            <h1 class="article-title">Autonomous Agents Are Overhyped. Evaluation Is Underrated.</h1>
+            <div class="article-meta">
+                <span class="article-meta-item">
+                    <i class="las la-calendar"></i>
+                    May 14, 2026
+                </span>
+                <span class="article-meta-item">
+                    <i class="las la-clock"></i>
+                    6 min read
+                </span>
+                <span class="article-meta-item">
+                    <i class="las la-user"></i>
+                    Sartaj Syed
+                </span>
+            </div>
+            <div class="article-tags">
+                <span class="article-tag">AI Agents</span>
+                <span class="article-tag">Evaluation</span>
+                <span class="article-tag">LLMOps</span>
+            </div>
+        </header>
+
+        <!-- Featured Image -->
+        <div class="article-featured-image">
+            <img src="../../assets/images/blog/hybrid-rag-knowledge-graphs-2026.png" alt="Autonomous AI agents and evaluation infrastructure">
+        </div>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <p>Two things stand out to me right now about where the attention in AI is going versus where the actual work is. Fully autonomous agents, the pitch that a system can take a goal and run it end to end with no one checking in, get most of the attention. Evaluation and observability, the unglamorous work of measuring whether a system is actually doing what you think it's doing, get almost none. I think that's backwards, and I think both halves of that are really the same observation.</p>
+
+            <h2>What "Fully Autonomous" Actually Means in Practice</h2>
+
+            <p>Every multi-step agentic system I've built that actually holds up in production has deliberate checkpoints in it, not full autonomy from one end to the other. A system that parses a prescription or extracts a lab value asynchronously still queues its low-confidence outputs for a person to look at rather than trusting itself blindly. A system that has to decide between a fast default model and a slower reasoning model still routes that decision through explicit logic, it doesn't just let the agent decide unsupervised how much of itself to trust.</p>
+
+            <p>That's not a failure to achieve "real" autonomy. It's the actual design pattern that survives contact with production. An agent that runs ten unsupervised steps in sequence multiplies its error rate at every step along the way, since a small mistake early on compounds into a much larger one by the time anyone notices. The systems that work well aren't the ones with the most autonomy. They're the ones with the most carefully chosen boundaries on where that autonomy is allowed to run without a check.</p>
+
+            <p>The "fully autonomous agent" pitch sells demos well, because a demo is a clean, curated path where nothing goes wrong by construction. It sells production much less well, because production is exactly the messy, adversarial, edge-case-heavy environment that autonomy without checkpoints handles worst.</p>
+
+            <h2>Why Evaluation Is the Part Nobody Wants to Fund</h2>
+
+            <p>The flip side of this is evaluation, and it's underrated for a boring reason: it doesn't demo well either. A good evaluation harness doesn't produce an impressive live moment you can show a room. It produces a dashboard, a regression suite, a set of labeled cases that catch when a change quietly makes things worse. None of that is exciting, and none of it is optional if you actually want to trust a system enough to expand what it's allowed to do on its own.</p>
+
+            <p>In the evaluation work I've done, the thing that consistently mattered wasn't a bigger or newer model. It was having an actual ground-truth set to check against and a habit of running the comparison before every meaningful change, not just when something visibly broke. That's slow, unglamorous, and it's exactly the kind of infrastructure that gets skipped when a team is under pressure to ship the demo instead of the system.</p>
+
+            <h2>These Are the Same Mistake Wearing Two Faces</h2>
+
+            <p>Skipping evaluation and over-trusting autonomy are the same underlying error: taking a system's output on faith instead of checking it. Full autonomy without evaluation is how a small compounding mistake ships to real users before anyone catches it. Evaluation without a plan to eventually expand scope is how a team stays permanently stuck in a narrow, overly cautious pilot. The teams I think will actually win this next stretch aren't the ones racing to give their agents the most autonomy. They're the ones building the measurement that lets them expand autonomy deliberately, one verified step at a time, instead of all at once because a vendor's demo made it look safe.</p>
+
+            <h2>What I Expect to Happen Next</h2>
+
+            <p>I expect the "fully autonomous agent" pitch to get quietly walked back over the next couple of years, not because the underlying models stopped improving, but because enough of these systems will fail publicly and visibly in ways that force a correction back toward bounded autonomy with real evaluation behind it. That's not a pessimistic prediction about the technology. It's the same pattern every previous wave of automation has followed: the unglamorous measurement work always ends up mattering more than the flashy autonomous demo, it just takes a few expensive failures for that to become obvious to everyone, not just the people already building the systems.</p>
+
+            <!-- Social Share Buttons -->
+            <div class="social-share">
+                <span class="social-share-label">Share:</span>
+                <a href="https://twitter.com/intent/tweet?text=Autonomous%20Agents%20Are%20Overhyped.%20Evaluation%20Is%20Underrated.&url=https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html" target="_blank" class="social-share-btn">
+                    <i class="lab la-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html" target="_blank" class="social-share-btn">
+                    <i class="lab la-linkedin-in"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html" target="_blank" class="social-share-btn">
+                    <i class="lab la-facebook-f"></i>
+                </a>
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html')" class="social-share-btn" id="copyBtn">
+                    <i class="las la-link"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Author CTA -->
+        <div class="author-cta">
+            <h3>Building something with AI?</h3>
+            <p>I design and ship production systems across ML, deep learning, GenAI, LLMs, and RAG. Happy to talk through what you're working on.</p>
+            <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                <i class="las la-calendar"></i>
+                Book a Free Call
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Sartaj Syed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Copy link to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                const btn = document.getElementById('copyBtn');
+                btn.innerHTML = '<i class="las la-check"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="las la-link"></i>';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
