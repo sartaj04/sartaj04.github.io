@@ -657,29 +657,29 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>In the research agent I built at Doriot, the obvious move would have been to pick one strong model and send every query to it. That's not what I did, and I think the reasons why are worth writing up separately from the retrieval side of the system.</p>
+            <p>In the research agent I built at Doriot, the obvious move would have been to pick one strong model and send every query to it. That's not what I did. The reasons are worth writing up separately from the retrieval side of the system.</p>
 
-            <p>GPT-4, through Azure OpenAI, is the default generator. It handles the large majority of queries: the intent classifier and hybrid retrieval have already done most of the work by the time a request reaches generation, so most of what's left is synthesizing an answer from context that's already well-scoped. DeepSeek-R1 sits behind it as a fallback, used specifically when a query needs deeper, multi-step reasoning rather than straightforward synthesis.</p>
+            <p>GPT-4, through Azure OpenAI, is the default generator. It handles most queries. By the time generation runs, the intent classifier and hybrid retrieval have already scoped the context. What's left is mostly synthesizing an answer. DeepSeek-R1 sits behind it as a fallback when a query needs deeper, multi-step reasoning rather than straightforward synthesis.</p>
 
             <h2>What Actually Triggers the Fallback</h2>
 
-            <p>Two signals matter most. The first comes straight out of the intent classifier: since it's multi-label, a query that gets tagged with several intents at once, say funding-round details and competitor analysis and market trends together, is already signaling more complexity than a single-intent question. The second is the shape of the merged retrieval context. When both the SQL path and the vector path return substantial results that need to be reconciled rather than just summarized, that's a reasoning task, not a lookup task.</p>
+            <p>Two signals matter most. The first comes from the intent classifier. Because it's multi-label, a query tagged with several intents at once already signals more complexity than a single-intent question. Think funding-round details plus competitor analysis plus market trends. The second is the shape of the merged retrieval context. When both the SQL path and the vector path return substantial results that need reconciling rather than summarizing, that's a reasoning task, not a lookup.</p>
 
-            <p>Neither of these is a hard threshold in the sense of a fixed number. It's closer to routing logic than a formula: does this query ask the model to hold several independent threads of retrieved information and reason across them, or does it ask the model to describe what's already in front of it. The former goes to the reasoning model. The latter doesn't need to.</p>
+            <p>Neither is a hard numeric threshold. It's routing logic. Does this query ask the model to hold several independent threads of retrieved information and reason across them? Or does it ask the model to describe what's already in front of it? The former goes to the reasoning model. The latter doesn't need to.</p>
 
             <h2>Why Not Just Always Use the Reasoning Model</h2>
 
-            <p>Reasoning models are built to think longer before answering, that's the entire point of them, and that comes with real latency and cost. Paying that tax on a query like "what was this company's Series B amount" would be pure waste when GPT-4 answers it correctly and quickly. Defaulting to the strongest available model for everything is an easy trap, because it feels safe, but it's rarely the efficient choice once you look at what most requests actually need.</p>
+            <p>Reasoning models are built to think longer before answering. That's the point. It also means real latency and cost. Paying that tax on a query like "what was this company's Series B amount" is pure waste when GPT-4 answers it correctly and quickly. Defaulting to the strongest model for everything feels safe. It's rarely the efficient choice once you look at what most requests actually need.</p>
 
             <h2>Why Not Just Stay on the Default Model</h2>
 
-            <p>The opposite mistake is assuming a single capable model plus a better prompt can handle everything. Some questions genuinely require holding multiple threads of context and reasoning across them in a way a single-pass generator doesn't do reliably, no matter how the prompt is written. At some point the honest fix is a different model built for that kind of work, not a longer system prompt bolted onto the same one.</p>
+            <p>The opposite mistake is assuming a single capable model plus a better prompt can handle everything. Some questions require holding multiple threads of context and reasoning across them. A single-pass generator doesn't do that reliably, no matter how you write the prompt. At some point the honest fix is a different model built for that work, not a longer system prompt on the same one.</p>
 
             <h2>Keeping the Routing Simple</h2>
 
-            <p>It would be easy to turn this into an elaborate decision tree with many models and many rules. I deliberately kept it to two models and one clear trigger condition. A router with two paths is something you can actually reason about when something goes wrong, and something you can iterate on without needing a flowchart to explain your own system to yourself six months later.</p>
+            <p>It would be easy to turn this into an elaborate decision tree with many models and many rules. I kept it to two models and one clear trigger condition. A router with two paths is something you can reason about when things go wrong. You can iterate on it without needing a flowchart to explain your own system six months later.</p>
 
-            <p>The broader takeaway for anyone architecting these systems: which model handles a given request is a design decision made per request, the same way you'd decide which index or which database fits a particular query. It shouldn't be a single global setting picked once at the start of a project and left alone.</p>
+            <p>The broader takeaway: which model handles a given request is a design decision made per request. Treat it the same way you'd pick which index or database fits a query. It shouldn't be a single global setting picked once at the start of a project and left alone.</p>
 
             <h2>Learn More</h2>
 

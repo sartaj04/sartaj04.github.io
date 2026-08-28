@@ -657,27 +657,43 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>HealthJourney is a platform I built for small clinics, one to three physicians, a few dozen patients a day, that wraps agentic AI around intake, consult, labs, and post-visit follow-up. The AI parts get the attention when I describe this project, but the engineering problem I actually spent the most care on was multi-tenancy: this system serves multiple clinics off one deployment, and a bug in application logic is not an acceptable way to keep one clinic's patient records separate from another's.</p>
+            <p>HealthJourney is a platform I built for small clinics: one to three physicians, seeing a few dozen patients a day. It wraps agentic AI around intake, consult, labs, and post-visit follow-up.</p>
+
+            <p>The AI parts get the attention when I describe this project. The engineering problem I spent the most care on was multi-tenancy. This system serves multiple clinics off one deployment. A bug in application logic is not an acceptable way to keep one clinic's patient records separate from another's.</p>
 
             <h2>Intake Starts on WhatsApp, Not in an App</h2>
 
-            <p>Patients don't download anything. Reception staff sends an OTP-gated intake link over Twilio WhatsApp, with SMS as a fallback, and the patient answers a conversational questionnaire from there. Gemini 2.5 Flash turns those answers into a specialty-aware clinical summary that's waiting in the staff interface before the doctor even sees the patient. That small piece of automation, having a coherent summary ready ahead of the visit instead of a doctor reading raw questionnaire answers cold, is most of the intake value on its own.</p>
+            <p>Patients don't download anything. Reception staff sends an OTP-gated intake link over Twilio WhatsApp, with SMS as a fallback. The patient answers a conversational questionnaire from there.</p>
+
+            <p>Gemini 2.5 Flash turns those answers into a specialty-aware clinical summary waiting in the staff interface before the doctor sees the patient. Having a coherent summary ready ahead of the visit, instead of a doctor reading raw questionnaire answers cold, is most of the intake value on its own.</p>
 
             <h2>One AI Abstraction, Several Jobs</h2>
 
-            <p>Rather than scattering model calls across the codebase, every AI interaction goes through a single provider-agnostic <code>AIService</code>. Gemini Flash sits behind that abstraction today, handling intake summaries, natural-language prescription parsing, structured diagnosis extraction, and lab result image processing. Having one seam instead of many means the model behind it can change later without touching every call site that depends on it.</p>
+            <p>Rather than scattering model calls across the codebase, every AI interaction goes through a single provider-agnostic <code>AIService</code>. Gemini Flash sits behind that abstraction today.</p>
 
-            <p>During a live consult, a doctor writes prescriptions in plain language, something like <code>Tab Paracetamol 500mg BD x 5 days</code>, and the AIService parses the drug and dosage and tags the diagnosis. That happens asynchronously specifically so it never blocks the consult itself. A doctor typing a prescription shouldn't be waiting on a model call to finish before moving to the next patient.</p>
+            <p>It handles intake summaries, natural-language prescription parsing, structured diagnosis extraction, and lab result image processing. One seam instead of many means the model behind it can change later without touching every call site.</p>
+
+            <p>During a live consult, a doctor writes prescriptions in plain language, something like <code>Tab Paracetamol 500mg BD x 5 days</code>. The AIService parses the drug and dosage and tags the diagnosis.</p>
+
+            <p>That happens asynchronously so it never blocks the consult. A doctor typing a prescription shouldn't wait on a model call before moving to the next patient.</p>
 
             <h2>Two Queues, Because Two Kinds of Urgent Aren't the Same</h2>
 
-            <p>That asynchronous AI work runs on a Celery queue, but it's deliberately a separate queue from notifications. Prescription parsing and diagnosis tagging can tolerate a few seconds of delay without anyone noticing. OTP delivery for patient onboarding cannot, a delayed OTP is a broken login screen, not a slow feature. Putting both kinds of work on the same queue means a burst of AI processing can back up and delay something completely unrelated and much more time-sensitive. Two queues, <code>ai_tasks</code> and <code>notifications</code>, keep those failure modes from taking each other down.</p>
+            <p>That asynchronous AI work runs on a Celery queue. It's deliberately a separate queue from notifications. Prescription parsing and diagnosis tagging can tolerate a few seconds of delay without anyone noticing.</p>
+
+            <p>OTP delivery for patient onboarding cannot. A delayed OTP is a broken login screen, not a slow feature. Putting both on the same queue means a burst of AI processing can back up and delay something unrelated and much more time-sensitive.</p>
+
+            <p>Two separate queues, <code>ai_tasks</code> and <code>notifications</code>, keep those failure modes from taking each other down.</p>
 
             <h2>Isolation as a Database Guarantee, Not an Application Convention</h2>
 
-            <p>This is the part of the system I think about the most. The easy way to build multi-tenancy is to add a <code>tenant_id</code> column and remember to filter by it in every query. That works right up until someone forgets, in one endpoint, on one code path, six months from now, and one clinic's data becomes visible to another. For clinical data, that's not a bug you get to apologize for after the fact.</p>
+            <p>This is the part of the system I think about the most. The easy way to build multi-tenancy is to add a <code>tenant_id</code> column and remember to filter by it in every query.</p>
 
-            <p>So isolation here is enforced at the database layer with PostgreSQL Row-Level Security, and specifically with <code>FORCE ROW LEVEL SECURITY</code>, so that even the table owner can't accidentally bypass the policy. FastAPI middleware sets <code>app.current_tenant_id</code> on the database session at the start of each request, and the database filters every clinical row against that value itself. The application never gets the chance to forget a <code>WHERE</code> clause, because the filter isn't the application's job anymore.</p>
+            <p>That works until someone forgets. Maybe in one endpoint, on one code path, six months from now. Then one clinic's data becomes visible to another. For clinical data, that's not a bug you get to apologize for after the fact.</p>
+
+            <p>So isolation is enforced at the database layer with PostgreSQL Row-Level Security. Specifically with <code>FORCE ROW LEVEL SECURITY</code>, so even the table owner can't accidentally bypass the policy.</p>
+
+            <p>FastAPI middleware sets <code>app.current_tenant_id</code> on the database session at the start of each request. The database filters every clinical row against that value itself. The application never gets the chance to forget a <code>WHERE</code> clause. The filter isn't the application's job anymore.</p>
 
             <pre><code>-- Simplified shape of the policy
 ALTER TABLE patient_records ENABLE ROW LEVEL SECURITY;
@@ -687,23 +703,31 @@ CREATE POLICY tenant_isolation ON patient_records
     USING (tenant_id = current_setting('app.current_tenant_id')::uuid);
 </code></pre>
 
-            <p>There's a real infrastructure consequence to this choice. RLS depends on session state, the current tenant id set on the connection, persisting across the transaction. A transaction pooler resets session state between transactions, which silently breaks that guarantee. So the connection layer uses Supabase's session pooler on port 5432 specifically, not the transaction pooler, because the transaction pooler can't hold the session state RLS depends on. It's a detail that's easy to get wrong without noticing until tenant isolation quietly stops working.</p>
+            <p>There's a real infrastructure consequence. RLS depends on session state (the current tenant id on the connection) persisting across the transaction. A transaction pooler resets session state between transactions, which silently breaks that guarantee.</p>
+
+            <p>So the connection layer uses Supabase's session pooler on port 5432 specifically, not the transaction pooler. The transaction pooler can't hold the session state RLS depends on. It's a detail that's easy to get wrong without noticing until tenant isolation quietly stops working.</p>
 
             <h2>Lab Results Without Blind Trust</h2>
 
-            <p>Lab results come in as PDFs or photos. AI vision extracts numeric values and maps them to an internal test-code dictionary, but low-confidence extractions get queued for manual staff review instead of being trusted automatically. For returning patients, the system builds trend charts over time, flags duplicate investigations, and surfaces allergy conflicts against history, all downstream of that same extracted data.</p>
+            <p>Lab results come in as PDFs or photos. AI vision extracts numeric values and maps them to an internal test-code dictionary. Low-confidence extractions get queued for manual staff review instead of being trusted automatically.</p>
+
+            <p>For returning patients, the system builds trend charts over time, flags duplicate investigations, and surfaces allergy conflicts against history. All of that comes from the same extracted data.</p>
 
             <h2>Care in the Patient's Language</h2>
 
-            <p>Post-visit summaries, findings, medications, warning signs, follow-up instructions, go back out over WhatsApp in English, Hindi, or Telugu, matching the languages patients at these clinics actually speak. A summary a patient can't read is not a summary.</p>
+            <p>Post-visit summaries (findings, medications, warning signs, follow-up instructions) go back out over WhatsApp in English, Hindi, or Telugu. Those are the languages patients at these clinics actually speak. A summary a patient can't read is not a summary.</p>
 
             <h2>What's Deliberately Not in v1</h2>
 
-            <p>Worth naming plainly rather than implying a more finished product: this doesn't yet have Docker Compose deployment, appointment scheduling, ABHA linkage, HL7 or FHIR support, insurance integration, ICD-10 automation, predictive diagnostics, or a native mobile app. The system targets small clinics specifically, roughly one to three physicians seeing twenty to fifty patients a day, and there's no published adoption or performance data attached to this project. What's here is the architecture, not a results scoreboard.</p>
+            <p>Worth naming plainly rather than implying a more finished product. This doesn't yet have Docker Compose deployment, appointment scheduling, ABHA linkage, HL7 or FHIR support, insurance integration, ICD-10 automation, predictive diagnostics, or a native mobile app.</p>
+
+            <p>The system targets small clinics specifically: roughly one to three physicians seeing twenty to fifty patients a day. There's no published adoption or performance data. What's here is the architecture, not a results scoreboard.</p>
 
             <h2>The General Lesson</h2>
 
-            <p>For anything handling data across tenants where a leak has real consequences, not just an inconvenience, isolation belongs at the database layer as a guarantee, not in application code as a convention everyone is expected to remember. Conventions get violated by one forgotten line. A database constraint doesn't have that failure mode.</p>
+            <p>For anything handling data across tenants where a leak has real consequences, not just an inconvenience, isolation belongs at the database layer as a guarantee. Not in application code as a convention everyone is expected to remember.</p>
+
+            <p>Conventions get violated by one forgotten line. A database constraint doesn't have that failure mode.</p>
 
             <h2>Learn More</h2>
 

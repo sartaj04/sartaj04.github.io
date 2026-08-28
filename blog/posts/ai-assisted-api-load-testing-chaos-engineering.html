@@ -657,31 +657,51 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>Writing load test scenarios by hand is tedious in a specific way: you have to read through an API's endpoints, guess at realistic payloads, decide on request patterns, and write scripts for all of it before you've run a single test. I built API Stress Lab to remove that first, tedious step. Upload an OpenAPI spec, and AI generates the test scenarios for you.</p>
+            <p>Writing load test scenarios by hand is tedious in a specific way. You read through an API's endpoints. Guess at realistic payloads. Decide on request patterns. Write scripts for all of it before you've run a single test.</p>
+
+            <p>I built API Stress Lab to remove that first step. Upload an OpenAPI spec, and AI generates the test scenarios for you.</p>
 
             <h2>What the AI Actually Does</h2>
 
-            <p>The tool takes an OpenAPI 3.x spec, JSON or YAML, and generates test scenarios from the endpoints and schemas it describes. It's worth being precise about what this means, because it's easy to overstate. The AI isn't simulating traffic or running the test. It's turning a spec into a plausible test plan, realistic payloads, sensible request sequences, so a person doesn't have to hand-write a script for every endpoint before testing anything. The actual load, the requests hitting the target API, runs through k6 underneath, which is a mature, purpose-built load-testing engine. AI replaces the scripting step, not the engine.</p>
+            <p>The tool takes an OpenAPI 3.x spec, either JSON or YAML, and generates test scenarios from the endpoints and schemas it describes. It's worth being precise here, because it's easy to overstate what this does.</p>
+
+            <p>The AI isn't simulating traffic or running the test. It's turning a spec into a plausible test plan: realistic payloads and sensible request sequences. A person doesn't have to hand-write a script for every endpoint before testing anything.</p>
+
+            <p>The actual load, meaning the requests hitting the target API, runs through k6 underneath. That's a mature, purpose-built load-testing engine. AI replaces the scripting step, not the engine.</p>
 
             <h2>Beyond Clean Load: Chaos Testing</h2>
 
-            <p>Running a system under clean, steadily increasing load tells you one thing. It doesn't tell you how the system behaves when things go wrong, which in production is most of what actually matters. The tool supports chaos testing on top of standard load profiles: deliberately injecting latency, simulating failures, forcing the kind of degraded conditions that are hard to reproduce on purpose otherwise. Seeing how a system degrades under partial failure is a different and arguably more useful signal than seeing how fast it responds when everything is healthy.</p>
+            <p>Running a system under clean, steadily increasing load tells you one thing. It doesn't tell you how the system behaves when things go wrong. In production, that's most of what matters.</p>
+
+            <p>The tool supports chaos testing on top of standard load profiles. Injecting latency. Simulating failures. Forcing degraded conditions that are hard to reproduce on purpose.</p>
+
+            <p>Seeing how a system degrades under partial failure is a different signal than seeing how fast it responds when everything is healthy. Often a more useful one.</p>
 
             <h2>Turning Results Into Something Actionable</h2>
 
-            <p>Raw load test output is a lot of numbers. The dashboard surfaces latency percentiles, p50, p95, p99, and RPS curves through Recharts, and pairs that with AI-generated analysis that flags likely bottlenecks and suggests fixes, rather than leaving someone to eyeball a chart and guess what's actually constraining the system.</p>
+            <p>Raw load test output is a lot of numbers. The dashboard shows latency percentiles (p50, p95, p99) and RPS curves through Recharts. It pairs that with AI-generated analysis that flags likely bottlenecks and suggests fixes, so nobody has to eyeball a chart and guess what's constraining the system.</p>
 
             <h2>Architecture</h2>
 
-            <p>The frontend is Next.js 14 with Tailwind. The backend is FastAPI. Because a load test can run for a while and shouldn't block the request that started it, test execution happens asynchronously through Celery workers backed by a Redis queue. Postgres holds test configuration and results, and test artifacts live in MinIO or Cloudflare R2 depending on deployment.</p>
+            <p>The frontend is Next.js 14 with Tailwind. The backend is FastAPI. A load test can run for a while and shouldn't block the request that started it.</p>
+
+            <p>Test execution happens asynchronously through Celery workers backed by a Redis queue. Postgres holds test configuration and results. Test artifacts live in MinIO or Cloudflare R2 depending on deployment.</p>
 
             <h2>Security Was Not Optional Here</h2>
 
-            <p>A tool that takes a user-supplied API target and credentials and then generates traffic against it is a meaningfully different security surface than a typical CRUD app, and I treated it that way rather than as an afterthought. SSRF protection blocks requests to private IP ranges and cloud metadata endpoints specifically, since a load tester that will hit any URL you give it is a textbook SSRF vector if internal targets aren't explicitly blocked. Credentials are encrypted with Fernet, AES-128, rather than stored in plaintext. JWT authentication enforces per-user data isolation, so one user's test configurations and stored credentials are never visible to another user of the same instance.</p>
+            <p>A tool that takes a user-supplied API target and credentials, then generates traffic against it, is a different security surface than a typical CRUD app. I treated it that way rather than as an afterthought.</p>
+
+            <p>SSRF protection blocks requests to private IP ranges and cloud metadata endpoints. A load tester that will hit any URL you give it is a textbook SSRF vector if internal targets aren't blocked.</p>
+
+            <p>Credentials are encrypted with Fernet (AES-128), not stored in plaintext. JWT authentication enforces per-user data isolation. One user's test configurations and stored credentials are never visible to another user of the same instance.</p>
 
             <h2>What Building This Taught Me</h2>
 
-            <p>The AI-assisted scenario generation genuinely cuts the time to a first useful test, that part of the pitch holds up. But the value of a tool like this still rests on the unglamorous parts: a real load-testing engine doing the actual work, async job handling that doesn't block on long-running tests, and security built with the assumption that it will eventually be pointed at real infrastructure with real credentials, not a demo environment. The AI layer is the part people notice first. It's not the part that makes the tool trustworthy to actually run against something that matters.</p>
+            <p>AI-assisted scenario generation genuinely cuts the time to a first useful test. That part of the pitch holds up.</p>
+
+            <p>But the value of a tool like this still rests on the unglamorous parts. A real load-testing engine doing the actual work. Async job handling that doesn't block on long-running tests. Security built with the assumption that it will eventually be pointed at real infrastructure with real credentials, not just a demo environment.</p>
+
+            <p>The AI layer is the part people notice first. It's not the part that makes the tool trustworthy to run against something that matters.</p>
 
             <h2>Learn More</h2>
 

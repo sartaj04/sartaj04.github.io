@@ -657,19 +657,35 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>During my MSc at Edinburgh, two teammates and I picked a problem that turned out to be more under-explored than we expected: detecting physical contact between players in American football video. Most of the published work in this space is either head-impact detection using wearable sensors, or general player and action detection. Very little of it deals with the specific mess of American football, where players are in close physical contact constantly, which makes it genuinely hard to tell where one contact event starts and another ends.</p>
+            <p>During my MSc at Edinburgh, two teammates and I picked a problem that turned out more under-explored than we expected: detecting physical contact between players in American football video.</p>
 
-            <p>We used the Kaggle NFL Player Contact Detection dataset: 720 videos, of which we used the Sideline and Endzone views since the third view wasn't timestamped, along with player tracking data, contact labels sampled every 0.1 seconds, and helmet bounding boxes. We pulled frames once a second starting five seconds into each video, expanded the helmet bounding boxes to 256x256 crops per player per frame, and sorted the results into contact and no-contact folders. To manage a fairly large class imbalance, we sampled around 10,000 no-contact frames and 8,000 contact frames, then cropped those down to 150x150 to keep the feature count manageable and reduce overfitting risk before training anything.</p>
+            <p>Most published work in this space is either head-impact detection using wearable sensors, or general player and action detection. Very little deals with the specific mess of American football. Players are in close physical contact constantly. That makes it genuinely hard to tell where one contact event starts and another ends.</p>
+
+            <p>We used the Kaggle NFL Player Contact Detection dataset: 720 videos. We used the Sideline and Endzone views since the third view wasn't timestamped. Along with that: player tracking data, contact labels sampled every 0.1 seconds, and helmet bounding boxes.</p>
+
+            <p>We pulled frames once a second starting five seconds into each video. We expanded the helmet bounding boxes to 256x256 crops per player per frame. Then we sorted the results into contact and no-contact folders.</p>
+
+            <p>To manage a fairly large class imbalance, we sampled around 10,000 no-contact frames and 8,000 contact frames. Then we cropped those down to 150x150 to keep the feature count manageable and reduce overfitting risk before training anything.</p>
 
             <h2>Why SVM Wasn't the Right Baseline</h2>
 
-            <p>We started with SVM as a baseline, following a paper that used it for head impact detection in American football. It didn't go well. With default sklearn parameters, it reached 49.51% train accuracy and 49.19% test accuracy, barely better than a coin flip. Tuning it, 200 iterations with a gamma of 0.1, actually made things slightly worse: 48.03% train, 47% test. SVM was also noticeably slow on this data, which limited how much tuning we could realistically explore. The combination of weak accuracy and poor scalability told us plainly that a linear-margin classifier over raw feature vectors wasn't a good fit for this kind of high-dimensional image data at this scale, regardless of how much we tuned it.</p>
+            <p>We started with SVM as a baseline, following a paper that used it for head impact detection in American football. It didn't go well.</p>
+
+            <p>With default sklearn parameters, it reached 49.51% train accuracy and 49.19% test accuracy. Barely better than a coin flip. Tuning it (200 iterations with a gamma of 0.1) actually made things slightly worse: 48.03% train, 47% test.</p>
+
+            <p>SVM was also noticeably slow on this data. That limited how much tuning we could realistically explore. Weak accuracy plus poor scalability told us plainly that a linear-margin classifier over raw feature vectors wasn't a good fit for this kind of high-dimensional image data at this scale. No amount of tuning changed that.</p>
 
             <h2>Augmentation Mattered More Than Architecture</h2>
 
-            <p>We moved to three deep learning models: ResNet50, ResNet152, and EfficientNetB0. ResNet50 without augmentation, trained for 100 epochs, overfit visibly and topped out at 72.17% validation accuracy. Rather than assume a deeper network would fix that, we tested the same hyperparameters, a learning rate of 0.01 and dropout of 0.5, with image augmentation added. That alone brought validation accuracy up to 74.89% and visibly narrowed the gap between training and validation curves.</p>
+            <p>We moved to three deep learning models: ResNet50, ResNet152, and EfficientNetB0. ResNet50 without augmentation, trained for 100 epochs, overfit visibly and topped out at 72.17% validation accuracy.</p>
 
-            <p>What actually surprised us was that ResNet152, without augmentation, only reached 73.27%, barely ahead of the non-augmented ResNet50. More depth didn't buy much on its own. EfficientNetB0, also without augmentation, was the best single non-augmented result at 74.49%, which we'd credit to its compound scaling approach and squeeze-and-excitation blocks using capacity more deliberately than the plain ResNet architectures. Given our compute and time constraints, we didn't get to run augmentation on ResNet152 or EfficientNet, which is a real gap in the comparison, but the pattern across what we did run was consistent: augmentation closed more of the overfitting problem than switching architectures did.</p>
+            <p>Rather than assume a deeper network would fix that, we tested the same hyperparameters (a learning rate of 0.01 and dropout of 0.5) with image augmentation added. That alone brought validation accuracy up to 74.89%. It also visibly narrowed the gap between training and validation curves.</p>
+
+            <p>What surprised us: ResNet152 without augmentation only reached 73.27%. Barely ahead of the non-augmented ResNet50. More depth didn't buy much on its own.</p>
+
+            <p>EfficientNetB0, also without augmentation, was the best single non-augmented result at 74.49%. We'd credit that to its compound scaling approach and squeeze-and-excitation blocks using capacity more deliberately than plain ResNet.</p>
+
+            <p>Given our compute and time constraints, we didn't get to run augmentation on ResNet152 or EfficientNet. That's a real gap in the comparison. But the pattern across what we did run was consistent: augmentation closed more of the overfitting problem than switching architectures did.</p>
 
             <ul>
                 <li>SVM (default params): 49.19% test accuracy</li>
@@ -682,9 +698,15 @@
 
             <h2>What We Learned Trying to Crop With Pretrained Detectors</h2>
 
-            <p>Our original plan was simpler than what we ended up doing: use pretrained object detection models to crop players directly, then classify contact on those crops. That plan broke early. When players were in close physical proximity, which in this sport is most of the time, the pretrained detectors either merged two players into a single detection or missed one of them outright. Retraining these detectors on our own data wasn't realistic given our compute budget, so for the primary classification task we fell back to cropping directly from the helmet bounding boxes already provided in the dataset's CSV files.</p>
+            <p>Our original plan was simpler than what we ended up doing. Use pretrained object detection models to crop players directly. Then classify contact on those crops. That plan broke early.</p>
 
-            <p>That failure turned into our second research question: do state-of-the-art detectors actually perform better on cropped images than on the full frame, given how much they struggled with crowded scenes. We compared three COCO-pretrained models, Faster R-CNN R50, Mask2Former, and YOLOX X, across 15 full images and 47 cropped versions of the same scenes, measuring precision, recall, and F1.</p>
+            <p>When players were in close physical proximity, which in this sport is most of the time, the pretrained detectors either merged two players into a single detection or missed one of them outright. Retraining these detectors on our own data wasn't realistic given our compute budget.</p>
+
+            <p>So for the primary classification task we fell back to cropping directly from the helmet bounding boxes already provided in the dataset's CSV files.</p>
+
+            <p>That failure turned into our second research question. Do state-of-the-art detectors actually perform better on cropped images than on the full frame, given how much they struggled with crowded scenes?</p>
+
+            <p>We compared three COCO-pretrained models (Faster R-CNN R50, Mask2Former, and YOLOX X) across 15 full images and 47 cropped versions of the same scenes. We measured precision, recall, and F1.</p>
 
             <ul>
                 <li>Faster R-CNN R50: F1 0.86 on full images, 0.91 on cropped images</li>
@@ -692,15 +714,25 @@
                 <li>YOLOX X: F1 0.92 on full images, 0.93 on cropped images</li>
             </ul>
 
-            <p>The result we didn't expect going in was that cropping doesn't uniformly help. Faster R-CNN, a two-stage detector, improved meaningfully once cropped. Mask2Former actually did marginally worse cropped than uncropped. YOLOX X stayed close to 0.92 either way, which is exactly the property you want in a detector meant to run on real, messy game footage where you can't always guarantee a clean crop. That consistency, more than either single F1 number, is why YOLOX X looked like the strongest candidate for a real-time system.</p>
+            <p>The result we didn't expect: cropping doesn't uniformly help. Faster R-CNN, a two-stage detector, improved meaningfully once cropped. Mask2Former actually did marginally worse cropped than uncropped.</p>
+
+            <p>YOLOX X stayed close to 0.92 either way. That's exactly the property you want in a detector meant to run on real, messy game footage where you can't always guarantee a clean crop. That consistency, more than either single F1 number, is why YOLOX X looked like the strongest candidate for a real-time system.</p>
 
             <h2>A Model That Didn't Transfer</h2>
 
-            <p>We also tried a pretrained CNN-LSTM violence detection model directly on our raw match footage, mostly out of curiosity about whether an existing "physical altercation" detector would generalize to sports contact. It produced a lot of false positives. The paper's reported results were solid on its original domain, but that domain wasn't ours, and the model hadn't been fine-tuned for football. It was a useful reminder that a model's headline numbers belong to the dataset they were measured on, not automatically to whatever you point the model at next.</p>
+            <p>We also tried a pretrained CNN-LSTM violence detection model directly on our raw match footage. Mostly out of curiosity: would an existing "physical altercation" detector generalize to sports contact?</p>
+
+            <p>It produced a lot of false positives. The paper's reported results were solid on its original domain. That domain wasn't ours, and the model hadn't been fine-tuned for football.</p>
+
+            <p>Useful reminder: a model's headline numbers belong to the dataset they were measured on. Not automatically to whatever you point the model at next.</p>
 
             <h2>What This Project Actually Taught Us</h2>
 
-            <p>Three things held up across both halves of this project. Classical ML like SVM can be a reasonable baseline, but it wasn't built for high-dimensional image data at this scale, and no amount of parameter tuning changed that. Data augmentation fixed more of our overfitting problem than moving to a deeper or more sophisticated architecture did, which is worth remembering before reaching for a bigger model as the first fix. And object detectors don't respond to cropping uniformly, so a claim like "cropping improves detection" needs to be tested per architecture on your actual data, not assumed from how one model happened to behave.</p>
+            <p>Three things held up across both halves of this project. Classical ML like SVM can be a reasonable baseline, but it wasn't built for high-dimensional image data at this scale. No amount of parameter tuning changed that.</p>
+
+            <p>Data augmentation fixed more of our overfitting problem than moving to a deeper or more sophisticated architecture did. Worth remembering before reaching for a bigger model as the first fix.</p>
+
+            <p>And object detectors don't respond to cropping uniformly. A claim like "cropping improves detection" needs to be tested per architecture on your actual data. Not assumed from how one model happened to behave.</p>
 
             <h2>Learn More</h2>
 

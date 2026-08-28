@@ -657,15 +657,15 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>At Doriot, one of the two systems I built was a research agent meant to answer questions about startups, investors, and funding activity. The obvious approach is a standard RAG pipeline: embed a bunch of funding data and news, retrieve the closest chunks, hand them to an LLM. I tried that first, and it fell apart quickly, because market research questions aren't one shape.</p>
+            <p>At Doriot, one of the two systems I built was a research agent for questions about startups, investors, and funding activity. The obvious approach is a standard RAG pipeline: embed funding data and news, retrieve the closest chunks, hand them to an LLM. I tried that first. It fell apart quickly. Market research questions aren't one shape.</p>
 
-            <p>Someone asking "what was the last funding round for this company" wants an exact fact out of a structured database. Someone asking "how does this company's funding trajectory compare to others in the same space" wants synthesis across a lot of unstructured context. A single generic retrieval path treats both of these identically, and does a mediocre job on each.</p>
+            <p>Someone asking "what was the last funding round for this company" wants an exact fact from a structured database. Someone asking "how does this company's funding trajectory compare to others in the same space" wants synthesis across a lot of unstructured context. A single generic retrieval path treats both identically and does a mediocre job on each.</p>
 
             <h2>Classify the Intent Before You Retrieve Anything</h2>
 
-            <p>The fix was to stop treating retrieval as the first step and put a classifier in front of it. I trained a custom SpaCy text classifier to route incoming queries across more than 20 specialized categories: funding round details, competitor analysis, lead generation, market trend questions, and others specific to the platform.</p>
+            <p>The fix was to stop treating retrieval as the first step. Put a classifier in front of it. I trained a custom SpaCy text classifier to route queries across more than 20 specialized categories: funding round details, competitor analysis, lead generation, market trend questions, and others specific to the platform.</p>
 
-            <p>The important detail is that this is multi-label, not single-label. Real questions frequently touch more than one category at once. "How does this competitor's latest round compare to what's happening in their sector" is simultaneously a funding-round question, a competitor-analysis question, and a market-trend question. Forcing that into one bucket loses information the routing layer actually needs. Multi-label classification lets a single query trigger more than one downstream handler and combine the results, instead of guessing which single label wins.</p>
+            <p>The important detail: this is multi-label, not single-label. Real questions often touch more than one category at once. "How does this competitor's latest round compare to what's happening in their sector" is a funding-round question, a competitor-analysis question, and a market-trend question. Forcing that into one bucket loses information the routing layer needs. Multi-label classification lets one query trigger more than one downstream handler and combine the results. No guessing which single label wins.</p>
 
             <pre><code>intents = classifier.predict(query)
 # intents might be: ["funding_round_details", "competitor_analysis"]
@@ -676,21 +676,21 @@ context = merge_contexts([h.retrieve(query) for h in handlers])
 
             <h2>Routing to SQL or Vectors, Not Just One</h2>
 
-            <p>Once intent is known, the retrieval path itself branches. Structured questions, exact funding amounts, round types, dates, go straight to SQL against the relational funding database. There's no reason to pay for an embedding lookup when the answer is a row in a table. Narrative or comparative questions go through a semantic path instead, pgvector similarity search over 1536-dimensional embeddings built from company descriptions, news coverage, and funding commentary.</p>
+            <p>Once intent is known, the retrieval path branches. Structured questions, like exact funding amounts, round types, or dates, go straight to SQL against the relational funding database. There's no reason to pay for an embedding lookup when the answer is a row in a table. Narrative or comparative questions go through a semantic path instead: pgvector similarity search over 1536-dimensional embeddings from company descriptions, news coverage, and funding commentary.</p>
 
-            <p>A lot of queries need both. The agent runs the structured lookup and the semantic search in parallel, then merges the results before generation, so a comparative question gets the exact numbers from SQL alongside the qualitative context from the vector store, instead of the model having to guess or hallucinate the numbers.</p>
+            <p>A lot of queries need both. The agent runs the structured lookup and the semantic search in parallel, then merges results before generation. A comparative question gets exact numbers from SQL alongside qualitative context from the vector store. The model doesn't have to guess or hallucinate the numbers.</p>
 
             <h2>Generation and When to Escalate</h2>
 
-            <p>For generation, the primary model is GPT-4 through Azure OpenAI. For queries that need deeper multi-step reasoning, comparative analysis across several companies, for example, the agent falls back to DeepSeek-R1. I go into the actual routing logic for that decision in a separate post, since it deserves its own treatment rather than a paragraph here.</p>
+            <p>For generation, the primary model is GPT-4 through Azure OpenAI. For queries that need deeper multi-step reasoning, like comparative analysis across several companies, the agent falls back to DeepSeek-R1. I cover that routing logic in a separate post. It deserves its own treatment rather than a paragraph here.</p>
 
             <h2>Keeping the Data Fresh Without Blocking Requests</h2>
 
-            <p>None of this works if the underlying data is stale. A dedicated scraper pulls from TechCrunch, and a NewsAPI integration continuously ingests funding announcements as they happen. Both run as background jobs on Celery workers backed by Redis, so scraping and embedding generation never sit in the request path of an actual user query. Prometheus tracks the health of all of it, queue depth, job failures, latency, separately from the request-serving side of the system.</p>
+            <p>None of this works if the underlying data is stale. A dedicated scraper pulls from TechCrunch. A NewsAPI integration continuously ingests funding announcements. Both run as background jobs on Celery workers backed by Redis. Scraping and embedding generation never sit in the request path of a user query. Prometheus tracks health separately from request serving: queue depth, job failures, latency.</p>
 
             <h2>What This Taught Me About RAG Design</h2>
 
-            <p>The lesson I keep coming back to is that a lot of RAG systems try to fix bad retrieval with better prompts. That's backwards. If you can classify what a query is actually asking for before you touch the retrieval layer, you solve the problem earlier and cheaper than trying to patch it after generation with more context or more careful prompting. Intent routing isn't a nice-to-have on top of RAG. For a domain with genuinely different question shapes, it's the part of the architecture that does the most work.</p>
+            <p>The lesson I keep coming back to: a lot of RAG systems try to fix bad retrieval with better prompts. That's backwards. If you classify what a query is asking for before you touch retrieval, you solve the problem earlier and cheaper than patching it after generation with more context or more careful prompting. Intent routing isn't a nice-to-have on top of RAG. For a domain with genuinely different question shapes, it's the part of the architecture that does the most work.</p>
 
             <h2>Learn More</h2>
 

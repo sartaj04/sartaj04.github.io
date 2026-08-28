@@ -657,39 +657,39 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>Working with Talentix, I built a system meant to answer a more specific question than a typical job board: not "here are jobs similar to yours" but "here's what people in your position actually tend to move into next, and roughly what that transition looks like." That distinction shaped the whole architecture.</p>
+            <p>Working with Talentix, I built a system meant to answer a more specific question than a typical job board. Not "here are jobs similar to yours." Instead: "here's what people in your position actually tend to move into next, and roughly what that transition looks like." That distinction shaped the whole architecture.</p>
 
             <h2>A Graph of What Actually Happens</h2>
 
-            <p>The core of the system is a Neo4j graph modeling career trajectories as transitions between roles. Each edge in that graph carries three things: how often that transition actually occurs, the average tenure before someone makes the move, and the typical salary change associated with it. That turns "what's a plausible next step from here" into a graph traversal problem grounded in observed behavior, rather than a guess based on how similar two job titles sound.</p>
+            <p>The core is a Neo4j graph modeling career trajectories as transitions between roles. Each edge carries three things: how often that transition occurs, average tenure before the move, and typical salary change. That turns "what's a plausible next step" into a graph traversal grounded in observed behavior. Not a guess based on how similar two job titles sound.</p>
 
-            <p>This matters because semantic similarity alone doesn't tell you what's realistic. Two job titles can look nearly identical on paper and represent a transition nobody actually makes, or look unrelated and be a well-worn path. The graph captures the behavioral pattern that embeddings on their own can't see.</p>
+            <p>Semantic similarity alone doesn't tell you what's realistic. Two titles can look nearly identical and represent a transition nobody makes. Or look unrelated and be a well-worn path. The graph captures the behavioral pattern embeddings alone can't see.</p>
 
             <h2>Why Matching Still Needs Two Layers</h2>
 
-            <p>The graph handles the "is this transition realistic" question, but it doesn't do the matching itself, you still need to compare a person's actual skills and experience against candidate roles. Running a full detailed comparison against every job in the system isn't practical at any real scale, so matching happens in two layers.</p>
+            <p>The graph answers "is this transition realistic." It doesn't do the matching itself. You still need to compare a person's skills and experience against candidate roles. A full detailed comparison against every job isn't practical at real scale. So matching happens in two layers.</p>
 
-            <p>Layer 1 is a fast, broad screen: Sentence Transformers embeddings, mainly all-MiniLM-L6-v2 for speed, narrow the space down from every job title to a plausible candidate set based on title-level semantic similarity. Layer 2 takes that narrowed set and reranks it using a more detailed comparison, full skills and description similarity, using all-mpnet-base-v2 where quality matters more than speed. The expensive comparison only ever runs against the shortlist Layer 1 produced, not against everything.</p>
+            <p>Layer 1 is a fast, broad screen. Sentence Transformers embeddings, mainly all-MiniLM-L6-v2 for speed, narrow every job title down to a plausible candidate set by title-level semantic similarity. Layer 2 reranks that set with a more detailed comparison: full skills and description similarity, using all-mpnet-base-v2 where quality matters more than speed. The expensive comparison only runs against Layer 1's shortlist. Never against everything.</p>
 
             <pre><code>candidates = layer1_screen(profile.title_embedding, all_job_titles, top_k=200)
 ranked = layer2_rerank(profile.skills_embedding, candidates, top_k=20)
 </code></pre>
 
-            <p>This screen-then-rerank pattern isn't unique to career matching, it shows up anywhere a full pairwise comparison is too expensive to run against the entire dataset. The general shape, cheap broad filter first, expensive precise comparison only on what survives, is worth reaching for whenever you're tempted to just throw a bigger model at the whole problem.</p>
+            <p>Screen-then-rerank isn't unique to career matching. It shows up anywhere a full pairwise comparison is too expensive against the whole dataset. Cheap broad filter first. Expensive precise comparison only on what survives. Reach for that shape whenever you're tempted to throw a bigger model at the whole problem.</p>
 
             <h2>The Data Pipeline Mattered as Much as the Model</h2>
 
-            <p>None of this works if the input profile data is unreliable, and LinkedIn and resume data is messy by default. An Apache NiFi pipeline handles extraction and validation before anything reaches Postgres, with custom schema validators specifically for certifications, education, employment history, and licenses. A graph built on "what transitions actually happened" is only as good as the profile data feeding it, so a meaningful share of the engineering effort here went into validation, not modeling.</p>
+            <p>None of this works if profile data is unreliable. LinkedIn and resume data is messy by default. An Apache NiFi pipeline handles extraction and validation before anything reaches Postgres. Custom schema validators cover certifications, education, employment history, and licenses. A graph built on "what transitions actually happened" is only as good as the profile data feeding it. A meaningful share of the engineering went into validation, not modeling.</p>
 
             <h2>The Rest of the Stack</h2>
 
-            <p>FastAPI with async Postgres handles the core profile and job data. MongoDB stores user preferences separately, since that data has a different shape and update pattern than structured profile records. Pinecone holds the vector embeddings for both matching layers. Neo4j sits alongside all of it as the transition graph specifically.</p>
+            <p>FastAPI with async Postgres handles core profile and job data. MongoDB stores user preferences separately. That data has a different shape and update pattern than structured profile records. Pinecone holds the vector embeddings for both matching layers. Neo4j sits alongside as the transition graph.</p>
 
-            <p>As with the other systems I've written about, I'm not attaching a performance number here, this project doesn't have one published, and the point of this post is the design reasoning rather than a scoreboard.</p>
+            <p>As with the other systems I've written about, I'm not attaching a performance number. This project doesn't have one published. The point is design reasoning, not a scoreboard.</p>
 
             <h2>The General Lesson</h2>
 
-            <p>Semantic similarity tells you what looks alike. A graph built from real transition data tells you what's actually plausible. Career-path recommendation needs both, and it's tempting to build only the one that's easier, the embedding search, and skip the graph because it requires messier, harder-to-source data. The graph is the part that makes the recommendations trustworthy rather than just plausible-sounding.</p>
+            <p>Semantic similarity tells you what looks alike. A graph from real transition data tells you what's actually plausible. Career-path recommendation needs both. It's tempting to build only the easier piece, the embedding search, and skip the graph because it needs messier, harder-to-source data. The graph is what makes recommendations trustworthy rather than just plausible-sounding.</p>
 
             <h2>Learn More</h2>
 

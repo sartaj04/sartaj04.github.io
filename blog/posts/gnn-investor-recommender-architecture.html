@@ -657,33 +657,33 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>At Doriot, part of what I built was a recommender that matches startups with investors, VCs and angels, across a dataset built from Crunchbase and funding news covering more than a million startup-investor relationships and over a billion underlying data points. The interesting design decisions in this system weren't about scale so much as about the shape of the problem.</p>
+            <p>At Doriot, I built a recommender that matches startups with investors, both VCs and angels. The dataset came from Crunchbase and funding news: more than a million startup-investor relationships and over a billion underlying data points. The interesting design decisions weren't about scale. They were about the shape of the problem.</p>
 
-            <p>Matching startups to investors is a two-sided marketplace problem, and a two-sided marketplace is naturally a graph. Startups and investors are connected through investment relationships, and investors are connected to each other through co-investment patterns. Trying to represent that as flat feature vectors and a similarity score throws away exactly the structure that makes the matching meaningful. That's what pushed the architecture toward graph neural networks instead of a simpler embedding-and-cosine-similarity setup.</p>
+            <p>Matching startups to investors is a two-sided marketplace. A two-sided marketplace is naturally a graph. Startups and investors connect through investment relationships. Investors connect to each other through co-investment patterns. Flat feature vectors and a similarity score throw away exactly the structure that makes matching meaningful. That's what pushed the architecture toward graph neural networks instead of embedding-and-cosine-similarity.</p>
 
             <h2>Candidate Generation With GraphSAGE</h2>
 
-            <p>Running a heavy attention model over every possible startup-investor pair doesn't scale, so the pipeline starts with GraphSAGE for candidate generation. GraphSAGE's inductive sampling combined with k-nearest-neighbor clustering narrows the graph down to a manageable candidate pool before anything more expensive runs. This is the same reason recommendation systems everywhere use a cheap retrieval stage before a heavier ranking stage, the graph version of the same idea.</p>
+            <p>Running a heavy attention model over every startup-investor pair doesn't scale. The pipeline starts with GraphSAGE for candidate generation. GraphSAGE's inductive sampling plus k-nearest-neighbor clustering narrows the graph to a manageable pool before anything expensive runs. Recommendation systems everywhere use a cheap retrieval stage before a heavier ranking stage. This is the graph version of the same idea.</p>
 
             <h2>Two GATv2 Models Instead of One</h2>
 
-            <p>The actual matching runs on GATv2, Graph Attention Networks v2, using multi-head attention over the bipartite investor-startup graph. The decision that took the most convincing to arrive at was running two separate GATv2 instances, one trained specifically for VC investors and one for angel investors, rather than a single shared model covering both.</p>
+            <p>The actual matching runs on GATv2 (Graph Attention Networks v2) with multi-head attention over the bipartite investor-startup graph. The decision that took the most convincing was running two separate GATv2 instances: one trained for VCs, one for angels. Not a single shared model covering both.</p>
 
-            <p>The reason is that VC and angel investment dynamics genuinely differ. Check sizes, stage focus, decision-making speed, and portfolio construction logic aren't just different in magnitude between the two investor classes, they're different in kind. Training one shared model forces it to average across two distinct behavior patterns, which dilutes the signal each one actually needs. Two dedicated models let each specialize to the class of investor it's serving instead of learning a compromise that fits neither well.</p>
+            <p>VC and angel investment dynamics genuinely differ. Check sizes, stage focus, decision-making speed, and portfolio construction aren't just different in magnitude. They're different in kind. One shared model averages across two distinct behavior patterns and dilutes the signal each needs. Two dedicated models let each specialize instead of learning a compromise that fits neither well.</p>
 
             <h2>Re-ranking and Rivalry Signals</h2>
 
-            <p>Raw GATv2 output isn't the final ranking. Bayesian likelihood estimation re-ranks the candidate list on top of that, and Jaccard similarity is used separately to detect investor rivalry, investors who compete for the same deals and tend not to co-invest, or conversely, investors who cluster together. That rivalry signal feeds back into how candidates get ordered, since a good match for a startup also depends on which other investors are already in or near the deal.</p>
+            <p>Raw GATv2 output isn't the final ranking. Bayesian likelihood estimation re-ranks the candidate list. Jaccard similarity separately detects investor rivalry: investors who compete for the same deals and tend not to co-invest, or investors who cluster together. That rivalry signal feeds into ordering. A good match for a startup also depends on which other investors are already in or near the deal.</p>
 
             <h2>Making the Feature Space Workable</h2>
 
-            <p>With this much data, the raw feature space is large. PCA reduces it down to 512 dimensions before it goes anywhere near the graph models, keeping training and inference tractable without needing to hand-pick which features matter most. Hyperparameter tuning across both GATv2 models runs through Optuna rather than manual search, since tuning two separate models by hand isn't a good use of time once you already have an automated search tool that does it better.</p>
+            <p>With this much data, the raw feature space is large. PCA reduces it to 512 dimensions before it reaches the graph models. That keeps training and inference tractable without hand-picking features. Hyperparameter tuning for both GATv2 models runs through Optuna. Tuning two models by hand isn't worth it once you have automated search that does it better.</p>
 
             <h2>An Honest Note on Results</h2>
 
-            <p>I'm not going to attach a precision or accuracy number to this post, because the project doesn't have one published, and I'd rather say that plainly than make one up to sound more finished. The point of writing this up is the architecture reasoning: why the problem is a graph problem, why candidate generation and ranking are separate stages, and why two investor classes with different dynamics earned two separate models instead of one that tries to do both.</p>
+            <p>I'm not attaching a precision or accuracy number. The project doesn't have one published, and I'd rather say that plainly than invent one. The point is the architecture reasoning: why this is a graph problem, why candidate generation and ranking are separate stages, and why two investor classes with different dynamics earned two models instead of one that tries to do both.</p>
 
-            <p>That last point is really the generalizable lesson. If two sub-populations in your graph behave differently enough that averaging across them hurts both, that's usually a sign you need two models, not one model plus more features.</p>
+            <p>That last point is the generalizable lesson. If two sub-populations in your graph behave differently enough that averaging across them hurts both, you usually need two models. Not one model plus more features.</p>
 
             <h2>Learn More</h2>
 

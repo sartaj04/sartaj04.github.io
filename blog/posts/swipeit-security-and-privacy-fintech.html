@@ -657,35 +657,77 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>SwipeIt was a consulting project I worked on: a card recommendation app that looks at the cards you have and tells you which one to use for a given purchase to get the most cashback or points. To do that well, the system needed three things working together: real-time transaction processing to see what you'd just bought or were about to buy, a search engine over a rewards catalog to work out which of your cards actually paid the best rate for that specific merchant or category, and geofence-based location awareness so it could prompt you before you walked into a store rather than after you'd already tapped the wrong card. Each of those pieces sat behind its own microservice, which matters for the security story too, since it meant the service that talked to Plaid never needed to know your GPS coordinates, and the geofence service never needed to see a transaction.</p>
+            <p>SwipeIt was a consulting project I worked on. It's a card recommendation app. It looks at the cards you have and tells you which one to use for a given purchase to get the most cashback or points.</p>
 
-            <p>What makes an app like this a genuinely different security and privacy problem than most consumer apps is that it needs two of the most sensitive categories of personal data at the same time. It needs to know your financial accounts, and it needs to know where you physically are, in real time. Either one alone is sensitive. Both together is a different risk profile entirely, because the combination is more revealing than the sum of its parts: a bank statement alone tells you what someone bought, a location log alone tells you where someone goes, but the two joined together tell you which specific store someone walked into and reached for which card, which is a level of behavioral detail neither input gives you by itself.</p>
+            <p>To do that well, three things had to work together.</p>
+
+            <p>Real-time transaction processing to see what you'd just bought or were about to buy. A search engine over a rewards catalog to work out which of your cards paid the best rate for that merchant or category. Geofence-based location awareness so it could prompt you before you walked into a store rather than after you'd already tapped the wrong card.</p>
+
+            <p>Each piece sat behind its own microservice. That matters for the security story too. The service that talked to Plaid never needed to know your GPS coordinates. The geofence service never needed to see a transaction.</p>
+
+            <p>What makes an app like this a different security and privacy problem is that it needs two of the most sensitive categories of personal data at the same time. It needs to know your financial accounts. It needs to know where you physically are, in real time.</p>
+
+            <p>Either one alone is sensitive. Both together is a different risk profile. The combination is more revealing than the sum of its parts.</p>
+
+            <p>A bank statement alone tells you what someone bought. A location log alone tells you where someone goes. The two joined together tell you which store someone walked into and which card they reached for. That's a level of behavioral detail neither input gives you by itself.</p>
 
             <h2>Not Storing Bank Credentials in the First Place</h2>
 
-            <p>The financial side ran through Plaid rather than anything built in-house to talk to banks directly. That decision matters more than it might sound, and it's worth being specific about why.</p>
+            <p>The financial side ran through Plaid rather than anything built in-house to talk to banks directly. That decision matters more than it might sound. It's worth being specific about why.</p>
 
-            <p>Before aggregators like Plaid were standard, a lot of personal finance apps worked by screen scraping: the app itself stored a user's actual online banking username and password, logged into the bank's website programmatically on the user's behalf, and parsed the resulting HTML for balances and transactions. That meant every app in that category was, functionally, a second copy of your bank password sitting on someone else's servers. If that app got breached, an attacker didn't get a token, they got a working bank login.</p>
+            <p>Before aggregators like Plaid were standard, a lot of personal finance apps worked by screen scraping. The app stored a user's actual online banking username and password. It logged into the bank's website programmatically on the user's behalf. It parsed the resulting HTML for balances and transactions.</p>
 
-            <p>Plaid replaces that entire model. A user authenticates through Plaid's own hosted flow, Plaid Link, which talks to the bank directly using the bank's own supported login method rather than scraping it. What the app receives back afterward is an access token tied to a specific "item," scoped to specific data products, not the underlying credential. For a rewards app that only needs to see transactions, the integration only has to request the transactions product, not account and routing numbers or full identity data, which keeps the token's blast radius limited to exactly what the feature needs even if it were somehow compromised.</p>
+            <p>That meant every app in that category was, functionally, a second copy of your bank password sitting on someone else's servers. If that app got breached, an attacker didn't get a token. They got a working bank login.</p>
 
-            <p>That has a concrete security consequence: the app itself never touches, sees, or stores a user's actual bank login. A compromised or leaked token can be revoked at the Plaid or bank level without the user needing to change their real bank password, and a breach of SwipeIt's own systems wouldn't hand an attacker working bank credentials, because those credentials were never in SwipeIt's systems to begin with. It also simplifies the compliance picture: an app that never touches raw account credentials or full card numbers has a meaningfully smaller PCI and data-handling scope to reason about than one that does, since there's simply less regulated data sitting in its own database to protect, audit, or eventually have to explain in a breach disclosure.</p>
+            <p>Plaid replaces that entire model. A user authenticates through Plaid's own hosted flow, Plaid Link. It talks to the bank directly using the bank's own supported login method rather than scraping it.</p>
+
+            <p>What the app receives back afterward is an access token tied to a specific "item," scoped to specific data products. Not the underlying credential. For a rewards app that only needs to see transactions, the integration only has to request the transactions product. Not account and routing numbers or full identity data.</p>
+
+            <p>That keeps the token's blast radius limited to exactly what the feature needs even if it were somehow compromised.</p>
+
+            <p>That has a concrete security consequence. The app itself never touches, sees, or stores a user's actual bank login. A compromised or leaked token can be revoked at the Plaid or bank level without the user changing their real bank password.</p>
+
+            <p>A breach of SwipeIt's own systems wouldn't hand an attacker working bank credentials. Those credentials were never in SwipeIt's systems to begin with.</p>
+
+            <p>It also simplifies the compliance picture. An app that never touches raw account credentials or full card numbers has a meaningfully smaller PCI and data-handling scope than one that does. There's simply less regulated data sitting in its own database to protect, audit, or explain in a breach disclosure.</p>
 
             <h2>Location Data Is Functionally Necessary and Still Sensitive</h2>
 
-            <p>Geofencing is what makes the product actually work. You can't tell someone which card to use "here" if the app doesn't know where "here" is. But location data is also one of the more sensitive things a phone produces, since a history of someone's location is close to a log of where they live, work, and shop, which is a different kind of sensitive than a single transaction record, and it's the kind of data that's genuinely hard to anonymize after the fact, since a handful of frequent locations is often enough to re-identify a specific person.</p>
+            <p>Geofencing is what makes the product actually work. You can't tell someone which card to use "here" if the app doesn't know where "here" is.</p>
 
-            <p>There's a real architectural choice buried in "how do we do geofencing," and it's worth naming even in general terms: a system can either stream a user's continuous location to a server and evaluate geofences there, or it can push the geofence boundaries to the device and let the device itself decide locally when it has entered or left one, only notifying the backend when a relevant boundary crossing actually happens. The second approach means raw, continuous location never needs to leave the device at all, only the much narrower event of "user entered geofence X." That's a meaningfully different privacy posture than a system that logs a location trail purely so it can be queried against geofences later.</p>
+            <p>But location data is also one of the more sensitive things a phone produces. A history of someone's location is close to a log of where they live, work, and shop. That's a different kind of sensitive than a single transaction record.</p>
 
-            <p>I want to be precise about what I'm claiming here. The exact retention and storage decisions on this project were the client's to make, and I won't speak for implementation details I didn't personally own or can't verify from memory years later. What I can say honestly is the design principle that should drive that decision either way: needing real-time location to power a feature in the moment isn't the same thing as needing a long-term location history, and treating those as interchangeable is how a product ends up holding far more sensitive data than the feature it's serving actually requires.</p>
+            <p>It's also the kind of data that's genuinely hard to anonymize after the fact. A handful of frequent locations is often enough to re-identify a specific person.</p>
+
+            <p>There's a real architectural choice buried in "how do we do geofencing." A system can stream a user's continuous location to a server and evaluate geofences there. Or it can push the geofence boundaries to the device and let the device decide locally when it has entered or left one.</p>
+
+            <p>In the second approach, the device only notifies the backend when a relevant boundary crossing happens. Raw, continuous location never needs to leave the device. Only the narrower event of "user entered geofence X."</p>
+
+            <p>That's a meaningfully different privacy posture than a system that logs a location trail so it can be queried against geofences later.</p>
+
+            <p>I want to be precise about what I'm claiming here. The exact retention and storage decisions on this project were the client's to make. I won't speak for implementation details I didn't personally own or can't verify from memory years later.</p>
+
+            <p>What I can say honestly is the design principle that should drive that decision either way. Needing real-time location to power a feature in the moment isn't the same as needing a long-term location history. Treating those as interchangeable is how a product ends up holding far more sensitive data than the feature actually requires.</p>
 
             <h2>Why This Matters Beyond the User</h2>
 
-            <p>It's easy to frame data minimization purely as a user-protection story, but it's also a straightforwardly practical engineering decision for whoever runs the system. Data you never collect is data you never have to secure, never have to include in an access review, never have to worry about a departing employee having queried, and never have to explain in an incident report if something goes wrong elsewhere in the stack. Every field a service stores is a small ongoing liability, not a one-time decision, and that cost compounds quietly for as long as the data sits there. Choosing Plaid over building bank credential storage, and choosing device-side geofence evaluation over server-side location logging, are both instances of the same move: trading a bit of engineering convenience today for a permanently smaller pile of sensitive data to be responsible for later.</p>
+            <p>It's easy to frame data minimization purely as a user-protection story. It's also a practical engineering decision for whoever runs the system.</p>
+
+            <p>Data you never collect is data you never have to secure. Never have to include in an access review. Never have to worry about a departing employee having queried. Never have to explain in an incident report if something goes wrong elsewhere.</p>
+
+            <p>Every field a service stores is a small ongoing liability, not a one-time decision. That cost compounds quietly for as long as the data sits there.</p>
+
+            <p>Choosing Plaid over building bank credential storage was one version of this move. Choosing device-side geofence evaluation over server-side location logging was another. Both trade a bit of engineering convenience today for a permanently smaller pile of sensitive data to be responsible for later.</p>
 
             <h2>The General Lesson</h2>
 
-            <p>When a product's core value proposition genuinely requires two sensitive categories of personal data at once, the more useful security question isn't "how do we protect everything we store." It's "how do we avoid storing more than the feature actually needs in the first place." Using Plaid instead of building bank credential storage is exactly that kind of decision: it removes an entire category of risk rather than just defending it more carefully. The same discipline applied to location data, using it in the moment for the feature it powers rather than accumulating it as a side effect, is the harder version of the same idea, and it's the one worth applying by default any time a product touches data this sensitive. The question worth asking at design time, before a single line of storage code gets written, is simply: does this feature need the data, or does it only need the answer the data would give us right now? Those are two very different things to build for.</p>
+            <p>When a product's core value proposition genuinely requires two sensitive categories of personal data at once, the more useful security question isn't "how do we protect everything we store." It's "how do we avoid storing more than the feature actually needs in the first place."</p>
+
+            <p>Using Plaid instead of building bank credential storage is exactly that kind of decision. It removes an entire category of risk rather than defending it more carefully.</p>
+
+            <p>The same discipline applies to location data: using it in the moment for the feature it powers, rather than accumulating it as a side effect. That's the harder version of the same idea, and it's the one worth applying by default any time a product touches data this sensitive.</p>
+
+            <p>The question worth asking at design time, before a single line of storage code gets written: does this feature need the data, or does it only need the answer the data would give us right now? Those are two very different things to build for.</p>
 
             <!-- Social Share Buttons -->
             <div class="social-share">

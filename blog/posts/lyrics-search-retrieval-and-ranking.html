@@ -657,81 +657,139 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>For a Text Technologies of Data Science coursework project at Edinburgh, a team of six of us built a search engine that finds a song from a lyric snippet, with optional filters for title, artist, and album. We called it Lyrics Wizard. My part, alongside two teammates, was the information retrieval system, and that's the part worth writing up, since it's where most of the interesting decisions actually were.</p>
+            <p>For a Text Technologies of Data Science coursework project at Edinburgh, a team of six of us built a search engine that finds a song from a lyric snippet. Optional filters covered title, artist, and album. We called it Lyrics Wizard.</p>
 
-            <p>The dataset behind it was large enough to make some of those decisions non-optional: around 1.62 million songs pulled from Spotify's API, cross-referenced with lyrics from Genius, landing at roughly 5 million tracks once everything was combined. At that scale, a few approaches that look appealing on paper turned out to be too slow to actually ship.</p>
+            <p>My part, alongside two teammates, was the information retrieval system. That's the part worth writing up. It's where most of the interesting decisions actually were.</p>
+
+            <p>The dataset was large enough to make some of those decisions non-optional. Around 1.62 million songs from Spotify's API, cross-referenced with lyrics from Genius. Roughly 5 million tracks once everything was combined. At that scale, a few approaches that look appealing on paper turned out too slow to ship.</p>
 
             <h2>Getting the Data Was Its Own Retrieval Problem</h2>
 
-            <p>Building the corpus took as much engineering attention as the ranking algorithm did, and a few decisions there ended up shaping what the retrieval layer had to handle later. Song metadata came from Spotify through three sequential scripts, artists first, then albums for each artist, then tracks for each album, and all six of us ran those scripts in parallel on a rotating basis just to pull data fast enough. That got us to roughly 1.62 million songs across 433 thousand albums and 142 thousand artists, stored across three MongoDB collections with each document keeping its Spotify ID for building the inverted index later.</p>
+            <p>Building the corpus took as much engineering attention as the ranking algorithm. A few decisions there shaped what the retrieval layer had to handle later.</p>
 
-            <p>Lyrics were the harder half. The first approach used the lyricsgenius library, which calls the Genius API twice per song, once to find it, once to fetch the lyrics, and at our volume that meant constant timeout exceptions. Switching to scraping the same data directly from Genius's pages and parsing it with BeautifulSoup and a couple of regex passes, one for the lyrics, one for metadata like title and release date, turned out to be roughly three times faster in practice, and it's what we actually shipped with. The API wasn't the wrong choice conceptually, it just stopped being the right tool once volume got large enough that per-song round trips became the bottleneck.</p>
+            <p>Song metadata came from Spotify through three sequential scripts: artists first, then albums for each artist, then tracks for each album. All six of us ran those scripts in parallel on a rotating basis just to pull data fast enough.</p>
 
-            <p>The corpus itself needed cleaning before retrieval could trust it. We found that some of what Genius had indexed as "songs" were actually literature, Shakespeare among them, mixed in because Genius hosts more than just song lyrics. Rather than hand-filtering those out, we used a signal Spotify already gave us for free: its danceability score, which came back negative for that kind of non-musical text and positive for actual songs. That one existing field did the filtering work a custom classifier would otherwise have had to do. On top of that, we ran a language check with the langdetect library over Genius's own language field, since some non-English lyrics were still slipping through and the system was scoped to English only.</p>
+            <p>That got us to roughly 1.62 million songs across 433 thousand albums and 142 thousand artists, stored across three MongoDB collections. Each document kept its Spotify ID for building the inverted index later.</p>
+
+            <p>Lyrics were the harder half. The first approach used the lyricsgenius library, which calls the Genius API twice per song: once to find it, once to fetch the lyrics. At our volume that meant constant timeout exceptions.</p>
+
+            <p>Switching to scraping the same data directly from Genius's pages and parsing it with BeautifulSoup and a couple of regex passes (one for the lyrics, one for metadata like title and release date) turned out roughly three times faster in practice. That's what we shipped with.</p>
+
+            <p>The API wasn't the wrong choice conceptually. It just stopped being the right tool once volume got large enough that per-song round trips became the bottleneck.</p>
+
+            <p>The corpus itself needed cleaning before retrieval could trust it. Some of what Genius had indexed as "songs" were actually literature, Shakespeare among them, mixed in because Genius hosts more than just song lyrics.</p>
+
+            <p>Rather than hand-filtering those out, we used a signal Spotify already gave us for free: its danceability score. It came back negative for that kind of non-musical text and positive for actual songs. That one existing field did the filtering work a custom classifier would otherwise have had to do.</p>
+
+            <p>On top of that, we ran a language check with the langdetect library over Genius's own language field. Some non-English lyrics were still slipping through, and the system was scoped to English only.</p>
 
             <h2>Three Query Shapes, Three Scoring Paths</h2>
 
-            <p>The system splits on what the user actually gave it, rather than forcing every query through one generic ranker. A lyrics-only query goes through the lyric search algorithm. A filter-only query, artist name, album, or title, goes through TF-IDF. A query with both goes through a combined path that blends the two. Each input shape genuinely needs a different kind of scoring, and trying to handle all three with one pipeline would have meant compromising on all of them.</p>
+            <p>The system splits on what the user actually gave it. It doesn't force every query through one generic ranker.</p>
+
+            <p>A lyrics-only query goes through the lyric search algorithm. A filter-only query, meaning artist name, album, or title, goes through TF-IDF. A query with both goes through a combined path that blends the two.</p>
+
+            <p>Each input shape needs a different kind of scoring. Handling all three with one pipeline would have meant compromising on all of them.</p>
 
             <h2>Lyric Search: Two Signals That Disagree on Purpose</h2>
 
-            <p>The lyric search algorithm itself is really two searches run in parallel and then blended.</p>
+            <p>The lyric search algorithm is really two searches run in parallel and then blended.</p>
 
-            <p>The first is a pattern search. Tokens are preprocessed, but deliberately without removing stop words, since a half-remembered lyric snippet loses meaning if you strip the small connecting words out of it. If the query is a single token, every instance of that term is returned directly. If there's more than one token, the algorithm generates permutations that preserve the original left-to-right order, starting from the full query and shortening it one token at a time from either end, then checks each pattern against the index until it has collected 15 matching songs or run out of patterns. This rewards an exact, in-order phrase match over a scattered bag-of-words match, which is the right bias for lyrics specifically, since word order is part of what makes a lyric recognizable.</p>
+            <p>The first is a pattern search. Tokens are preprocessed, but deliberately without removing stop words. A half-remembered lyric snippet loses meaning if you strip the small connecting words out of it.</p>
 
-            <p>The second is a rarity search: plain TF-IDF over the same tokens, returning the top 15 songs by term rarity, with no regard for order. This catches songs where the query terms are distinctive even if the user's word order is a little off, which happens constantly with half-remembered lyrics.</p>
+            <p>If the query is a single token, every instance of that term is returned directly. If there's more than one token, the algorithm generates permutations that preserve the original left-to-right order.</p>
+
+            <p>It starts from the full query and shortens it one token at a time from either end. Then it checks each pattern against the index until it has collected 15 matching songs or run out of patterns.</p>
+
+            <p>This rewards an exact, in-order phrase match over a scattered bag-of-words match. That's the right bias for lyrics. Word order is part of what makes a lyric recognizable.</p>
+
+            <p>The second is a rarity search: plain TF-IDF over the same tokens, returning the top 15 songs by term rarity, with no regard for order. This catches songs where the query terms are distinctive even if the user's word order is a little off. That happens constantly with half-remembered lyrics.</p>
 
             <p>The two get combined with a simple weighted formula:</p>
 
             <pre><code>final_score = rarity_search_score * 0.7 + pattern_search_score * 0.3</code></pre>
 
-            <p>TF-IDF gets the larger weight because it's more forgiving of an imperfect memory of the exact phrasing, which is the common case. The exact-order pattern match gets less weight specifically because it's a stronger signal when it fires, but fires less often, so treating it as equal to TF-IDF would have let it dominate the ranking on the rare queries where it hits, at the expense of everything else.</p>
+            <p>TF-IDF gets the larger weight because it's more forgiving of an imperfect memory of the exact phrasing. That's the common case.</p>
+
+            <p>The exact-order pattern match gets less weight because it's a stronger signal when it fires, but fires less often. Treating it as equal to TF-IDF would have let it dominate the ranking on the rare queries where it hits, at the expense of everything else.</p>
 
             <h2>Filters Reuse the Same TF-IDF Machinery</h2>
 
-            <p>When the query is filter-only, title, artist, or album, TF-IDF runs directly against the positional index built for that filter type and returns the top 15 by score. There's no pattern search step here, because filter values don't carry the same sequential structure lyrics do. An artist name isn't something a user half-remembers the word order of the way they might a line from a song.</p>
+            <p>When the query is filter-only (title, artist, or album), TF-IDF runs directly against the positional index built for that filter type and returns the top 15 by score. There's no pattern search step here.</p>
+
+            <p>Filter values don't carry the same sequential structure lyrics do. An artist name isn't something a user half-remembers the word order of the way they might a line from a song.</p>
 
             <h2>Combining Both When the User Gives Both</h2>
 
-            <p>When a query includes both lyrics and a filter, the system runs the lyric search to get its top 15 songs, then looks up the corresponding filter score for each of those candidates. Since one song can appear under multiple albums or artists, only the maximum filter score for each song is kept. The final score blends the two:</p>
+            <p>When a query includes both lyrics and a filter, the system runs the lyric search to get its top 15 songs. Then it looks up the corresponding filter score for each of those candidates.</p>
+
+            <p>Since one song can appear under multiple albums or artists, only the maximum filter score for each song is kept. The final score blends the two:</p>
 
             <pre><code>final_score = 0.7 * lyrics_score + 0.3 * max_filter_score</code></pre>
 
-            <p>The same 0.7/0.3 split shows up in both places in the system, and in both cases it gives the majority weight to the harder, more information-dense signal, TF-IDF or the full lyric search, and treats the second signal as a booster rather than an equal partner. Once that pattern held up in one place, we reused it rather than inventing a new weighting scheme for the second.</p>
+            <p>The same 0.7/0.3 split shows up in both places. In both cases it gives the majority weight to the harder, more information-dense signal, either TF-IDF or the full lyric search, and treats the second signal as a booster rather than an equal partner.</p>
+
+            <p>Once that pattern held up in one place, we reused it rather than inventing a new weighting scheme for the second.</p>
 
             <h2>Long Queries Get Trimmed Before Anything Else Runs</h2>
 
-            <p>If a query comes in longer than 10 tokens, someone pasting in a whole verse, for example, it gets reduced to the 10 most frequent tokens in the positional index before any of the scoring above runs. Permutation generation is the reason this matters: the number of order-preserving permutations grows fast with token count, and running that step on a 20-token query without trimming first would have made the whole system noticeably slower for no real gain in match quality.</p>
+            <p>Sometimes a query comes in longer than 10 tokens, like someone pasting in a whole verse. When that happens, it gets reduced to the 10 most frequent tokens in the positional index before any of the scoring above runs.</p>
+
+            <p>Permutation generation is why this matters. The number of order-preserving permutations grows fast with token count. Running that step on a 20-token query without trimming first would have made the whole system noticeably slower for no real gain in match quality.</p>
 
             <h2>What We Tried for Fuzzy Matching That Didn't Survive Contact With the Data</h2>
 
-            <p>A meaningful chunk of the actual engineering time went into approaches that didn't make it into the final system, and I think those are more instructive than the ones that did.</p>
+            <p>A meaningful chunk of the engineering time went into approaches that didn't make it into the final system. I think those are more instructive than the ones that did.</p>
 
-            <p>We first tried Double Metaphone, a phonetic algorithm meant to encode similarly-pronounced words to the same token, hoping it would help match a lyric the way someone actually misheard it rather than how it's actually spelled. It was more demanding about matching exact pronunciation than real misheard lyrics turned out to need, so it didn't help the way we expected.</p>
+            <p>We first tried Double Metaphone, a phonetic algorithm meant to encode similarly-pronounced words to the same token. We hoped it would help match a lyric the way someone actually misheard it rather than how it's spelled.</p>
 
-            <p>Next we tried N-grams with edit distance, which is a more standard way to catch near-matches. That ran into a harder problem: it was computationally expensive at the scale of roughly 5 million tracks, to the point where it wasn't practical to run in the actual system. We ended up back at plain stemming, deliberately without stop word removal, which is a simpler and cheaper technique than either of the two we tried first, and the one that actually survived contact with the dataset's real size.</p>
+            <p>It was more demanding about matching exact pronunciation than real misheard lyrics turned out to need. It didn't help the way we expected.</p>
 
-            <p>We also tried query expansion, generating additional related terms to broaden a lyric query. Different variants of this were tested, but expanding based on similarity from the same artist or similar tokens didn't produce better results, partly because sequencing matters in lyric search in a way that generic term-similarity expansion doesn't respect. We dropped it in favor of relying on the combined search algorithm to do that work instead.</p>
+            <p>Next we tried N-grams with edit distance, a more standard way to catch near-matches. That ran into a harder problem: it was computationally expensive at the scale of roughly 5 million tracks. It wasn't practical to run in the actual system.</p>
+
+            <p>We ended up back at plain stemming, deliberately without stop word removal. That's a simpler and cheaper technique than either of the two we tried first. It's the one that actually survived contact with the dataset's real size.</p>
+
+            <p>We also tried query expansion, which means generating additional related terms to broaden a lyric query. Different variants were tested. Expanding based on similarity from the same artist or similar tokens didn't produce better results.</p>
+
+            <p>Sequencing matters in lyric search in a way that generic term-similarity expansion doesn't respect. We dropped it in favor of relying on the combined search algorithm to do that work instead.</p>
 
             <h2>Keeping Retrieval Fast Once the Index Got Big</h2>
 
-            <p>Two infrastructure problems showed up once the dataset was actually loaded, and neither of them was about the ranking math at all, they were about making the same math run fast enough to feel instant. The positional index file itself got large enough that reading it was slow before a single score was even computed, and we fixed the worst of that by encoding document names with their Spotify ID rather than a longer descriptive string, a small change that's purely about making lookups cheaper. Separately, hitting MongoDB directly while scoring tokens during a live search was slow enough to matter, so we generated a JSON file server-side ahead of time and read from that instead of the database during the actual scoring pass. Neither change touched what got ranked. They changed how fast the system could rank it, which matters just as much once real users are waiting on a response instead of a notebook cell finishing.</p>
+            <p>Two infrastructure problems showed up once the dataset was actually loaded. Neither was about the ranking math. They were about making the same math run fast enough to feel instant.</p>
 
-            <p>None of this was security theater either: the app used CSRF tokens on its forms and restricted direct MongoDB access to an IP allowlist covering just the team, a low bar, but a real one, and worth doing even on a coursework project handling a database this size.</p>
+            <p>The positional index file got large enough that reading it was slow before a single score was even computed. We fixed the worst of that by encoding document names with their Spotify ID rather than a longer descriptive string. A small change, purely about making lookups cheaper.</p>
+
+            <p>Separately, hitting MongoDB directly while scoring tokens during a live search was slow enough to matter. So we generated a JSON file server-side ahead of time and read from that instead of the database during the scoring pass.</p>
+
+            <p>Neither change touched what got ranked. They changed how fast the system could rank it. That matters just as much once real users are waiting on a response instead of a notebook cell finishing.</p>
+
+            <p>None of this was security theater either. The app used CSRF tokens on its forms and restricted direct MongoDB access to an IP allowlist covering just the team. A low bar, but a real one. Worth doing even on a coursework project handling a database this size.</p>
 
             <h2>How We Actually Measured the Ranking</h2>
 
-            <p>Rather than reporting one summary number, we built 100 of our own test cases from real lyric snippets and checked, for each one, where the correct song landed in the results. Three numbers came out of that: 95.4% of the time the correct song appeared somewhere in the top 10, 87.2% of the time it was the literal top result, and 93.8% of the time it was in the top 3.</p>
+            <p>Rather than reporting one summary number, we built 100 of our own test cases from real lyric snippets. For each one, we checked where the correct song landed in the results.</p>
 
-            <p>Keeping those as three separate numbers instead of collapsing them into one score matters. A system that gets the right answer on the first try most of the time behaves very differently from one that usually needs the user to scan through several results, even if both would report a similar "found it eventually" number.</p>
+            <p>Three numbers came out of that. 95.4% of the time the correct song appeared somewhere in the top 10. 87.2% of the time it was the literal top result. 93.8% of the time it was in the top 3.</p>
+
+            <p>Keeping those as three separate numbers instead of collapsing them into one score matters. A system that gets the right answer on the first try most of the time behaves very differently from one that usually needs the user to scan through several results. Both might report a similar "found it eventually" number.</p>
 
             <h2>Where We'd Take Ranking Next</h2>
 
-            <p>The most interesting idea we identified but didn't build was ranking songs by popularity using emotional tags rather than raw play counts, based on a personalized PageRank random walk over a graph of tag similarity. The pitch is that PageRank captures how central a tag is within a network of related tags and songs, which behaves differently from a simple cosine similarity score or counting how often tags co-occur. Two songs can share very few tags directly and still be strongly connected through the graph if enough intermediate songs bridge them, and a plain similarity score would miss that entirely. We left this as future work rather than shipping it, but it fits the same philosophy as everything above: before reaching for a bigger model, check whether the ranking is actually missing a structurally different signal, not just a stronger version of the one it already has.</p>
+            <p>The most interesting idea we identified but didn't build was ranking songs by popularity using emotional tags rather than raw play counts. It was based on a personalized PageRank random walk over a graph of tag similarity.</p>
+
+            <p>PageRank captures how central a tag is within a network of related tags and songs. That behaves differently from a simple cosine similarity score or counting how often tags co-occur.</p>
+
+            <p>Two songs can share very few tags directly and still be strongly connected through the graph if enough intermediate songs bridge them. A plain similarity score would miss that entirely.</p>
+
+            <p>We left this as future work rather than shipping it. It fits the same philosophy as everything above: before reaching for a bigger model, check whether the ranking is actually missing a structurally different signal. Not just a stronger version of the one it already has.</p>
 
             <h2>The General Lesson</h2>
 
-            <p>Ranking design here wasn't one algorithm, it was a small set of complementary signals, exact-order pattern matching, term-rarity TF-IDF, and filter-based scores, combined with weights chosen to reflect which signal we trusted more by default, plus a trimming step that exists purely so the elegant version of the algorithm doesn't fall over on an ordinary real query. None of the fuzzy-matching ideas that didn't make it in were bad ideas. They just didn't hold up once actual data volume and actual user behavior were in the picture, which is usually where a retrieval system's real constraints show up first.</p>
+            <p>Ranking design here wasn't one algorithm. It was a small set of complementary signals (exact-order pattern matching, term-rarity TF-IDF, and filter-based scores) combined with weights chosen to reflect which signal we trusted more by default.</p>
+
+            <p>Plus a trimming step that exists purely so the elegant version of the algorithm doesn't fall over on an ordinary real query. None of the fuzzy-matching ideas that didn't make it in were bad ideas.</p>
+
+            <p>They just didn't hold up once actual data volume and actual user behavior were in the picture. That's usually where a retrieval system's real constraints show up first.</p>
 
             <h2>Learn More</h2>
 
