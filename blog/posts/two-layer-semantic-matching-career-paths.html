@@ -669,7 +669,7 @@
 
             <p>The graph answers "is this transition realistic." It doesn't do the matching itself. You still need to compare a person's skills and experience against candidate roles. A full detailed comparison against every job isn't practical at real scale. So matching happens in two layers.</p>
 
-            <p>Layer 1 is a fast, broad screen. Sentence Transformers embeddings, mainly all-MiniLM-L6-v2 for speed, narrow every job title down to a plausible candidate set by title-level semantic similarity. Layer 2 reranks that set with a more detailed comparison: full skills and description similarity, using all-mpnet-base-v2 where quality matters more than speed. The expensive comparison only runs against Layer 1's shortlist. Never against everything.</p>
+            <p>Layer 1 is a fast, broad screen. Sentence Transformers embeddings do the narrowing, mainly all-MiniLM-L6-v2 for speed. They take every job title and narrow it down to a plausible candidate set, based on title-level semantic similarity. Layer 2 reranks that set with a more detailed comparison: full skills and description similarity. It uses all-mpnet-base-v2 here, since quality matters more than speed at this stage. The expensive comparison only runs against Layer 1's shortlist. Never against everything.</p>
 
             <pre><code>candidates = layer1_screen(profile.title_embedding, all_job_titles, top_k=200)
 ranked = layer2_rerank(profile.skills_embedding, candidates, top_k=20)
@@ -689,7 +689,7 @@ ranked = layer2_rerank(profile.skills_embedding, candidates, top_k=20)
 
             <h2>The General Lesson</h2>
 
-            <p>Semantic similarity tells you what looks alike. A graph from real transition data tells you what's actually plausible. Career-path recommendation needs both. It's tempting to build only the easier piece, the embedding search, and skip the graph because it needs messier, harder-to-source data. The graph is what makes recommendations trustworthy rather than just plausible-sounding.</p>
+            <p>Semantic similarity tells you what looks alike. A graph from real transition data tells you what's actually plausible. Career-path recommendation needs both. It's tempting to build only the easier piece: the embedding search. Skipping the graph is tempting too, because it needs messier, harder-to-source data. The graph is what makes recommendations trustworthy rather than just plausible-sounding.</p>
 
             <h2>Learn More</h2>
 

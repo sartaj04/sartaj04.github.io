@@ -663,7 +663,7 @@
 
             <h2>What the AI Actually Does</h2>
 
-            <p>The tool takes an OpenAPI 3.x spec, either JSON or YAML, and generates test scenarios from the endpoints and schemas it describes. It's worth being precise here, because it's easy to overstate what this does.</p>
+            <p>The tool takes an OpenAPI 3.x spec. It can be JSON or YAML. From that spec, it generates test scenarios based on the endpoints and schemas it finds. I want to be precise about this, because it's easy to overstate what the tool actually does.</p>
 
             <p>The AI isn't simulating traffic or running the test. It's turning a spec into a plausible test plan: realistic payloads and sensible request sequences. A person doesn't have to hand-write a script for every endpoint before testing anything.</p>
 
@@ -689,7 +689,7 @@
 
             <h2>Security Was Not Optional Here</h2>
 
-            <p>A tool that takes a user-supplied API target and credentials, then generates traffic against it, is a different security surface than a typical CRUD app. I treated it that way rather than as an afterthought.</p>
+            <p>This tool takes a user-supplied API target and credentials, then generates real traffic against it. That makes it a very different security surface than a typical CRUD app. I treated it that way from the start, not as an afterthought.</p>
 
             <p>SSRF protection blocks requests to private IP ranges and cloud metadata endpoints. A load tester that will hit any URL you give it is a textbook SSRF vector if internal targets aren't blocked.</p>
 
@@ -699,7 +699,7 @@
 
             <p>AI-assisted scenario generation genuinely cuts the time to a first useful test. That part of the pitch holds up.</p>
 
-            <p>But the value of a tool like this still rests on the unglamorous parts. A real load-testing engine doing the actual work. Async job handling that doesn't block on long-running tests. Security built with the assumption that it will eventually be pointed at real infrastructure with real credentials, not just a demo environment.</p>
+            <p>But the value of a tool like this still rests on the unglamorous parts. A real load-testing engine doing the actual work. Async job handling that doesn't block on long-running tests. And security built for one assumption: this will eventually be pointed at real infrastructure with real credentials, not just a demo environment.</p>
 
             <p>The AI layer is the part people notice first. It's not the part that makes the tool trustworthy to run against something that matters.</p>
 

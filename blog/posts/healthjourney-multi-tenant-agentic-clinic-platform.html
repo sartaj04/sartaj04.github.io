@@ -665,7 +665,7 @@
 
             <p>Patients don't download anything. Reception staff sends an OTP-gated intake link over Twilio WhatsApp, with SMS as a fallback. The patient answers a conversational questionnaire from there.</p>
 
-            <p>Gemini 2.5 Flash turns those answers into a specialty-aware clinical summary waiting in the staff interface before the doctor sees the patient. Having a coherent summary ready ahead of the visit, instead of a doctor reading raw questionnaire answers cold, is most of the intake value on its own.</p>
+            <p>Gemini 2.5 Flash turns those answers into a clinical summary tailored to the doctor's specialty. That summary is waiting in the staff interface before the doctor even sees the patient. Having it ready ahead of the visit is most of the intake value on its own. It beats a doctor reading raw questionnaire answers cold.</p>
 
             <h2>One AI Abstraction, Several Jobs</h2>
 
@@ -725,7 +725,7 @@ CREATE POLICY tenant_isolation ON patient_records
 
             <h2>The General Lesson</h2>
 
-            <p>For anything handling data across tenants where a leak has real consequences, not just an inconvenience, isolation belongs at the database layer as a guarantee. Not in application code as a convention everyone is expected to remember.</p>
+            <p>For anything handling data across tenants, a leak has real consequences. It's not just an inconvenience. Isolation belongs at the database layer as a guarantee, not in application code as a convention everyone is expected to remember.</p>
 
             <p>Conventions get violated by one forgotten line. A database constraint doesn't have that failure mode.</p>
 

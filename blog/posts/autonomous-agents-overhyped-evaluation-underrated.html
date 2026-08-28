@@ -657,11 +657,11 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>Two things stand out about where attention in AI is going versus where the work actually is. Fully autonomous agents, meaning systems that take a goal and run end to end with no one checking in, get most of the attention. Evaluation and observability get almost none. I think that's backwards, and I think both halves are the same observation.</p>
+            <p>Two things stand out about AI right now. One is where the attention is going. The other is where the real work actually is. Fully autonomous agents, systems that take a goal and run end to end with no one checking in, get most of the attention. Evaluation and observability get almost none. I think that's backwards. And I think both halves are really the same observation.</p>
 
             <h2>What "Fully Autonomous" Actually Means in Practice</h2>
 
-            <p>Every multi-step agentic system I've built that holds up in production has deliberate checkpoints, not full autonomy end to end. A system that parses a prescription or extracts a lab value still queues low-confidence outputs for a person. A system choosing between a fast default model and a slower reasoning model still uses explicit routing logic. It doesn't let the agent decide unsupervised how much of itself to trust.</p>
+            <p>Every multi-step agentic system I've built that holds up in production has deliberate checkpoints. None of them run on full autonomy end to end. A system that parses a prescription or extracts a lab value still queues low-confidence outputs for a person. A system choosing between a fast default model and a slower reasoning model still uses explicit routing logic. It doesn't let the agent decide unsupervised how much of itself to trust.</p>
 
             <p>That's not a failure to achieve "real" autonomy. It's the design pattern that survives production. An agent that runs ten unsupervised steps multiplies its error rate at every step. A small early mistake compounds before anyone notices. The systems that work aren't the ones with the most autonomy. They're the ones with the clearest boundaries on where autonomy can run without a check.</p>
 
@@ -671,7 +671,7 @@
 
             <p>Evaluation is underrated for a boring reason: it doesn't demo well. A good harness doesn't produce an impressive live moment. It produces a dashboard, a regression suite, and labeled cases that catch when a change quietly makes things worse. None of that is exciting. None of it is optional if you want to trust a system enough to expand what it can do on its own.</p>
 
-            <p>In the evaluation work I've done, what mattered wasn't a bigger model. It was a ground-truth set and a habit of running the comparison before every meaningful change, not only when something visibly broke. That's slow and unglamorous. It's also exactly what gets skipped when a team is under pressure to ship the demo instead of the system.</p>
+            <p>In the evaluation work I've done, what mattered wasn't a bigger model. It was a ground-truth set. And it was a habit: running the comparison before every meaningful change, not just when something visibly broke. That's slow and unglamorous work. It's also exactly what gets skipped when a team is under pressure to ship the demo instead of the system.</p>
 
             <h2>These Are the Same Mistake Wearing Two Faces</h2>
 
@@ -679,7 +679,7 @@
 
             <h2>What I Expect to Happen Next</h2>
 
-            <p>I expect the "fully autonomous agent" pitch to get quietly walked back over the next couple of years. Not because models stop improving, but because enough systems will fail publicly that the industry corrects toward bounded autonomy with real evaluation behind it. That's not pessimism about the technology. It's the same pattern every previous wave of automation followed: measurement ends up mattering more than the flashy demo. It just takes a few expensive failures for that to become obvious.</p>
+            <p>I expect the "fully autonomous agent" pitch to get quietly walked back over the next couple of years. Not because models stop improving. It's because enough systems will fail publicly, and the industry will correct toward bounded autonomy with real evaluation behind it. That's not pessimism about the technology. It's the same pattern every previous wave of automation followed: measurement ends up mattering more than the flashy demo. It just takes a few expensive failures for that to become obvious.</p>
 
             <!-- Social Share Buttons -->
             <div class="social-share">

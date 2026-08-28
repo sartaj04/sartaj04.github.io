@@ -659,9 +659,9 @@
         <div class="article-content">
             <p>During my MSc at Edinburgh, two teammates and I picked a problem that turned out more under-explored than we expected: detecting physical contact between players in American football video.</p>
 
-            <p>Most published work in this space is either head-impact detection using wearable sensors, or general player and action detection. Very little deals with the specific mess of American football. Players are in close physical contact constantly. That makes it genuinely hard to tell where one contact event starts and another ends.</p>
+            <p>Most published research here falls into two buckets. One is head-impact detection using wearable sensors. The other is general player and action detection. Very little deals with the specific mess of American football, where players are in close physical contact constantly. That makes it genuinely hard to tell where one contact event starts and another ends.</p>
 
-            <p>We used the Kaggle NFL Player Contact Detection dataset: 720 videos. We used the Sideline and Endzone views since the third view wasn't timestamped. Along with that: player tracking data, contact labels sampled every 0.1 seconds, and helmet bounding boxes.</p>
+            <p>We used the Kaggle NFL Player Contact Detection dataset, which has 720 videos. We only used the Sideline and Endzone views, since the third view wasn't timestamped. The dataset also gave us player tracking data, contact labels sampled every 0.1 seconds, and helmet bounding boxes.</p>
 
             <p>We pulled frames once a second starting five seconds into each video. We expanded the helmet bounding boxes to 256x256 crops per player per frame. Then we sorted the results into contact and no-contact folders.</p>
 
@@ -673,7 +673,7 @@
 
             <p>With default sklearn parameters, it reached 49.51% train accuracy and 49.19% test accuracy. Barely better than a coin flip. Tuning it (200 iterations with a gamma of 0.1) actually made things slightly worse: 48.03% train, 47% test.</p>
 
-            <p>SVM was also noticeably slow on this data. That limited how much tuning we could realistically explore. Weak accuracy plus poor scalability told us plainly that a linear-margin classifier over raw feature vectors wasn't a good fit for this kind of high-dimensional image data at this scale. No amount of tuning changed that.</p>
+            <p>SVM was also noticeably slow on this data, which limited how much tuning we could realistically explore. The combination of weak accuracy and poor scalability told us something clearly: a linear-margin classifier over raw feature vectors just wasn't a good fit for this kind of high-dimensional image data at this scale. No amount of tuning was going to change that.</p>
 
             <h2>Augmentation Mattered More Than Architecture</h2>
 
@@ -683,7 +683,7 @@
 
             <p>What surprised us: ResNet152 without augmentation only reached 73.27%. Barely ahead of the non-augmented ResNet50. More depth didn't buy much on its own.</p>
 
-            <p>EfficientNetB0, also without augmentation, was the best single non-augmented result at 74.49%. We'd credit that to its compound scaling approach and squeeze-and-excitation blocks using capacity more deliberately than plain ResNet.</p>
+            <p>EfficientNetB0, also without augmentation, gave us the best non-augmented result at 74.49%. We think that's because of its compound scaling approach and squeeze-and-excitation blocks. Both use capacity more deliberately than plain ResNet does.</p>
 
             <p>Given our compute and time constraints, we didn't get to run augmentation on ResNet152 or EfficientNet. That's a real gap in the comparison. But the pattern across what we did run was consistent: augmentation closed more of the overfitting problem than switching architectures did.</p>
 
@@ -700,7 +700,7 @@
 
             <p>Our original plan was simpler than what we ended up doing. Use pretrained object detection models to crop players directly. Then classify contact on those crops. That plan broke early.</p>
 
-            <p>When players were in close physical proximity, which in this sport is most of the time, the pretrained detectors either merged two players into a single detection or missed one of them outright. Retraining these detectors on our own data wasn't realistic given our compute budget.</p>
+            <p>In this sport, players are in close physical proximity most of the time. When that happened, the pretrained detectors either merged two players into a single detection or missed one of them outright. Retraining these detectors on our own data wasn't realistic given our compute budget.</p>
 
             <p>So for the primary classification task we fell back to cropping directly from the helmet bounding boxes already provided in the dataset's CSV files.</p>
 
@@ -716,7 +716,7 @@
 
             <p>The result we didn't expect: cropping doesn't uniformly help. Faster R-CNN, a two-stage detector, improved meaningfully once cropped. Mask2Former actually did marginally worse cropped than uncropped.</p>
 
-            <p>YOLOX X stayed close to 0.92 either way. That's exactly the property you want in a detector meant to run on real, messy game footage where you can't always guarantee a clean crop. That consistency, more than either single F1 number, is why YOLOX X looked like the strongest candidate for a real-time system.</p>
+            <p>YOLOX X stayed close to 0.92 either way. That's exactly the property you want in a detector built for real, messy game footage, where you can't always guarantee a clean crop. That consistency is what made YOLOX X look like the strongest candidate for a real-time system, more than either single F1 number did.</p>
 
             <h2>A Model That Didn't Transfer</h2>
 

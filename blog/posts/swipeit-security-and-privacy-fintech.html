@@ -681,7 +681,7 @@
 
             <p>Plaid replaces that entire model. A user authenticates through Plaid's own hosted flow, Plaid Link. It talks to the bank directly using the bank's own supported login method rather than scraping it.</p>
 
-            <p>What the app receives back afterward is an access token tied to a specific "item," scoped to specific data products. Not the underlying credential. For a rewards app that only needs to see transactions, the integration only has to request the transactions product. Not account and routing numbers or full identity data.</p>
+            <p>What the app receives back afterward is an access token. It's tied to a specific "item" and scoped to specific data products. It is not the underlying credential. For a rewards app that only needs to see transactions, the integration only has to request the transactions product. It doesn't need account and routing numbers, or full identity data.</p>
 
             <p>That keeps the token's blast radius limited to exactly what the feature needs even if it were somehow compromised.</p>
 

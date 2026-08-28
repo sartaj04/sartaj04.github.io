@@ -657,9 +657,9 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>At Doriot, I built a recommender that matches startups with investors, both VCs and angels. The dataset came from Crunchbase and funding news: more than a million startup-investor relationships and over a billion underlying data points. The interesting design decisions weren't about scale. They were about the shape of the problem.</p>
+            <p>At Doriot, I built a recommender that matches startups with investors, both VCs and angels. The dataset came from Crunchbase and funding news. It had more than a million startup-investor relationships and over a billion underlying data points. But the interesting design decisions weren't about scale. They were about the shape of the problem.</p>
 
-            <p>Matching startups to investors is a two-sided marketplace. A two-sided marketplace is naturally a graph. Startups and investors connect through investment relationships. Investors connect to each other through co-investment patterns. Flat feature vectors and a similarity score throw away exactly the structure that makes matching meaningful. That's what pushed the architecture toward graph neural networks instead of embedding-and-cosine-similarity.</p>
+            <p>Matching startups to investors is a two-sided marketplace, and a two-sided marketplace is naturally a graph. Startups and investors connect through investment relationships. Investors connect to each other through co-investment patterns. Flat feature vectors and a similarity score throw away exactly the structure that makes matching meaningful. That's what pushed the architecture toward graph neural networks instead of simple embeddings and cosine similarity.</p>
 
             <h2>Candidate Generation With GraphSAGE</h2>
 

@@ -663,7 +663,7 @@
 
             <h2>What Actually Triggers the Fallback</h2>
 
-            <p>Two signals matter most. The first comes from the intent classifier. Because it's multi-label, a query tagged with several intents at once already signals more complexity than a single-intent question. Think funding-round details plus competitor analysis plus market trends. The second is the shape of the merged retrieval context. When both the SQL path and the vector path return substantial results that need reconciling rather than summarizing, that's a reasoning task, not a lookup.</p>
+            <p>Two signals matter most. The first comes from the intent classifier. Because it's multi-label, a query tagged with several intents at once already signals more complexity than a single-intent question. Think funding-round details plus competitor analysis plus market trends. The second is the shape of the merged retrieval context. Sometimes both the SQL path and the vector path return substantial results. When those results need to be reconciled, not just summarized, that's a reasoning task. It's not a simple lookup.</p>
 
             <p>Neither is a hard numeric threshold. It's routing logic. Does this query ask the model to hold several independent threads of retrieved information and reason across them? Or does it ask the model to describe what's already in front of it? The former goes to the reasoning model. The latter doesn't need to.</p>
 

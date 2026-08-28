@@ -703,7 +703,7 @@
 
             <p>This rewards an exact, in-order phrase match over a scattered bag-of-words match. That's the right bias for lyrics. Word order is part of what makes a lyric recognizable.</p>
 
-            <p>The second is a rarity search: plain TF-IDF over the same tokens, returning the top 15 songs by term rarity, with no regard for order. This catches songs where the query terms are distinctive even if the user's word order is a little off. That happens constantly with half-remembered lyrics.</p>
+            <p>The second is a rarity search. It runs plain TF-IDF over the same tokens and returns the top 15 songs by term rarity. Word order doesn't matter here at all. This catches songs where the query terms are distinctive, even if the user's word order is a little off. That happens constantly with half-remembered lyrics.</p>
 
             <p>The two get combined with a simple weighted formula:</p>
 
@@ -727,7 +727,7 @@
 
             <pre><code>final_score = 0.7 * lyrics_score + 0.3 * max_filter_score</code></pre>
 
-            <p>The same 0.7/0.3 split shows up in both places. In both cases it gives the majority weight to the harder, more information-dense signal, either TF-IDF or the full lyric search, and treats the second signal as a booster rather than an equal partner.</p>
+            <p>The same 0.7/0.3 split shows up in both places. In both cases, the harder and more information-dense signal gets the majority weight. That's either TF-IDF or the full lyric search. The second signal only acts as a booster, not an equal partner.</p>
 
             <p>Once that pattern held up in one place, we reused it rather than inventing a new weighting scheme for the second.</p>
 

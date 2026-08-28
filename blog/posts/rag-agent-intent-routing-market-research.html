@@ -676,7 +676,7 @@ context = merge_contexts([h.retrieve(query) for h in handlers])
 
             <h2>Routing to SQL or Vectors, Not Just One</h2>
 
-            <p>Once intent is known, the retrieval path branches. Structured questions, like exact funding amounts, round types, or dates, go straight to SQL against the relational funding database. There's no reason to pay for an embedding lookup when the answer is a row in a table. Narrative or comparative questions go through a semantic path instead: pgvector similarity search over 1536-dimensional embeddings from company descriptions, news coverage, and funding commentary.</p>
+            <p>Once intent is known, the retrieval path branches. Structured questions, like exact funding amounts, round types, or dates, go straight to SQL against the relational funding database. There's no reason to pay for an embedding lookup when the answer is just a row in a table. Narrative or comparative questions go a different way. They run through a semantic path: pgvector similarity search over 1536-dimensional embeddings from company descriptions, news coverage, and funding commentary.</p>
 
             <p>A lot of queries need both. The agent runs the structured lookup and the semantic search in parallel, then merges results before generation. A comparative question gets exact numbers from SQL alongside qualitative context from the vector store. The model doesn't have to guess or hallucinate the numbers.</p>
 
@@ -690,7 +690,7 @@ context = merge_contexts([h.retrieve(query) for h in handlers])
 
             <h2>What This Taught Me About RAG Design</h2>
 
-            <p>The lesson I keep coming back to: a lot of RAG systems try to fix bad retrieval with better prompts. That's backwards. If you classify what a query is asking for before you touch retrieval, you solve the problem earlier and cheaper than patching it after generation with more context or more careful prompting. Intent routing isn't a nice-to-have on top of RAG. For a domain with genuinely different question shapes, it's the part of the architecture that does the most work.</p>
+            <p>The lesson I keep coming back to: a lot of RAG systems try to fix bad retrieval with better prompts. That's backwards. Classify what a query is asking for before you touch retrieval. That solves the problem earlier, and it's cheaper than patching it after generation with more context or more careful prompting. Intent routing isn't a nice-to-have on top of RAG. For a domain with genuinely different question shapes, it's the part of the architecture that does the most work.</p>
 
             <h2>Learn More</h2>
 
