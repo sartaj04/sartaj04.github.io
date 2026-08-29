@@ -17,7 +17,7 @@
     <meta property="og:title" content="Autonomous Agents Are Overhyped. Evaluation Is Underrated.">
     <meta property="og:description" content="The 'let agents run everything end to end' pitch keeps getting the attention. The boring evaluation and observability work is what actually decides whether a system survives production.">
     <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/agents-overhyped-evaluation-underrated.png">
-    <meta property="article:published_time" content="2026-05-14T00:00:00Z">
+    <meta property="article:published_time" content="2026-08-30T00:00:00Z">
     <meta property="article:author" content="Sartaj Syed">
     <meta property="article:tag" content="AI Agents">
     <meta property="article:tag" content="Evaluation">
@@ -37,8 +37,8 @@
         "headline": "Autonomous Agents Are Overhyped. Evaluation Is Underrated.",
         "description": "The 'let agents run everything end to end' pitch keeps getting the attention. The boring evaluation and observability work is what actually decides whether a system survives production.",
         "image": "https://sartajsyed.com/assets/images/blog/agents-overhyped-evaluation-underrated.png",
-        "datePublished": "2026-05-14T00:00:00Z",
-        "dateModified": "2026-05-14T00:00:00Z",
+        "datePublished": "2026-08-30T00:00:00Z",
+        "dateModified": "2026-08-30T00:00:00Z",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -50,7 +50,7 @@
         },
         "articleSection": "Insight",
         "keywords": "AI Agents, Evaluation, Observability, LLMOps",
-        "wordCount": 1250
+        "wordCount": 2400
     }
     </script>
 
@@ -632,11 +632,11 @@
             <div class="article-meta">
                 <span class="article-meta-item">
                     <i class="las la-calendar"></i>
-                    May 14, 2026
+                    Aug 30, 2026
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-clock"></i>
-                    6 min read
+                    11 min read
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-user"></i>
@@ -657,31 +657,121 @@
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>Two things stand out about AI right now. One is where the attention is going. The other is where the real work actually is. Fully autonomous agents, systems that take a goal and run end to end with no one checking in, get most of the attention. Evaluation and observability get almost none. I think that's backwards. And I think both halves are really the same observation.</p>
+            <p>Two things stand out about AI right now. One is where the attention is going. The other is where the real work actually is.</p>
+
+            <p>Fully autonomous agents, systems that take a goal and run end to end with no one checking in, get most of the attention. Evaluation and observability get almost none. I think that's backwards.</p>
 
             <h2>What "Fully Autonomous" Actually Means in Practice</h2>
 
-            <p>Every multi-step agentic system I've built that holds up in production has deliberate checkpoints. None of them run on full autonomy end to end. A system that parses a prescription or extracts a lab value still queues low-confidence outputs for a person. A system choosing between a fast default model and a slower reasoning model still uses explicit routing logic. It doesn't let the agent decide unsupervised how much of itself to trust.</p>
+            <p>Every multi-step agentic system I've built that holds up in production has deliberate checkpoints. None of them run full autonomy from the first step to the last.</p>
 
-            <p>That's not a failure to achieve "real" autonomy. It's the design pattern that survives production. An agent that runs ten unsupervised steps multiplies its error rate at every step. A small early mistake compounds before anyone notices. The systems that work aren't the ones with the most autonomy. They're the ones with the clearest boundaries on where autonomy can run without a check.</p>
+            <p>Take a system that parses a prescription or extracts a lab value. When confidence is low, the output still goes to a person before anything is treated as final. Take a system that chooses between a fast default model and a slower reasoning model. That choice is written as explicit routing logic. The agent does not get to decide, unsupervised, how much of its own output to trust.</p>
 
-            <p>The "fully autonomous agent" pitch sells demos well. A demo is a clean, curated path where nothing goes wrong by construction. It sells production much less well. Production is messy, adversarial, and full of edge cases. That's exactly where autonomy without checkpoints fails.</p>
+            <p>That is not a failure to achieve "real" autonomy. That is the pattern that survives contact with production.</p>
+
+            <p>An agent that runs ten unsupervised steps multiplies its error rate at every step. A small mistake early in the chain does not stay small. It becomes a large mistake by the end, often before anyone notices. So the systems that work are not the ones with the most autonomy. They are the ones with the clearest boundaries, i.e. here the agent can act alone, and here a check is required.</p>
+
+            <p>The "fully autonomous agent" pitch sells demos well. A demo is a clean, curated path. Nothing goes wrong because the path was built so nothing can go wrong.</p>
+
+            <p>It does not sell in real-world production scenarios. Production is messy. It is adversarial. It is full of edge cases. Autonomy without checkpoints fails exactly there.</p>
+
+                        <h2>What You Actually Need to Measure</h2>
+
+            <p>Most agent demos get graded on one thing: did the final answer look right. That is not enough.</p>
+
+            <p>An agent can land a correct looking answer after a broken tool call. Or after a skipped policy check. Or after a retrieval miss that did not affect the final answer this time. If you only score the last message, you will expand autonomy on luck.</p>
+
+            <p>For multi-step systems I care about at least four layers:</p>
+
+            <ul>
+                <li><strong>Final task success</strong>: did the user visible outcome match a labeled expectation</li>
+                <li><strong>Step / trajectory quality</strong>: did the agent call the right tools in a sensible order, or did it flail through bad steps and only reach a correct looking answer by accident</li>
+                <li><strong>Constraint violations</strong>: taboo topics, PII leaks, tenant bleed, schema breaks, unsafe actions</li>
+                <li><strong>Cost and latency budgets</strong>: a correct answer that burns 40 tool calls is still a failure in production</li>
+            </ul>
+
+            <p>Those are different failure modes. One metric will not catch them.</p>
+
+            <p>If your harness only does pass/fail on the final string, you are not evaluating an agent. You are evaluating a chatbot that sometimes uses tools.</p>
 
             <h2>Why Evaluation Is the Part Nobody Wants to Fund</h2>
 
-            <p>Evaluation is underrated for a boring reason: it doesn't demo well. A good harness doesn't produce an impressive live moment. It produces a dashboard, a regression suite, and labeled cases that catch when a change quietly makes things worse. None of that is exciting. None of it is optional if you want to trust a system enough to expand what it can do on its own.</p>
+            <p>Evaluation is underrated for a boring reason: it doesn't demo well.</p>
 
-            <p>In the evaluation work I've done, what mattered wasn't a bigger model. It was a ground-truth set. And it was a habit: running the comparison before every meaningful change, not just when something visibly broke. That's slow and unglamorous work. It's also exactly what gets skipped when a team is under pressure to ship the demo instead of the system.</p>
+            <p>A good harness doesn't produce an impressive live moment. It produces a dashboard. It produces a regression suite. It produces labeled cases that catch when a change quietly makes things worse. None of that is exciting. None of it is optional if you want to trust a system enough to expand what it can do on its own.</p>
+
+            <p>In the evaluation work I've done, what mattered wasn't a bigger model. It was a ground truth set. And it was a habit: running the comparison before every meaningful change, not just when something visibly broke.</p>
+
+            <p>That's slow and unglamorous work. It's also exactly what gets skipped when a team is under pressure to ship the demo instead of the system.</p>
+
+            <h2>Offline First. Online Second. Not the Other Way Around</h2>
+
+            <p>Offline eval is the regression gate. Fixed cases. Known labels. You run it on every prompt change, every model swap, every tool schema change, and every retrieval tweak. If that gate is red, nothing ships.</p>
+
+            <p>Online eval is what you learn after traffic hits. Thumbs. Edits. Escalations. Abandon rates. Tool error rates. Retry loops.</p>
+
+            <p>If you only have online signals, you are reacting after the fact with no stable baseline. If you only have offline cases, those cases go stale and stop matching what users actually do.</p>
+
+            <p>The teams that get stuck usually invert this. They ship because the demo looked good. Then they try to invent metrics after users complain. By then the agent already has enough autonomy that a failure is hard to replay and hard to pin down.</p>
+
+            <h2>Frameworks Are Useful. None of Them Replace Your Labels</h2>
+
+            <p>There are decent tools now. Use them. Do not confuse them with a strategy.</p>
+
+            <p>If your system is retrieval heavy, something like <strong>RAGAS</strong> helps. It checks whether the answer stays faithful to the retrieved chunks, whether it is relevant, and whether the context you pulled was actually useful. That is a retrieval and generation slice. It will not tell you the agent called the wrong tool. It will not tell you the agent broke a business rule that never appeared in the chunks. Do not treat it as a full agent grade.</p>
+
+            <p>If you want assertions that look like unit tests around LLM outputs, <strong>DeepEval</strong> is in that lane. Custom metrics, regression suites, CI hooks. It helps once you already know what "good" means for a step. It will not invent that definition for you.</p>
+
+            <p><strong>Promptfoo</strong> is good when you need to compare many prompts and models on the same cases and see what broke. That is how you catch a change that fixed the demo and quietly failed the edge cases. It gets weaker when the agent carries long state and lots of tool calls, unless you build fixtures that can replay those paths.</p>
+
+            <p><strong>LangSmith</strong> and <strong>Langfuse</strong> style tracing get closer to how agent systems actually fail, because you can inspect the full chain instead of only the last string. Dataset runs against logged traces help. But traces without labeled outcomes are still just nicer logs. You can watch the failure. You still have not graded it.</p>
+
+            <p><strong>Google ADK eval</strong> is aimed at agents built on ADK. It checks trajectory and final response together: tool use, path quality, trajectory matching, rubric based tool use, final response match, and rubric based response quality even when you do not have a reference answer. You run it with <code>adk eval</code> against an eval set and thresholds, and you can add custom metrics for domain rules the builtins will never know. That is the right shape for agents. The limit is also clear. It is ADK native. If you are on LangGraph, a custom orchestrator, or a mixed stack, you still need a harness that can replay those paths. And without labeled cases and promotion gates, ADK eval is just another way to watch demos pass.</p>
+
+            <p>Even with all of that, most production agent systems still need a custom harness for the checks that matter most. The reason is simple. Your domain rules are specific to your product: did the prescription fields parse correctly, are the lab units valid, did tenant A ever see tenant B's data, is the output schema valid, did the draft hit a taboo topic. A generic framework does not know those rules. Frameworks help you run and score tests. Your labeled ground truth decides what pass and fail mean.</p>
+
+            <p>So pick tools for the job. Use <strong>RAGAS</strong> where retrieval matters. Use <strong>ADK eval</strong> or trajectory assertions where tool paths matter. Use domain validators where the business cares. Put the gate in CI so a small prompt tweak cannot silently regress cases you already solved.</p>
+
+            <h2>LLM-as-Judge Is a Tool, Not a Ground Truth</h2>
+
+            <p>Using a model to grade another model is fine for some jobs. It works for ranking rough quality, catching tone drift, and scoring open ended answers where exact string match is meaningless.</p>
+
+            <p>Do not use it as your only check when safety is on the line, when a wrong factual claim can hurt someone, or when you would not defend the answer to a customer or an auditor.</p>
+
+            <p>There is also a structural problem. If the judge is cheaper and weaker than the agent, it will miss failures the agent is clever enough to produce. If the judge is from the same model family as the agent, they can share the same blind spots.</p>
+
+            <p>So calibrate any judge against human labels on a holdout set. Track how often the judge agrees with people. Where the stakes are high, keep humans in the loop for the labels that decide whether you are allowed to give the agent more autonomy.</p>
+
+            <h2>What a Minimum Serious Harness Looks Like</h2>
+
+            <ul>
+                <li>A versioned golden set: inputs, expected outputs, and the tool traces you expect when tools matter</li>
+                <li>Cases grouped by how they fail: retrieval miss, tool error, policy violation, format break, wrong specialty or domain assumption</li>
+                <li>Run deterministic checks first (schema, regex, policy lists, exact field compares), then use model judges for what those checks cannot cover</li>
+                <li>Block merges in CI when anything meaningful changes: prompt, model id, tool schema, retriever, temperature</li>
+                <li>Log full trajectories in production so you can replay a failure offline later</li>
+                <li>Only expand autonomy when the gate stays green on the new scope</li>
+            </ul>
+
+            <p>That last rule is the point of the whole post in practice. Evaluation is what lets you give an agent more freedom safely. Without it, you are shipping more autonomy and hoping nothing breaks later.</p>
 
             <h2>These Are the Same Mistake Wearing Two Faces</h2>
 
-            <p>Skipping evaluation and over-trusting autonomy are the same error: taking output on faith. Full autonomy without evaluation is how a small compounding mistake ships to real users. Evaluation with no plan to expand scope is how a team stays stuck in a cautious pilot forever. The teams that win this stretch won't be the ones racing for maximum autonomy. They'll be the ones building measurement that lets them expand autonomy one verified step at a time.</p>
+            <p>Skipping evaluation and giving an agent too much freedom look like opposite problems. They are not. In both cases you are trusting the output without a way to prove it is good.</p>
+
+            <p>If you ship broad autonomy without evaluation, small errors stack up and eventually reach real users. If you build evaluation but never use it to widen what the agent is allowed to do, you stay stuck in a cautious pilot. You have measurement, but no path to more useful autonomy.</p>
+
+            <p>The teams that get this right will not be the ones racing for maximum autonomy first. They will be the ones who can show, with evidence, that the agent earned the next level of freedom.</p>
 
             <h2>What I Expect to Happen Next</h2>
 
-            <p>I expect the "fully autonomous agent" pitch to get quietly walked back over the next couple of years. Not because models stop improving. It's because enough systems will fail publicly, and the industry will correct toward bounded autonomy with real evaluation behind it. That's not pessimism about the technology. It's the same pattern every previous wave of automation followed: measurement ends up mattering more than the flashy demo. It just takes a few expensive failures for that to become obvious.</p>
+            <p>I expect the "fully autonomous agent" pitch to get quietly walked back over the next couple of years. Not because models stop improving. It's because enough systems will fail publicly, and the industry will correct toward bounded autonomy with real evaluation behind it.</p>
 
-            <!-- Social Share Buttons -->
+            <p>That's not pessimism about the technology. It's the same pattern every previous wave of automation followed. Measurement ends up mattering more than the flashy demo. It just takes a few expensive failures for that to become obvious.</p>
+
+
+
+
             <div class="social-share">
                 <span class="social-share-label">Share:</span>
                 <a href="https://twitter.com/intent/tweet?text=Autonomous%20Agents%20Are%20Overhyped.%20Evaluation%20Is%20Underrated.&url=https://sartajsyed.com/blog/posts/autonomous-agents-overhyped-evaluation-underrated.html" target="_blank" class="social-share-btn">
