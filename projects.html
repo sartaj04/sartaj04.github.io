@@ -226,6 +226,99 @@
         .btn-ghost:hover {
             color: var(--primary);
         }
+
+        .project-resource-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 0 0 20px;
+        }
+
+        .project-blog-card {
+            display: block;
+            padding: 16px 18px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: border-color 0.25s ease, transform 0.25s ease;
+            text-decoration: none;
+        }
+
+        .project-blog-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .project-blog-card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .project-blog-card-title {
+            display: block;
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .project-blog-card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .project-blog-card:hover .project-blog-card-cta {
+            color: var(--primary);
+        }
+
+        .project-github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            align-self: flex-start;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color 0.25s ease, color 0.25s ease;
+        }
+
+        .project-github-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .project-github-link i {
+            font-size: 16px;
+        }
+
+        .featured-project .project-resource-links {
+            margin-bottom: 24px;
+        }
+
+        .project-repo-card .project-blog-card {
+            padding: 14px 16px;
+        }
+
+        .project-repo-card .project-blog-card-title {
+            font-size: 14px;
+        }
         
         .mobile-menu-btn {
             display: none;
@@ -407,6 +500,10 @@
             padding-top: 24px;
             border-top: 1px solid var(--border);
         }
+
+        .project-meta .project-github-link {
+            margin-left: auto;
+        }
         
         .project-meta-item {
             font-size: 13px;
@@ -422,6 +519,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
             margin-bottom: 24px;
+            align-items: stretch;
         }
 
         @media (max-width: 700px) {
@@ -431,12 +529,33 @@
         }
 
         .project-repo-card {
-            display: block;
+            display: flex;
+            flex-direction: column;
             padding: 20px;
             background: var(--bg-dark);
             border: 1px solid var(--border);
             border-radius: 12px;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .project-repo-card .project-resource-links {
+            flex: 1 1 auto;
+            margin: 12px 0 0;
+            gap: 10px;
+        }
+
+        .project-repo-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-shrink: 0;
+            margin-top: auto;
+            padding-top: 16px;
+        }
+
+        .project-repo-footer .project-github-link {
+            margin: 0;
+            align-self: auto;
         }
 
         .project-repo-card:hover {
@@ -489,12 +608,12 @@
             margin-left: auto;
         }
         
-        /* Project Grid */
+        /* Project Grid — subgrid equalizes image/main/tech/blog/footer rows across a pair */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            align-items: stretch;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 32px;
+            row-gap: 0;
         }
         
         @media (max-width: 900px) {
@@ -504,14 +623,15 @@
         }
         
         .project-card {
+            grid-row: span 5;
+            display: grid;
+            grid-template-rows: subgrid;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            margin-bottom: 32px;
         }
         
         .project-card:hover {
@@ -526,7 +646,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            flex-shrink: 0;
         }
         
         .project-card-image img {
@@ -541,10 +660,11 @@
         }
         
         .project-card-content {
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
+            display: contents;
+        }
+
+        .project-card-main {
+            padding: 28px 28px 0;
         }
         
         .project-card h3 {
@@ -560,7 +680,7 @@
         
         .project-card ul {
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
         
         .project-card ul li {
@@ -579,22 +699,58 @@
         }
         
         .project-card .project-tech {
-            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 8px;
+            margin: 0;
+            padding: 20px 28px 0;
         }
         
         .project-card .project-tech span {
             padding: 4px 10px;
             font-size: 11px;
         }
+
+        .project-card .project-resource-links {
+            margin: 0;
+            padding: 16px 28px 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card .project-blog-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card .project-blog-card-cta {
+            margin-top: auto;
+        }
         
         .project-card-footer {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
             gap: 12px;
-            margin-top: auto;
+            margin: 16px 28px 28px;
             padding-top: 16px;
             border-top: 1px solid var(--border);
+            min-height: 52px;
+            box-sizing: content-box;
+        }
+
+        .project-card-footer .project-github-link {
+            margin-left: auto;
             flex-shrink: 0;
+        }
+
+        .project-meta .project-github-link {
+            margin-left: auto;
         }
 
         .project-card-links {
@@ -860,7 +1016,70 @@
     <!-- Projects -->
     <section class="section">
         <div class="container">
-            
+
+            <!-- Featured: Pixo -->
+            <div class="featured-project" id="pixo">
+                <div class="featured-project-image">
+                    <span class="featured-badge">Open Source · 2026</span>
+                    <img src="./assets/images/pixo.png" alt="Pixo agentic personal branding platform">
+                </div>
+                <div class="featured-project-content">
+                    <div class="project-label">Pixo • Open Source • 2026</div>
+                    <h2>Agentic Personal Branding for LinkedIn and X</h2>
+                    <p class="project-description">
+                        LangGraph agents learn your identity and writing style, then fill an inbox with ready-to-post drafts. Swipe to approve, reject, or edit — every action trains the next run.
+                    </p>
+                    <ul class="project-highlights">
+                        <li>Identity graph + style profile from LinkedIn, resume, and writing samples</li>
+                        <li>Multi-agent generation: scratch, YouTube, article, PDF, audio, and autonomous agency runs</li>
+                        <li>Review inbox with swipe feedback that updates learned preferences</li>
+                        <li>Multi-tenant profiles for individuals and enterprise workspaces</li>
+                    </ul>
+
+                                        <div class="project-resource-links">
+                        <a href="blog/posts/pixo-agentic-branding-review-inbox.html" class="project-blog-card">
+                            <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                            <span class="project-blog-card-title">Why Pixo's Content Pipeline Is a Graph, Not a Prompt</span>
+                            <span class="project-blog-card-cta">Read article →</span>
+                        </a>
+                    </div>
+
+                    <div class="project-repos">
+                        <div class="project-repo-card">
+                            <h4>Content Agency</h4>
+                            <p>LangGraph pipeline: Scout → Strategist → Writer → Editor → QA. Gemini primary, Claude on Bedrock for complex passes.</p>
+                        </div>
+                        <div class="project-repo-card">
+                            <h4>Identity & Review Loop</h4>
+                            <p>Unified identity graph, persona prompt, and swipe-based review that feeds style weights for the next draft.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-tech">
+                        <span>AI</span>
+                        <span>Agentic AI</span>
+                        <span>Multi-Agent</span>
+                        <span>LangGraph</span>
+                        <span>Gemini</span>
+                        <span>Claude</span>
+                        <span>Next.js</span>
+                        <span>FastAPI</span>
+                        <span>pgvector</span>
+                        <span>Celery</span>
+                        <span>Redis</span>
+                        <span>S3</span>
+                    </div>
+                    <div class="project-meta">
+                        <div class="project-meta-item">
+                            <strong>Type:</strong> Open Source · Agentic Branding
+                        </div>
+                        <div class="project-meta-item">
+                            <strong>Year:</strong> 2026
+                        </div>
+                        <a href="https://github.com/sartaj04/ai-creative-marketing" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
+                    </div>
+                </div>
+            </div>
 
             <!-- Latest: HealthJourney + API Stress Lab -->
             <div class="projects-grid" style="margin-bottom: 48px;">
@@ -869,7 +1088,8 @@
                         <img src="./assets/images/healthjourney.png" alt="HealthJourney patient care platform">
                     </div>
                     <div class="project-card-content">
-                        <div class="project-label">HealthJourney • Open Source • 2026</div>
+                        <div class="project-card-main">
+<div class="project-label">HealthJourney • Open Source • 2026</div>
                         <h3>AI-Powered Patient Journey Platform</h3>
                         <p class="project-description">
                             Patient-first longitudinal care for small clinics, powered by agentic AI workflows across intake, consult, labs, and post-visit care. Multi-step agents handle specialty-aware summaries, Rx parsing, and lab extraction without blocking the doctor.
@@ -880,6 +1100,7 @@
                             <li>Lab PDF/image extraction agents with staff review queues and trends</li>
                             <li>PostgreSQL Row-Level Security for multi-tenant clinical data</li>
                         </ul>
+                        </div>
                         <div class="project-tech">
                             <span>AI</span>
                             <span>Agentic AI</span>
@@ -890,18 +1111,18 @@
                             <span>PostgreSQL</span>
                             <span>Celery</span>
                         </div>
+                        <div class="project-resource-links">
+                        <a href="blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" class="project-blog-card">
+                            <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                            <span class="project-blog-card-title">Enforcing Multi-Tenant Data Isolation at the Database Layer</span>
+                            <span class="project-blog-card-cta">Read article →</span>
+                        </a>
+                        </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> HealthTech / GenAI · <strong>Year:</strong> 2026</span>
-                            <div class="project-card-links">
-                                <a href="blog/posts/healthjourney-multi-tenant-agentic-clinic-platform.html" class="btn-ghost">
-                                    <i class="las la-newspaper"></i> Blog →
-                                </a>
-                                <a href="https://github.com/sartaj04/AI-Powered-Patient-Journey-Platform" target="_blank" class="btn-ghost">
-                                    <i class="lab la-github"></i> GitHub →
-                                </a>
-                            </div>
-                        </div>
+                            <a href="https://github.com/sartaj04/AI-Powered-Patient-Journey-Platform" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
                     </div>
+                </div>
                 </div>
 
                 <div class="project-card">
@@ -909,7 +1130,8 @@
                         <img src="./assets/images/asl.png" alt="API Stress Lab dashboard">
                     </div>
                     <div class="project-card-content">
-                        <div class="project-label">API Stress Lab • Open Source • 2026</div>
+                        <div class="project-card-main">
+<div class="project-label">API Stress Lab • Open Source • 2026</div>
                         <h3>AI-Powered API Load Testing Platform</h3>
                         <p class="project-description">
                             AI-powered load-testing platform: upload an OpenAPI spec, generate test scenarios with AI, run chaos and stress profiles, then get AI analysis of bottlenecks and fixes.
@@ -920,6 +1142,7 @@
                             <li>Chaos testing: latency injection, failures, burst traffic</li>
                             <li>SSRF protection and Docker Compose setup</li>
                         </ul>
+                        </div>
                         <div class="project-tech">
                             <span>AI</span>
                             <span>Next.js</span>
@@ -928,18 +1151,18 @@
                             <span>Celery</span>
                             <span>PostgreSQL</span>
                         </div>
+                        <div class="project-resource-links">
+                        <a href="blog/posts/ai-assisted-api-load-testing-chaos-engineering.html" class="project-blog-card">
+                            <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                            <span class="project-blog-card-title">Chaos Testing and AI-Generated Load Scenarios for APIs</span>
+                            <span class="project-blog-card-cta">Read article →</span>
+                        </a>
+                        </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> DevTools / AI · <strong>Year:</strong> 2026</span>
-                            <div class="project-card-links">
-                                <a href="blog/posts/ai-assisted-api-load-testing-chaos-engineering.html" class="btn-ghost">
-                                    <i class="las la-newspaper"></i> Blog →
-                                </a>
-                                <a href="https://github.com/sartaj04/api_stress_lab" target="_blank" class="btn-ghost">
-                                    <i class="lab la-github"></i> GitHub →
-                                </a>
-                            </div>
-                        </div>
+                            <a href="https://github.com/sartaj04/api_stress_lab" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
                     </div>
+                </div>
                 </div>
             </div>
 
@@ -966,28 +1189,39 @@
                         <div class="project-repo-card">
                             <h4>Investment Market Research Agent</h4>
                             <p>RAG research agent with multi-label intent routing for funding analysis, startup intelligence, and market research.</p>
-                            <div class="repo-card-links">
-                                <a href="https://github.com/sartaj04/investment-market-research-agent" target="_blank" class="repo-link">
-                                    <i class="lab la-github"></i> View on GitHub →
+                            <div class="project-resource-links">
+                                <a href="blog/posts/rag-agent-intent-routing-market-research.html" class="project-blog-card">
+                                    <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                                    <span class="project-blog-card-title">Building a RAG Research Agent With Multi-Label Intent Routing</span>
+                                    <span class="project-blog-card-cta">Read article →</span>
                                 </a>
-                                <a href="blog/posts/rag-agent-intent-routing-market-research.html" class="repo-link">
-                                    <i class="las la-newspaper"></i> Blog: Intent Routing →
+                                <a href="blog/posts/multi-model-routing-rag-agent.html" class="project-blog-card">
+                                    <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                                    <span class="project-blog-card-title">When to Fall Back to a Reasoning Model Instead of Always Using the Bigger One</span>
+                                    <span class="project-blog-card-cta">Read article →</span>
                                 </a>
-                                <a href="blog/posts/multi-model-routing-rag-agent.html" class="repo-link">
-                                    <i class="las la-newspaper"></i> Blog: Model Routing →
-                                </a>
+                                </div>
+                            <div class="project-repo-footer">
+                            <a href="https://github.com/sartaj04/investment-market-research-agent" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
                             </div>
                         </div>
                         <div class="project-repo-card">
                             <h4>Investor Recommender</h4>
                             <p>GNN recommender that matches startups with VC and angel investors using GraphSAGE and GATv2 models.</p>
-                            <div class="repo-card-links">
-                                <a href="https://github.com/sartaj04/Investor-Recommender" target="_blank" class="repo-link">
-                                    <i class="lab la-github"></i> View on GitHub →
+                            <div class="project-resource-links">
+                                <a href="blog/posts/gnn-investor-recommender-architecture.html" class="project-blog-card">
+                                    <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                                    <span class="project-blog-card-title">Why This Investor Recommender Uses Two GATv2 Models, Not One</span>
+                                    <span class="project-blog-card-cta">Read article →</span>
                                 </a>
-                                <a href="blog/posts/gnn-investor-recommender-architecture.html" class="repo-link">
-                                    <i class="las la-newspaper"></i> Blog: Model Architecture →
+                                <a href="blog/posts/graphsage-candidate-generation-investor-recommender.html" class="project-blog-card">
+                                    <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                                    <span class="project-blog-card-title">Why Candidate Generation Comes Before Ranking in This Investor Graph</span>
+                                    <span class="project-blog-card-cta">Read article →</span>
                                 </a>
+                            </div>
+                            <div class="project-repo-footer">
+                            <a href="https://github.com/sartaj04/Investor-Recommender" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
                             </div>
                         </div>
                     </div>
@@ -1027,7 +1261,8 @@
                         <img src="./assets/images/portfolio-career-pathing.png" alt="AI Career Pathing System">
                     </div>
                     <div class="project-card-content">
-                        <div class="project-label">Client Project • Open Source</div>
+                        <div class="project-card-main">
+<div class="project-label">Client Project • Open Source</div>
                         <h3>AI Career Pathing System</h3>
                         <p class="project-description">
                             Career progression and job matching engine using graph theory and semantic vector search.
@@ -1038,6 +1273,7 @@
                             <li>Two-layer matching: vector search plus semantic reranking</li>
                             <li>FastAPI backend with PostgreSQL and Pinecone</li>
                         </ul>
+                        </div>
                         <div class="project-tech">
                             <span>Python</span>
                             <span>Neo4j</span>
@@ -1045,18 +1281,18 @@
                             <span>Pinecone</span>
                             <span>Sentence Transformers</span>
                         </div>
+                        <div class="project-resource-links">
+                        <a href="blog/posts/two-layer-semantic-matching-career-paths.html" class="project-blog-card">
+                            <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                            <span class="project-blog-card-title">Two-Layer Semantic Matching for Career-Path Recommendations</span>
+                            <span class="project-blog-card-cta">Read article →</span>
+                        </a>
+                        </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Role:</strong> AI & Tech Consultant</span>
-                            <div class="project-card-links">
-                                <a href="blog/posts/two-layer-semantic-matching-career-paths.html" class="btn-ghost">
-                                    <i class="las la-newspaper"></i> Blog →
-                                </a>
-                                <a href="https://github.com/sartaj04/AI-Careerpathing-system" target="_blank" class="btn-ghost">
-                                    <i class="lab la-github"></i> GitHub →
-                                </a>
-                            </div>
-                        </div>
+                            <a href="https://github.com/sartaj04/AI-Careerpathing-system" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
                     </div>
+                </div>
                 </div>
                 
                 <!-- SwipeIt -->
@@ -1065,7 +1301,8 @@
                         <img src="./assets/images/portfolio-swipeit.png" alt="SwipeIt rewards platform">
                     </div>
                     <div class="project-card-content">
-                        <div class="project-label">SwipeIt • Consulting</div>
+                        <div class="project-card-main">
+<div class="project-label">SwipeIt • Consulting</div>
                         <h3>Real-Time Transaction Processing</h3>
                         <p class="project-description">
                             Built microservices platform for rewards and transactions.
@@ -1075,21 +1312,24 @@
                             <li>Search engine for rewards catalog</li>
                             <li>Location tracking with geofence functionality</li>
                         </ul>
+                        </div>
                         <div class="project-tech">
                             <span>Python</span>
                             <span>Microservices</span>
                             <span>Real-time</span>
                             <span>Location APIs</span>
                         </div>
+                        <div class="project-resource-links">
+                        <a href="blog/posts/swipeit-security-and-privacy-fintech.html" class="project-blog-card">
+                            <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                            <span class="project-blog-card-title">Security and Privacy Tradeoffs in a Card Rewards App</span>
+                            <span class="project-blog-card-cta">Read article →</span>
+                        </a>
+                    </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Role:</strong> Technical Consultant</span>
-                            <div class="project-card-links">
-                                <a href="blog/posts/swipeit-security-and-privacy-fintech.html" class="btn-ghost">
-                                    <i class="las la-newspaper"></i> Blog →
-                                </a>
-                            </div>
-                        </div>
                     </div>
+                </div>
                 </div>
                 
                 <!-- Contact Detection -->
@@ -1098,7 +1338,8 @@
                         <img src="./assets/images/portfolio4.png" alt="Contact Detection System">
                     </div>
                     <div class="project-card-content">
-                        <div class="project-label">Research Project</div>
+                        <div class="project-card-main">
+<div class="project-label">Research Project</div>
                         <h3>Real-Time Sports Analytics with Computer Vision</h3>
                         <p class="project-description">
                             Deep learning model for American football contact detection.
@@ -1109,6 +1350,7 @@
                             <li>Custom data augmentation and hyperparameter tuning</li>
                             <li>15% precision improvement</li>
                         </ul>
+                        </div>
                         <div class="project-tech">
                             <span>Python</span>
                             <span>Keras</span>
@@ -1116,18 +1358,18 @@
                             <span>Computer Vision</span>
                             <span>Deep Learning</span>
                         </div>
+                        <div class="project-resource-links">
+                        <a href="blog/posts/american-football-contact-detection.html" class="project-blog-card">
+                            <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                            <span class="project-blog-card-title">Comparing SVM, ResNet, and EfficientNet for Player Contact Detection</span>
+                            <span class="project-blog-card-cta">Read article →</span>
+                        </a>
+                        </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> ML Research</span>
-                            <div class="project-card-links">
-                                <a href="blog/posts/american-football-contact-detection.html" class="btn-ghost">
-                                    <i class="las la-newspaper"></i> Blog →
-                                </a>
-                                <a href="https://github.com/sartaj04/American_Football_Contact_Detection" target="_blank" class="btn-ghost">
-                                    <i class="lab la-github"></i> GitHub →
-                                </a>
-                            </div>
-                        </div>
+                            <a href="https://github.com/sartaj04/American_Football_Contact_Detection" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
                     </div>
+                </div>
                 </div>
                 
                 <!-- Lyrics Search Engine -->
@@ -1136,7 +1378,8 @@
                         <img src="./assets/images/portfolio-lyrics.png" alt="Lyrics search engine">
                     </div>
                     <div class="project-card-content">
-                        <div class="project-label">Research Project</div>
+                        <div class="project-card-main">
+<div class="project-label">Research Project</div>
                         <h3>Hybrid Search with Advanced Ranking</h3>
                         <p class="project-description">
                             Django-based lyrics search engine with intelligent ranking.
@@ -1147,6 +1390,7 @@
                             <li>Custom weighting strategies</li>
                             <li>20% search relevance improvement</li>
                         </ul>
+                        </div>
                         <div class="project-tech">
                             <span>Python</span>
                             <span>Django</span>
@@ -1154,18 +1398,18 @@
                             <span>NLP</span>
                             <span>IR</span>
                         </div>
+                        <div class="project-resource-links">
+                        <a href="blog/posts/lyrics-search-retrieval-and-ranking.html" class="project-blog-card">
+                            <span class="project-blog-card-label"><i class="las la-newspaper"></i> Blog</span>
+                            <span class="project-blog-card-title">Designing Retrieval and Ranking for a Lyrics Search Engine</span>
+                            <span class="project-blog-card-cta">Read article →</span>
+                        </a>
+                        </div>
                         <div class="project-card-footer">
                             <span class="project-card-role"><strong>Type:</strong> Search/NLP</span>
-                            <div class="project-card-links">
-                                <a href="blog/posts/lyrics-search-retrieval-and-ranking.html" class="btn-ghost">
-                                    <i class="las la-newspaper"></i> Blog →
-                                </a>
-                                <a href="https://github.com/sartaj04/lyrics_search_engine" target="_blank" class="btn-ghost">
-                                    <i class="lab la-github"></i> GitHub →
-                                </a>
-                            </div>
-                        </div>
+                            <a href="https://github.com/sartaj04/lyrics_search_engine" target="_blank" class="project-github-link"><i class="lab la-github"></i> View on GitHub</a>
                     </div>
+                </div>
                 </div>
                 
             </div>

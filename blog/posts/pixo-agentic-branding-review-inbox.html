@@ -5,40 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PRIMARY META -->
-    <title>Why This Investor Recommender Uses Two GATv2 Models, Not One | Sartaj Syed</title>
-    <meta name="description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
+    <title>Why Pixo's Content Pipeline Is a Graph, Not a Prompt | Sartaj Syed</title>
+    <meta name="description" content="Why Pixo uses LangGraph pipelines, a cached persona, dual-model routing, and a swipe feedback loop — and what still needs to be built next.">
 
     <!-- CANONICAL -->
-    <link rel="canonical" href="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/pixo-agentic-branding-review-inbox.html">
 
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
-    <meta property="og:title" content="Why This Investor Recommender Uses Two GATv2 Models, Not One">
-    <meta property="og:description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
-    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/gnn-investor-recommender.png">
-    <meta property="article:published_time" content="2024-12-05T00:00:00Z">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/pixo-agentic-branding-review-inbox.html">
+    <meta property="og:title" content="Why Pixo's Content Pipeline Is a Graph, Not a Prompt">
+    <meta property="og:description" content="Why Pixo uses LangGraph pipelines, a cached persona, dual-model routing, and a swipe feedback loop — and what still needs to be built next.">
+    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/pixo-agentic-branding-inbox.png">
+    <meta property="article:published_time" content="2026-08-12T00:00:00Z">
     <meta property="article:author" content="Sartaj Syed">
-    <meta property="article:tag" content="Graph Neural Networks">
-    <meta property="article:tag" content="Recommender Systems">
+    <meta property="article:tag" content="LangGraph">
+    <meta property="article:tag" content="Agentic AI">
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html">
-    <meta name="twitter:title" content="Why This Investor Recommender Uses Two GATv2 Models, Not One">
-    <meta name="twitter:description" content="Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.">
-    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/gnn-investor-recommender.png">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/pixo-agentic-branding-review-inbox.html">
+    <meta name="twitter:title" content="Why Pixo's Content Pipeline Is a Graph, Not a Prompt">
+    <meta name="twitter:description" content="Why Pixo uses LangGraph pipelines, a cached persona, dual-model routing, and a swipe feedback loop — and what still needs to be built next.">
+    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/pixo-agentic-branding-inbox.png">
 
     <!-- STRUCTURED DATA - Article Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "Why This Investor Recommender Uses Two GATv2 Models, Not One",
-        "description": "Inside a GNN-based recommender that matches startups with investors: GraphSAGE candidate generation, dual GATv2 models, and why one shared model wasn't the right call.",
-        "image": "https://sartajsyed.com/assets/images/blog/gnn-investor-recommender.png",
-        "datePublished": "2024-12-05T00:00:00Z",
-        "dateModified": "2024-12-05T00:00:00Z",
+        "headline": "Why Pixo's Content Pipeline Is a Graph, Not a Prompt",
+        "description": "Why Pixo uses LangGraph pipelines, a cached persona, dual-model routing, and a swipe feedback loop — and what still needs to be built next.",
+        "image": "https://sartajsyed.com/assets/images/blog/pixo-agentic-branding-inbox.png",
+        "datePublished": "2026-08-12T00:00:00Z",
+        "dateModified": "2026-08-12T00:00:00Z",
         "author": {
             "@type": "Person",
             "name": "Sartaj Syed",
@@ -49,8 +49,8 @@
             "name": "Sartaj Syed"
         },
         "articleSection": "Engineering",
-        "keywords": "Graph Neural Networks, GATv2, GraphSAGE, PyTorch Geometric, Recommender Systems",
-        "wordCount": 1300
+        "keywords": "LangGraph, Multi-Agent, Agentic Architecture",
+        "wordCount": 1600
     }
     </script>
 
@@ -628,15 +628,15 @@
     <article class="article-container">
         <header class="article-header">
             <span class="article-category">Engineering</span>
-            <h1 class="article-title">Why This Investor Recommender Uses Two GATv2 Models, Not One</h1>
+            <h1 class="article-title">Why Pixo's Content Pipeline Is a Graph, Not a Prompt</h1>
             <div class="article-meta">
                 <span class="article-meta-item">
                     <i class="las la-calendar"></i>
-                    Dec 5, 2024
+                    Aug 12, 2026
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-clock"></i>
-                    7 min read
+                    10 min read
                 </span>
                 <span class="article-meta-item">
                     <i class="las la-user"></i>
@@ -644,65 +644,147 @@
                 </span>
             </div>
             <div class="article-tags">
-                <span class="article-tag">Graph Neural Networks</span>
-                <span class="article-tag">PyTorch Geometric</span>
-                <span class="article-tag">Recommender Systems</span>
+                <span class="article-tag">LangGraph</span>
+                <span class="article-tag">Agentic AI</span>
+                <span class="article-tag">Architecture</span>
             </div>
         </header>
 
         <!-- Featured Image -->
         <div class="article-featured-image">
-            <img src="../../assets/images/blog/gnn-investor-recommender.png" alt="Abstract illustration of a graph neural network recommender">
+            <img src="../../assets/images/blog/pixo-agentic-branding-inbox.png" alt="Abstract illustration of an agentic branding inbox and identity graph">
         </div>
 
         <!-- Article Content -->
         <div class="article-content">
-            <p>At Doriot, I built a recommender that matches startups with investors, both VCs and angels. The dataset came from Crunchbase and funding news. It had more than a million startup-investor relationships and over a billion underlying data points. But the interesting design decisions weren't about scale. They were about the shape of the problem.</p>
+            <p><a href="https://github.com/sartaj04/ai-creative-marketing" target="_blank">Pixo</a> generates LinkedIn and X drafts with background agents, then puts a human in a review inbox. The architecture question underneath: how do you automate content without turning the system into a spam machine that ignores voice, context, and taste?</p>
 
-            <p>Matching startups to investors is a two-sided marketplace, and a two-sided marketplace is naturally a graph. Startups and investors connect through investment relationships. Investors connect to each other through co-investment patterns. Flat feature vectors and a similarity score throw away exactly the structure that makes matching meaningful. That's what pushed the architecture toward graph neural networks instead of simple embeddings and cosine similarity.</p>
+            <p>I landed on a few agentic workflows with specialist steps, a stable persona as conditioning, dual-model routing, and a feedback loop that writes human judgment back into the system. This post covers the workflows, why those choices, and what still needs building.</p>
 
-            <h2>Candidate Generation With GraphSAGE</h2>
+            <h2>Why Not One Long Prompt</h2>
 
-            <p>Running a heavy attention model over every startup-investor pair doesn't scale. The pipeline starts with GraphSAGE for candidate generation. GraphSAGE's inductive sampling plus k-nearest-neighbor clustering narrows the graph to a manageable pool before anything expensive runs. Recommendation systems everywhere use a cheap retrieval stage before a heavier ranking stage. This is the graph version of the same idea.</p>
+            <p>A single prompt can draft a post. It cannot reliably own the failure modes of content production. Opportunity selection fails differently from voice drift. Voice drift fails differently from length or taboo violations. Stuffing all of that into one call hides where the system broke.</p>
 
-            <h2>Two GATv2 Models Instead of One</h2>
+            <p>So generation runs as a pipeline of narrow jobs: find an opportunity, pick an angle, write, edit, then gate quality before anything reaches the inbox. Some paths branch for carousels. Some loops regenerate the writer when QA fails. Batch runs carry uniqueness context so the next draft does not repeat the same hook and format.</p>
 
-            <p>The actual matching runs on GATv2 (Graph Attention Networks v2) with multi-head attention over the bipartite investor-startup graph. The decision that took the most convincing was running two separate GATv2 instances: one trained for VCs, one for angels. Not a single shared model covering both.</p>
+            <p>That structure takes longer to build than one prompt. Easier to debug, cheaper to improve one stage at a time, and honest about where autonomy should stop.</p>
 
-            <p>VC and angel investment dynamics genuinely differ. Check sizes, stage focus, decision-making speed, and portfolio construction aren't just different in magnitude. They're different in kind. One shared model averages across two distinct behavior patterns and dilutes the signal each needs. Two dedicated models let each specialize instead of learning a compromise that fits neither well.</p>
+            <h2>The Agentic Workflows</h2>
 
-            <h2>Re-ranking and Rivalry Signals</h2>
+            <p>Pixo runs a few graphs, not one mega-agent. Each owns a different job: invent what to post, turn a source into a post, turn a design into a reusable template, or keep the persona fresh. Mixing those into one graph would force every path through steps it does not need.</p>
 
-            <p>Raw GATv2 output isn't the final ranking. Bayesian likelihood estimation re-ranks the candidate list. Jaccard similarity separately detects investor rivalry: investors who compete for the same deals and tend not to co-invest, or investors who cluster together. That rivalry signal feeds into ordering. A good match for a startup also depends on which other investors are already in or near the deal.</p>
+            <h3>Content Agency — invent the work</h3>
 
-            <h2>Making the Feature Space Workable</h2>
+            <p>The autonomous path: Scout → Strategist → Writer → Editor → QA. Scout finds opportunities from identity, RSS, and trends. Strategist picks format, hook, CTA, and tone. Writer drafts in the persona voice. Editor tightens for the platform. QA gates taboos, identity fit, and diversity against what the batch already produced.</p>
 
-            <p>With this much data, the raw feature space is large. PCA reduces it to 512 dimensions before it reaches the graph models. That keeps training and inference tractable without hand-picking features. Hyperparameter tuning for both GATv2 models runs through Optuna. Tuning two models by hand isn't worth it once you have automated search that does it better.</p>
+            <p>Why this shape: opportunity finding fails differently from voice. Strategy fails differently from line edits. A critic loop sends failed drafts back to the Writer, not back to Scout — so a weak paragraph does not throw away a good opportunity. A batch loop runs Strategist again for the next draft and carries uniqueness context so hooks, formats, and topics do not repeat across the run.</p>
 
-            <h2>An Honest Note on Results</h2>
+            <p>Carousel work branches after strategy into its own slide structure and copy path. Standard posts keep a length step so LinkedIn and X drafts land in the right band. This graph fills the inbox on a schedule or when empty — the product opens with work already done.</p>
 
-            <p>I'm not attaching a precision or accuracy number. The project doesn't have one published, and I'd rather say that plainly than invent one. The point is the architecture reasoning: why this is a graph problem, why candidate generation and ranking are separate stages, and why two investor classes with different dynamics earned two models instead of one that tries to do both.</p>
+            <h3>Source-driven generator — turn material into a post</h3>
 
-            <p>That last point is the generalizable lesson. If two sub-populations in your graph behave differently enough that averaging across them hurts both, you usually need two models. Not one model plus more features.</p>
+            <p>When the user brings a topic, YouTube video, article, PDF, or audio, inventing the opportunity does not help. They already have the source. That path extracts claims and angle, sets length, synthesizes the draft from persona plus analysis, then reviews — with a regenerate edge back to synthesis, not a full restart.</p>
+
+            <p>Why separate from Agency: user-initiated work should not pay for Scout. Identity and style used to sit as early nodes here; they moved into the cached persona so every generator stays cheap and consistent. Same length policy as Agency so a manual draft and an autonomous draft feel like one system.</p>
+
+            <h3>Visual template graph — design once, reuse</h3>
+
+            <p>Upload a reference image or PDF. Vision reads layout and image needs. Layout produces HTML/CSS with editable slots. Variables become a schema. Image slots fill from stock or generated art. Review validates structure and renderability.</p>
+
+            <p>Why the critic loops to Layout, not Vision: a bad HTML pass should not re-analyze the screenshot. Vision already did its job. Filling a saved template later stays a single deterministic fill — no graph — because inventing layout again would destroy the template the user already approved.</p>
+
+            <h3>Identity and learning — condition, do not generate</h3>
+
+            <p>Onboarding chat, LinkedIn extraction, resume parse, and writing-sample analysis feed an identity graph and style profile. A synthesizer compiles those into the persona prompt generators consume. Swipes re-synthesize after enough signal.</p>
+
+            <p>Why this stays outside generation graphs: conditioning changes slowly; drafts change constantly. Re-running identity work on every post wastes money and drifts voice. Learning belongs in a loop that updates the cache, then gets out of the way.</p>
+
+            <h2>Why Persona Lives as Cached State</h2>
+
+            <p>Do not re-discover voice on every request. Re-deriving identity and style from LinkedIn HTML or a resume for each draft gets expensive, inconsistent, and easy to get slightly wrong in different ways each time.</p>
+
+            <p>Pixo compiles role, expertise, beliefs, stories, tone, format preferences, and writing-sample insights into a cached persona prompt on the profile. Generators consume that. They do not rebuild the person from scratch.</p>
+
+            <p>That choice makes quality predictable. Thin identity produces weak drafts by construction. Rich identity produces drafts that sound like someone. The system should not invent a persona it lacks evidence for.</p>
+
+            <h2>Why Two Models Instead of One</h2>
+
+            <p>Not every step needs the same kind of intelligence. Analysis, vision, and QA fit a fast Gemini path. Writing and layout benefit from Claude when the cost justifies it, with Gemini as fallback.</p>
+
+            <p>Defaulting everything to the strongest model feels safe. It wastes latency and money on scout and QA work that does not need it. Defaulting everything to the cheapest model fails on the steps that actually need deeper writing judgment. Routing by job type sits in the boring middle that holds up.</p>
+
+            <h2>Why Long Runs Leave the Request Path</h2>
+
+            <p>An agency batch with critic retries can take minutes. If that work sits on an HTTP worker, the API becomes a demo that collapses under real use.</p>
+
+            <p>Short operations can stay in-request. Autonomous generation and heavy extraction go to background workers. The product can open with an inbox filled overnight. The user does not watch a spinner while five agents negotiate a draft.</p>
+
+            <p>That boundary makes agent-first feel real instead of theatrical.</p>
+
+            <h2>Why Swipes Matter More Than Generation</h2>
+
+            <p>Open-loop generation fails. Agents keep producing. Nobody teaches them what good looked like for this person.</p>
+
+            <p>Approve, reject, and edit are not vanity analytics. They update preferences and, after enough signal, re-synthesize the persona. The next run should land slightly more aligned than the last one.</p>
+
+            <p>The difference between automation and agentic automation: automation produces. Agentic systems that survive contact with taste have to learn from the curator.</p>
+
+            <h2>Why Access Boundaries Sit Next to the Agents</h2>
+
+            <p>Profiles are workspaces. People invite members. Generation and drafts stay profile-scoped. Access has to check owner and invited member explicitly, not assume “this user owns this row.”</p>
+
+            <p>Agent systems that ignore tenancy become security incidents the first time a company profile shares an inbox. Isolation belongs in the architecture, not as a later compliance patch.</p>
+
+            <h2>What This Gets You</h2>
+
+            <ul>
+                <li>Failure modes local to a stage instead of buried in one opaque completion</li>
+                <li>Stable voice without paying identity cost on every draft</li>
+                <li>Cost and latency matched to the difficulty of each step</li>
+                <li>A product that can prep work asynchronously and ask the human only for judgment</li>
+                <li>A path for the system to improve from real accept/reject behavior</li>
+            </ul>
+
+            <h2>What Still Needs Building</h2>
+
+            <p>The agent boundary today ends at a reviewable draft. Publishing to LinkedIn and X, calendar auto-post, and first-comment automation remain open. Until those exist, the loop from approve to live post stays manual.</p>
+
+            <p>Billing and usage metering: not built. Engage-and-grow work — mentions, replies, social CRM — not built. Analytics exist in early form, but not yet a full closed loop from post performance back into strategy.</p>
+
+            <p>Highest-leverage next steps, in order:</p>
+
+            <ol>
+                <li><strong>Publish + schedule</strong> — close the path from approved draft to live post so the inbox does not become a dead end</li>
+                <li><strong>Performance feedback</strong> — feed impressions and engagement back into strategist and uniqueness context, not only swipe taste</li>
+                <li><strong>Stronger evaluation harness</strong> — offline checks for voice drift, taboo violations, and diversity before drafts hit the inbox, not only in-graph QA</li>
+                <li><strong>Team workflows</strong> — approval chains for enterprise profiles where more than one person owns brand risk</li>
+            </ol>
+
+            <p>Those sit on top of an architecture that already separates generation, conditioning, judgment, and execution. That separation makes future work additive instead of a rewrite.</p>
+
+            <h2>The Point</h2>
+
+            <p>Agentic content systems fail in two mirrored ways: they ask the human to create every token, or they remove the human and hope. The useful design: a graph that prepares work, a persona that keeps voice stable, models chosen per job, workers for long runs, and a judgment loop that teaches the next batch.</p>
+
+            <p>So Pixo stays a pipeline with a review inbox, not a chatbot with a blank page.</p>
 
             <h2>Learn More</h2>
 
-            <p>Related: <a href="graphsage-candidate-generation-investor-recommender.html">Why candidate generation comes before ranking in this investor graph</a>.</p>
-            <p>The full project is open source: <a href="https://github.com/sartaj04/Investor-Recommender" target="_blank">Investor Recommender on GitHub</a>.</p>
+            <p>Project: <a href="../../projects.html#pixo">Pixo on Projects</a>.</p>
+            <p>Open source: <a href="https://github.com/sartaj04/ai-creative-marketing" target="_blank">github.com/sartaj04/ai-creative-marketing</a>.</p>
 
-            <!-- Social Share Buttons -->
             <div class="social-share">
                 <span class="social-share-label">Share:</span>
-                <a href="https://twitter.com/intent/tweet?text=Why%20This%20Investor%20Recommender%20Uses%20Two%20GATv2%20Models%2C%20Not%20One&url=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
+                <a href="https://twitter.com/intent/tweet?text=Why%20Pixo%27s%20Content%20Pipeline%20Is%20a%20Graph%2C%20Not%20a%20Prompt&url=https://sartajsyed.com/blog/posts/pixo-agentic-branding-review-inbox.html" target="_blank" class="social-share-btn">
                     <i class="lab la-twitter"></i>
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/pixo-agentic-branding-review-inbox.html" target="_blank" class="social-share-btn">
                     <i class="lab la-linkedin-in"></i>
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html" target="_blank" class="social-share-btn">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/pixo-agentic-branding-review-inbox.html" target="_blank" class="social-share-btn">
                     <i class="lab la-facebook-f"></i>
                 </a>
-                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/gnn-investor-recommender-architecture.html')" class="social-share-btn" id="copyBtn">
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/pixo-agentic-branding-review-inbox.html')" class="social-share-btn" id="copyBtn">
                     <i class="las la-link"></i>
                 </button>
             </div>
