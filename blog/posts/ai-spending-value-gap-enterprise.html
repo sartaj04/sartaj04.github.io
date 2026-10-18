@@ -273,7 +273,7 @@
 
         /* Article Container */
         .article-container {
-            max-width: 800px;
+            max-width: 920px;
             margin: 0 auto;
             padding: 0 48px;
         }
@@ -516,6 +516,52 @@
         }
 
         /* Author CTA Section */
+
+
+        .newsletter-cta {
+            margin: 48px 0 0;
+            padding: 32px 28px;
+            border-left: 3px solid var(--primary);
+            background: rgba(0, 255, 136, 0.04);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .newsletter-cta-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .newsletter-cta h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+        }
+
+        .newsletter-cta p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .btn-newsletter {
+            background: transparent;
+            border: 1px solid rgba(0, 212, 255, 0.55);
+            color: #7ddfff;
+        }
+
+        .btn-newsletter:hover {
+            background: rgba(0, 212, 255, 0.12);
+            border-color: #00d4ff;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
         .author-cta {
             padding: 40px;
             background: var(--bg-card);
@@ -580,7 +626,8 @@
                 justify-content: center;
             }
 
-            .author-cta {
+
+        .author-cta {
                 padding: 32px 24px;
             }
         }
@@ -697,6 +744,18 @@
                     <i class="las la-link"></i>
                 </button>
             </div>
+        </div>
+
+
+        <!-- Newsletter -->
+        <div class="newsletter-cta">
+            <span class="newsletter-cta-label">Systems &amp; Possibilities</span>
+            <h3>The explanation that should have come with the launch</h3>
+            <p>A free weekly newsletter on technology, startups, and the ideas behind them. One subject a week, in plain words.</p>
+            <a href="https://systemsandpossibilities.substack.com/" target="_blank" rel="noopener noreferrer" class="btn btn-newsletter">
+                <i class="las la-newspaper"></i>
+                Subscribe to Newsletter
+            </a>
         </div>
 
         <!-- Author CTA -->

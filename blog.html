@@ -291,37 +291,146 @@
 
         /* Page Hero */
         .page-hero {
-            padding: 160px 0 80px;
-            text-align: center;
+            padding: 140px 0 32px;
+            text-align: left;
         }
 
-        .page-hero h1 {
-            font-size: clamp(40px, 6vw, 64px);
-            margin-bottom: 24px;
-            letter-spacing: -1px;
+        .blog-hero-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(320px, 440px);
+            gap: clamp(36px, 5vw, 72px);
+            align-items: center;
         }
 
-        .page-hero h1 span {
+        .blog-hero-copy h1 {
+            font-size: clamp(44px, 6.5vw, 68px);
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+            max-width: none;
+            line-height: 1.08;
+            text-wrap: balance;
+        }
+
+        .blog-hero-copy h1 span {
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .page-hero p {
+        .blog-hero-copy > p {
             font-size: 18px;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 36em;
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .blog-newsletter-side {
+            padding: 32px 28px;
+            border: 1px solid rgba(0, 212, 255, 0.35);
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.08) 0%, rgba(0, 212, 255, 0.02) 100%);
+        }
+
+        .blog-newsletter-side .label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #00d4ff;
+            margin-bottom: 12px;
+        }
+
+        .blog-newsletter-side h2 {
+            font-size: 26px;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .blog-newsletter-side p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0 0 22px;
+        }
+
+        .blog-newsletter-side .btn-newsletter {
+            width: 100%;
+            justify-content: center;
+            padding: 14px 24px;
+            font-size: 15px;
+        }
+
+        .btn-newsletter {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            background: rgba(0, 212, 255, 0.12);
+            border: 1px solid #00d4ff;
+            color: #b8f0ff;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-newsletter:hover {
+            background: #00d4ff;
+            border-color: #00d4ff;
+            color: #041018;
+            transform: translateY(-2px);
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .newsletter-bottom {
+            margin-top: 24px;
+            padding: 48px 40px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(0, 255, 136, 0.03);
+        }
+
+        .newsletter-bottom h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            margin-bottom: 14px;
+            letter-spacing: -0.5px;
+        }
+
+        .newsletter-bottom p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 760px;
+            margin: 0 0 16px;
+        }
+
+        .newsletter-bottom .newsletter-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
         }
 
         /* Blog Filter */
         .blog-filter {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             gap: 12px;
-            padding: 40px 0 60px;
+            padding: 28px 0 40px;
             flex-wrap: wrap;
         }
 
@@ -355,8 +464,8 @@
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
         }
 
         .blog-card {
@@ -467,9 +576,58 @@
         }
 
         /* Responsive */
+        @media (max-width: 1100px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 900px) {
+            .page-hero {
+                text-align: center;
+            }
+
+            .blog-hero-inner {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .blog-hero-copy h1 {
+                max-width: none;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .blog-hero-copy > p {
+                margin: 0 auto;
+            }
+
+            .blog-newsletter-side {
+                max-width: 420px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .blog-filter {
+                justify-content: center;
+            }
+
             .blog-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .newsletter-bottom {
+                padding: 32px 24px;
+                text-align: center;
+            }
+
+            .newsletter-bottom p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .newsletter-bottom .newsletter-actions {
+                justify-content: center;
             }
         }
 
@@ -547,12 +705,24 @@
     <!-- Page Hero -->
     <section class="page-hero">
         <div class="container">
-            <h1>Notes From Building <span>AI Systems</span></h1>
-            <p>Architecture notes from systems I've actually built: GNNs, RAG agents, multi-tenant platforms, and the tradeoffs behind them.</p>
+            <div class="blog-hero-inner">
+                <div class="blog-hero-copy">
+                    <h1>Notes From Building <span>AI Systems</span></h1>
+                    <p>Architecture notes from systems I've actually built: GNNs, RAG agents, multi-tenant platforms, and the tradeoffs behind them.</p>
+                </div>
+                <aside class="blog-newsletter-side">
+                    <span class="label">Newsletter</span>
+                    <h2>Systems &amp; Possibilities</h2>
+                    <p>Free weekly writing on technology, startups, and the ideas behind them. One subject a week, in plain words.</p>
+                    <a href="https://systemsandpossibilities.substack.com/" target="_blank" rel="noopener noreferrer" class="btn-newsletter">
+                        <i class="las la-newspaper"></i>
+                        Subscribe to Newsletter
+                    </a>
+                </aside>
+            </div>
         </div>
     </section>
 
-    <!-- Blog Filter -->
     <div class="container">
         <div class="blog-filter">
             <button class="filter-pill active" data-category="all">All Posts</button>
@@ -834,13 +1004,26 @@
                 </article>
 
             </div>
+
+            <div class="newsletter-bottom" id="newsletter">
+                <span class="section-label">Newsletter</span>
+                <h2>Systems &amp; Possibilities</h2>
+                <p>A free weekly newsletter about technology, startups, and the ideas behind them. Most launch posts tell you what shipped. I write the explanation that should have come with it.</p>
+                <p>Each week I pick one subject, try to understand it properly, and write it up in plain words.</p>
+                <div class="newsletter-actions">
+                    <a href="https://systemsandpossibilities.substack.com/" target="_blank" rel="noopener noreferrer" class="btn-newsletter">
+                        <i class="las la-newspaper"></i>
+                        Subscribe to Newsletter
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Sartaj Syed. All rights reserved.</p>
+            <p>&copy; 2026 Sartaj Syed. All rights reserved.</p>
         </div>
     </footer>
 

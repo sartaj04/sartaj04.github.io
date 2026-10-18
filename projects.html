@@ -215,6 +215,19 @@
             border-color: var(--primary);
             color: var(--primary);
         }
+
+        .btn-newsletter {
+            background: transparent;
+            border: 1px solid rgba(0, 212, 255, 0.55);
+            color: #7ddfff;
+        }
+
+        .btn-newsletter:hover {
+            background: rgba(0, 212, 255, 0.12);
+            border-color: #00d4ff;
+            color: #fff;
+            transform: translateY(-2px);
+        }
         
         .btn-ghost {
             background: transparent;
@@ -866,6 +879,12 @@
             color: var(--text-secondary);
             font-size: 18px;
         }
+
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
         
         .footer-social a:hover {
             border-color: var(--primary);
@@ -1439,6 +1458,10 @@
                         <i class="las la-envelope"></i>
                         Email
                     </a>
+                    <a href="https://systemsandpossibilities.substack.com/" target="_blank" rel="noopener noreferrer" class="btn btn-newsletter" aria-label="Subscribe to newsletter on Substack">
+                        <i class="las la-newspaper"></i>
+                        Subscribe to Newsletter
+                    </a>
                 </div>
                 <!--
                 <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
@@ -1463,9 +1486,12 @@
             </ul>
             
             <ul class="footer-social">
-                <li><a href="https://www.linkedin.com/in/sartaj-syed" target="_blank"><i class="lab la-linkedin-in"></i></a></li>
-                <li><a href="https://github.com/sartaj04" target="_blank"><i class="lab la-github"></i></a></li>
-                <li><a href="mailto:sartaj.syed04@gmail.com"><i class="las la-envelope"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/sartaj-syed" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="lab la-linkedin-in"></i></a></li>
+                <li><a href="https://x.com/sartaj047" target="_blank" rel="noopener noreferrer" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li>
+                <li><a href="https://www.threads.com/@sartaj047" target="_blank" rel="noopener noreferrer" aria-label="Threads"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.681 1.295 2.825 3.045 3.394 5.196.122.46-.148.936-.61 1.058-.462.122-.936-.148-1.058-.61-.48-1.812-1.421-3.254-2.79-4.29C16.6 2.174 14.638 1.568 12.187 1.548h-.012c-3.012.02-5.26.982-6.68 2.86-1.342 1.778-2.043 4.25-2.07 7.35v.015c.028 3.1.73 5.574 2.07 7.353 1.42 1.878 3.668 2.84 6.68 2.86h.007c2.636-.02 4.76-.71 6.31-2.047 1.55-1.34 2.34-3.28 2.34-5.77 0-1.76-.46-3.1-1.37-3.99-.82-.8-1.95-1.21-3.36-1.21-1.17 0-2.15.35-2.91 1.05-.76.7-1.2 1.64-1.32 2.81.8-.48 1.72-.72 2.75-.72 1.52 0 2.77.48 3.7 1.42.93.94 1.4 2.24 1.4 3.86 0 2.08-.66 3.75-1.96 4.96-1.3 1.21-3.12 1.83-5.4 1.83h-.007c-2.07 0-3.66-.56-4.72-1.67-1.06-1.1-1.61-2.67-1.63-4.66V12c.02-1.99.57-3.56 1.63-4.66 1.06-1.11 2.65-1.67 4.72-1.67 1.71 0 3.14.45 4.25 1.35 1.11.9 1.82 2.16 2.12 3.75.09.47-.22.93-.69 1.02-.47.09-.93-.22-1.02-.69-.24-1.22-.76-2.16-1.55-2.81-.79-.65-1.87-.98-3.21-.98-1.61 0-2.83.44-3.63 1.32-.8.87-1.22 2.15-1.24 3.8v.02c.02 1.65.44 2.93 1.24 3.8.8.88 2.02 1.32 3.63 1.32 1.72 0 3.07-.47 4.01-1.4.95-.93 1.43-2.25 1.43-3.94 0-1.28-.35-2.3-1.05-3.03-.7-.73-1.66-1.1-2.85-1.1-.85 0-1.58.2-2.18.6-.18.12-.41.07-.53-.11-.12-.18-.07-.41.11-.53.74-.49 1.64-.74 2.68-.74 1.52 0 2.76.48 3.68 1.43.92.95 1.39 2.28 1.39 3.97 0 2.15-.7 3.9-2.08 5.21-1.38 1.31-3.3 1.98-5.71 2z"/></svg></a></li>
+                <li><a href="https://github.com/sartaj04" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="lab la-github"></i></a></li>
+                <li><a href="https://substack.com/@sartajsyed04" target="_blank" rel="noopener noreferrer" aria-label="Substack"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.09 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a></li>
+                <li><a href="mailto:sartaj.syed04@gmail.com" aria-label="Email"><i class="las la-envelope"></i></a></li>
             </ul>
         </div>
         <!-- <p class="footer-note">AI services via <a href="https://neurocell.in/work" target="_blank">Neurocell</a></p> -->
