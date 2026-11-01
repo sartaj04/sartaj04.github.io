@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PRIMARY META -->
+    <title>The Answer Machine and the Tutor | Sartaj Syed</title>
+    <meta name="description" content="Students who let AI do the homework got better scores and learned less. Why that happened, and what a tool that actually teaches would look like.">
+
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://sartajsyed.com/blog/posts/answer-machine-and-the-tutor.html">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sartajsyed.com/blog/posts/answer-machine-and-the-tutor.html">
+    <meta property="og:title" content="The Answer Machine and the Tutor">
+    <meta property="og:description" content="Students who let AI do the homework got better scores and learned less. Why that happened, and what a tool that actually teaches would look like.">
+    <meta property="og:image" content="https://sartajsyed.com/assets/images/blog/cover-answer-machine-1600x900.png">
+    <meta property="article:published_time" content="2026-11-01T00:00:00Z">
+    <meta property="article:author" content="Sartaj Syed">
+    <meta property="article:tag" content="AI">
+    <meta property="article:tag" content="Learning">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://sartajsyed.com/blog/posts/answer-machine-and-the-tutor.html">
+    <meta name="twitter:title" content="The Answer Machine and the Tutor">
+    <meta name="twitter:description" content="Students who let AI do the homework got better scores and learned less. Why that happened, and what a tool that actually teaches would look like.">
+    <meta name="twitter:image" content="https://sartajsyed.com/assets/images/blog/cover-answer-machine-1600x900.png">
+
+    <!-- STRUCTURED DATA - Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "The Answer Machine and the Tutor",
+        "description": "Students who let AI do the homework got better scores and learned less. Why that happened, and what a tool that actually teaches would look like.",
+        "image": "https://sartajsyed.com/assets/images/blog/cover-answer-machine-1600x900.png",
+        "datePublished": "2026-11-01T00:00:00Z",
+        "dateModified": "2026-11-01T00:00:00Z",
+        "author": {
+            "@type": "Person",
+            "name": "Sartaj Syed",
+            "url": "https://sartajsyed.com"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Sartaj Syed"
+        },
+        "articleSection": "Insight",
+        "keywords": "AI, Learning, Education, Tutors",
+        "wordCount": 978
+    }
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="../../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon_16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon_32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../../assets/images/favicon_48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/images/favicon_192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <meta name="theme-color" content="#0a0a0a">
+<!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <style>
+        :root {
+            --primary: #00ff88;
+            --primary-dim: #00cc6a;
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --border-hover: #3a3a3a;
+            --gradient-start: #00ff88;
+            --gradient-end: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        body {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dim);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--bg-card);
+            z-index: 2000;
+            padding: 80px 48px;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 32px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Article Container */
+        .article-container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* Article Header */
+        .article-header {
+            padding: 160px 0 60px;
+            text-align: center;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .article-title {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .article-tag {
+            padding: 4px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Featured Image */
+        .article-featured-image {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .article-featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Article Content Typography */
+        .article-content {
+            padding-bottom: 80px;
+        }
+
+        .article-content p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .article-content h2 {
+            font-size: 32px;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .article-content h3 {
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .article-content h4 {
+            font-size: 20px;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 24px;
+            padding-left: 24px;
+        }
+
+        .article-content li {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .article-content ul li::marker {
+            color: var(--primary);
+        }
+
+        .article-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .article-content a:hover {
+            color: var(--primary-dim);
+        }
+
+        .article-content blockquote {
+            padding: 24px 32px;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .article-content blockquote p {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 0;
+        }
+
+        .article-content code {
+            padding: 2px 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .article-content pre {
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 32px 0;
+        }
+
+        .article-content pre code {
+            padding: 0;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin: 32px 0;
+        }
+
+        /* Callout Box */
+        .callout-box {
+            padding: 24px 32px;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            margin: 32px 0;
+        }
+
+        .callout-box h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* Social Share Buttons */
+        .social-share {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 60px 0;
+        }
+
+        .social-share-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-right: 8px;
+        }
+
+        .social-share-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-share-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Author CTA Section */
+
+
+        .newsletter-cta {
+            margin: 48px 0 0;
+            padding: 32px 28px;
+            border-left: 3px solid var(--primary);
+            background: rgba(0, 255, 136, 0.04);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .newsletter-cta-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .newsletter-cta h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+        }
+
+        .newsletter-cta p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .btn-newsletter {
+            background: rgba(0, 212, 255, 0.12);
+            border: 1px solid #00d4ff;
+            color: #b8f0ff;
+        }
+
+        .btn-newsletter:hover {
+            background: #00d4ff;
+            border-color: #00d4ff;
+            color: #041018;
+            transform: translateY(-2px);
+        }
+
+        .author-cta {
+            padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .author-cta h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .author-cta p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .article-container {
+                padding: 0 24px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .article-header {
+                padding: 120px 0 40px;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .social-share {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+
+        .author-cta {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="../../index.html" class="logo">Sartaj<span>.</span></a>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#expertise">Expertise</a></li>
+                    <li><a href="../../blog.html">Blog</a></li>
+                    <li><a href="../../projects.html">Projects</a></li>
+                    <li><a href="../../about.html">About</a></li>
+                </ul>
+                <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                    Book a Call
+                </a>
+            </nav>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-menu-close" onclick="toggleMobileMenu()">×</span>
+        <ul>
+            <li><a href="../../index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="../../index.html#expertise" onclick="toggleMobileMenu()">Expertise</a></li>
+            <li><a href="../../blog.html" onclick="toggleMobileMenu()">Blog</a></li>
+            <li><a href="../../projects.html" onclick="toggleMobileMenu()">Projects</a></li>
+            <li><a href="../../about.html" onclick="toggleMobileMenu()">About</a></li>
+            <li><a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary" style="margin-top: 24px;">Book a Call</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <article class="article-container">
+        <header class="article-header">
+            <span class="article-category">Insight</span>
+            <h1 class="article-title">The Answer Machine and the Tutor</h1>
+            <div class="article-meta">
+                <span class="article-meta-item">
+                    <i class="las la-calendar"></i>
+                    Nov 1, 2026
+                </span>
+                <span class="article-meta-item">
+                    <i class="las la-clock"></i>
+                    4 min read
+                </span>
+                <span class="article-meta-item">
+                    <i class="las la-user"></i>
+                    Sartaj Syed
+                </span>
+            </div>
+            <div class="article-tags">
+                <span class="article-tag">AI</span>
+                <span class="article-tag">Learning</span>
+                <span class="article-tag">Education</span>
+            </div>
+        </header>
+
+        <!-- Featured Image -->
+        <div class="article-featured-image">
+            <img src="../../assets/images/blog/cover-answer-machine-1600x900.png" alt="Headline The answer machine and the tutor next to answer-machine and tutor boxes">
+        </div>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <p>The headline this year was "AI homework tools cut exam scores by 20%". That's the announcement. This is the explanation I think should have come with it.</p>
+
+            <h2>What happened</h2>
+
+            <p>Researchers from Stockholm University and the University of Hong Kong followed 26,811 secondary school students in China for 30 months. After students started using AI chatbots, homework scores went up by 18% and homework time went down by 30%. But closed-book exam scores went down by 20% within six months. The big entrance exams fell by 24% and 18%, and the full drop took about two years to show up.</p>
+
+            <img src="../../assets/images/blog/inline-homework-vs-exams-1600x900.png" alt="Three boxes showing homework scores up 18%, homework time down 30%, and closed-book exams down 20%">
+
+            <p><em>Homework got easier. The exams that measure what stuck got harder.</em></p>
+
+            <p>But the headline misses something. Roughly 80% of AI users finished homework unusually fast with unusually high scores, and the losses were concentrated there. The students who kept spending about the same time on homework lost very little.</p>
+
+            <p>So the tool alone didn't decide the outcome. What the student handed off did.</p>
+
+            <h2>The idea: what you hand off decides what you keep</h2>
+
+            <p>I think what we do with AI matters. If we ask for the answer directly then there is not much learning happening. The students who didn't just ask for the answer, and rather asked about their doubts, used AI like a copilot that helped them think.</p>
+
+            <img src="../../assets/images/blog/inline-hand-off-1600x900.png" alt="Two paths, one asking for the answer and learning little, one asking about doubts and keeping the skill">
+
+            <p><em>Same tool. Different hand-off. Different result.</em></p>
+
+            <h2>Why it happened</h2>
+
+            <p>When AI answers something it feels like we have understood the answer, but in reality it's only satisfied our curiosity for the time being and we don't really learn anything. We need to get our hands dirty in order to actually learn anything.</p>
+
+            <p>When I was preparing for interviews I asked AI for all the answers to common interview questions. But that didn't help when the interviewer tried to go deeper into that topic. That is what actual learning teaches.</p>
+
+            <p>Take the calculator. It gives answers to many math questions directly. So when a primary school child uses a calculator for all his homework answers, there is so much learning and so many concepts he misses. Whereas when the same person is in higher grades, he uses the calculator as a support tool, because the calculator can't solve the complex problems directly. Similarly, AI should be complementing the student, like how a calculator complements a higher grader's learning.</p>
+
+            <h2>The system: a product built to hold the answer back</h2>
+
+            <p>A trial with nearly 1,000 high school maths students in Turkey tested exactly this. A plain chatbot helper improved practice scores by 48% but cut later exam scores by 17%. A tutor version, built by teachers to give hints instead of answers, mostly removed that harm. Same model underneath. Different system around it.</p>
+
+            <p>The product should be in such a way that it doesn't give the answer to the problem directly, rather outlines steps and helps the student ponder on the problem and the different ways he can think of a solution, just like how a personalized tutor would. Such kind of products should be encouraged by the parents as well.</p>
+
+            <p>That is why I think current LLM based chatbots are bad at it and we need products which cater specifically to this need. (LLM based chatbots just means general chat apps like ChatGPT.) For learning, yes, the product should add friction so that actual learning happens.</p>
+
+            <p>What would that look like? Ask what you tried first. Give a hint before the answer. Explain after generating. Quiz you back. Help in recollecting a specific concept rather than the student having to search through it. Look at our patterns, find our weaknesses and strengths and build a curated personalized study plan. This is the kind of product which will actually be helpful for a student.</p>
+
+            <img src="../../assets/images/blog/inline-tutor-product-1600x900.png" alt="Six boxes for a tutor-style product: ask what you tried, hint first, explain after, quiz back, help recollect, personalised plan">
+
+            <p><em>Hold the answer back. Make the student think.</em></p>
+
+            <p>Those first four aren't just a wish list. In Anthropic's own trial with junior developers learning something new, the ones who asked conceptual questions, or asked for explanations along with the answer, kept their scores up.</p>
+
+            <p>When I use AI to learn something new, I give it my strengths and weaknesses first. I ask it to make a curated personalized plan based on my profile and my goal, and to find relevant resources. And if something is very long to read or doesn't make sense, I ask it to explain.</p>
+
+            <p>If I could set one rule for a "help me learn" mode, it would be simple. Never give the answer.</p>
+
+            <h2>Will it still matter in six months?</h2>
+
+            <p>Yes, maybe even more. In six months chatbots will be even better at giving answers, so the temptation to hand everything off only grows. And it isn't just students. AI tools for work are moving towards doing whole tasks for us in the background, which raises the same question for adults. When the tool does the task, what do we stop learning?</p>
+
+            <p>The setting changes the size of the effect, not the basic mechanism. Skip the effort, skip the learning.</p>
+
+            <h2>What it makes possible</h2>
+
+            <p>If the answer is cheap, the valuable product is the one that makes you think. Some of the big labs have started, ChatGPT already has a study mode that asks questions and gives hints first. But I think there's room for products built only for this, for students, and for anyone at work learning something new.</p>
+
+            <p>And honestly, I think most of us use AI as an answer machine right now. Me included, some days.</p>
+
+            <p>What do you ask AI to do first when you're learning something new?</p>
+
+            <h2>Sources</h2>
+            <ul>
+                <li>Stromberg, Lei, Wu, The Generative AI Learning Penalty (SSRN working paper, not yet peer reviewed): <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6868618" target="_blank" rel="noopener noreferrer">https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6868618</a></li>
+                <li>VoxChina column, 1 Oct 2026: <a href="https://www.voxchina.org/show-3-482.html" target="_blank" rel="noopener noreferrer">https://www.voxchina.org/show-3-482.html</a></li>
+                <li>SCMP, 14 Jul 2026: <a href="https://www.scmp.com/news/china/science/article/3360396/ai-homework-tools-cut-exam-scores-20-study-26000-chinese-students-finds" target="_blank" rel="noopener noreferrer">https://www.scmp.com/news/china/science/article/3360396/ai-homework-tools-cut-exam-scores-20-study-26000-chinese-students-finds</a></li>
+                <li>Bastani et al., PNAS 2025: <a href="https://www.pnas.org/doi/10.1073/pnas.2422633122" target="_blank" rel="noopener noreferrer">https://www.pnas.org/doi/10.1073/pnas.2422633122</a></li>
+                <li>Anthropic, How AI assistance impacts the formation of coding skills, 29 Jan 2026: <a href="https://www.anthropic.com/research/AI-assistance-coding-skills" target="_blank" rel="noopener noreferrer">https://www.anthropic.com/research/AI-assistance-coding-skills</a></li>
+                <li>OpenAI, Introducing study mode, 29 Jul 2025: <a href="https://openai.com/index/chatgpt-study-mode/" target="_blank" rel="noopener noreferrer">https://openai.com/index/chatgpt-study-mode/</a></li>
+            </ul>
+
+            <!-- Social Share Buttons -->
+            <div class="social-share">
+                <span class="social-share-label">Share:</span>
+                <a href="https://twitter.com/intent/tweet?text=The%20Answer%20Machine%20and%20the%20Tutor&url=https://sartajsyed.com/blog/posts/answer-machine-and-the-tutor.html" target="_blank" class="social-share-btn">
+                    <i class="lab la-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sartajsyed.com/blog/posts/answer-machine-and-the-tutor.html" target="_blank" class="social-share-btn">
+                    <i class="lab la-linkedin-in"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://sartajsyed.com/blog/posts/answer-machine-and-the-tutor.html" target="_blank" class="social-share-btn">
+                    <i class="lab la-facebook-f"></i>
+                </a>
+                <button onclick="copyToClipboard('https://sartajsyed.com/blog/posts/answer-machine-and-the-tutor.html')" class="social-share-btn" id="copyBtn">
+                    <i class="las la-link"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Newsletter -->
+        <div class="newsletter-cta">
+            <span class="newsletter-cta-label">Systems &amp; Possibilities</span>
+            <h3>The explanation that should have come with the launch</h3>
+            <p>A free weekly newsletter on technology, startups, and the ideas behind them. One subject a week, in plain words.</p>
+            <a href="https://systemsandpossibilities.substack.com/" target="_blank" rel="noopener noreferrer" class="btn btn-newsletter">
+                <i class="las la-newspaper"></i>
+                Subscribe to Newsletter
+            </a>
+        </div>
+
+        <!-- Author CTA -->
+        <div class="author-cta">
+            <h3>Building something with AI?</h3>
+            <p>I design and ship production systems across ML, deep learning, GenAI, LLMs, and RAG. Happy to talk through what you're working on.</p>
+            <a href="https://calendly.com/sartaj-syed04/30min" target="_blank" class="btn btn-primary">
+                <i class="las la-calendar"></i>
+                Book a Free Call
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Sartaj Syed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Copy link to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                const btn = document.getElementById('copyBtn');
+                btn.innerHTML = '<i class="las la-check"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="las la-link"></i>';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
